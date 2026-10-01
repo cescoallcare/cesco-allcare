@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>세스코 올케어 (CESCO ALL CARE) | 세스코 라이프케어 SOL 플래너 최영척</title>
+<meta name="description" content="견적서보다 처방전을 먼저 씁니다. 세스코 라이프케어 SOL 플래너 최영척의 공기·물·생활 케어 상담 및 상품 안내 (세스코 양산지국).">
+<meta name="theme-color" content="#0A1F44">
+<link rel="icon" href="assets/logo/logo-header.png">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a href="#app" class="skip" style="position:absolute;left:-999px">본문 바로가기</a>
+
+<header class="header" id="header">
+  <div class="inner">
+    <a class="logo" href="#/" aria-label="CESCO Life Care 홈"><img src="assets/logo/logo-header.png" alt="CESCO Life Care 세스코 라이프케어"></a>
+    <nav class="nav" id="nav" aria-label="주 메뉴"></nav>
+    <div class="header-right">
+      <button class="icon-btn search-btn" id="btnSearch" aria-label="검색"></button>
+      <button class="btn btn-primary" data-act="consult">상담하기</button>
+      <button class="icon-btn hamburger" id="btnMenu" aria-label="메뉴 열기"></button>
+    </div>
+  </div>
+</header>
+
+<div class="drawer" id="drawer" aria-hidden="true">
+  <div class="scrim" data-act="closeDrawer"></div>
+  <div class="panel">
+    <div class="top"><img src="assets/logo/logo-header.png" alt="CESCO Life Care" style="height:38px"><button class="icon-btn" data-act="closeDrawer" aria-label="메뉴 닫기" id="btnDrawerX"></button></div>
+    <div id="drawerLinks"></div>
+    <div class="foot">
+      <a class="btn btn-navy btn-block" id="drawerTel" href="tel:01074340548"></a>
+      <button class="btn btn-primary btn-block" data-act="consult">상담하기</button>
+    </div>
+  </div>
+</div>
+
+<main id="app" tabindex="-1"></main>
+
+<footer class="footer" id="footer"></footer>
+
+<button class="fab" data-act="consult" id="fab"></button>
+
+<nav class="bottom-nav" id="bottomNav" aria-label="하단 메뉴"></nav>
+
+<!-- 검색 오버레이 -->
+<div class="search-ov" id="searchOv" role="dialog" aria-modal="true" aria-label="검색">
+  <div class="wrap">
+    <div style="display:flex;justify-content:space-between;align-items:center"><b style="color:var(--navy);font-size:15px;letter-spacing:.08em">SEARCH</b><button class="icon-btn" data-act="closeSearch" aria-label="검색 닫기" id="btnSearchX"></button></div>
+    <form class="bar" id="searchForm" role="search" autocomplete="off">
+      <span id="searchIco" style="color:var(--blue);display:grid"></span>
+      <input id="searchInput" type="search" placeholder="공기청정기, 정수기, 반려동물, PC방, 냄새, 해충…" aria-label="검색어">
+      <button class="btn btn-primary" type="submit">검색</button>
+    </form>
+    <div id="searchBody"></div>
+  </div>
+</div>
+
+<!-- 상담 모달 -->
+<div class="modal" id="consultModal" role="dialog" aria-modal="true" aria-labelledby="cmTitle">
+  <div class="scrim" data-act="closeConsult"></div>
+  <div class="box">
+    <button class="icon-btn x" data-act="closeConsult" aria-label="닫기" id="btnConsultX"></button>
+    <div id="consultBody"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="data/products.js"></script>
+<script src="data/site.js"></script>
+<script src="js/core.js"></script>
+<script src="js/pages.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
