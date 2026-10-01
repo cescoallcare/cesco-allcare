@@ -54,6 +54,7 @@ function img(src, alt='', extra=''){ return `<img src="${esc(src||PH)}" alt="${e
 /* ── 제품 도우미 ── */
 const CATNAME = { air:'PURE AIR', water:'PURE WATER', life:'HEALING LIFE', pest:'BUG CARE', biz:'BUSINESS', service:'SERVICE' };
 function catLabel(p){
+  if (p.catLabel) return p.catLabel;
   if (p.partner) return 'PURE WATER · SHOWER';
   const s = (p.sections||[])[0] || '';
   const M = { 'air.clean':'AIR CLEAN','air.sterilize':'AIR STERILIZATION','air.space':'SPACE CARE','water.drink':'DRINK','water.bath':'BATH','water.shower':'SHOWER',
@@ -63,19 +64,40 @@ function catLabel(p){
 const isRentalCat = p => p.category === 'air' || p.category === 'water' || !!p.rentalMonthly;
 const hasBuy = p => p.buyPrice != null && !!p.buyUrl && !p.soldOut;
 const hasRent = p => p.rentalMonthly != null || p.rentalInquire;
+/* 렌탈 옵션 배열(rentalOptions: 의무사용기간×방문주기별 가격 행) — 가격표 기반 상품 */
+const rOpts = p => Array.isArray(p.rentalOptions) ? p.rentalOptions : [];
+const hasOpts = p => rOpts(p).length > 0;
+const RENT_BASIS = '이달의 판매가(온라인 노출가) 옵션 중 최저가 기준';
+const RENT_BASIS_SHORT = '이달의 판매가 최저 기준';
+function minMonth(p){ const v = rOpts(p).map(o => o.monthPrice).filter(x => x != null); return v.length ? Math.min.apply(null, v) : null; }
+/* 목록/카드용 "OO원부터" 정보 */
+function fromInfo(p){
+  if (hasOpts(p)) { const m = minMonth(p); if (m != null) return { price: m, label: '월 렌탈료', text: '월 ' + won(m) + '부터', basis: RENT_BASIS, short: RENT_BASIS_SHORT, kind: 'rent' }; }
+  if (p.priceFrom && p.priceFrom.price != null) return { price: p.priceFrom.price, label: p.priceFrom.label || '가격', text: won(p.priceFrom.price) + '부터', basis: p.priceFrom.basis || '', short: p.priceFrom.basis || '', kind: 'from' };
+  return null;
+}
 function buyText(p){
   if (p.buyPrice != null) return won(p.buyPrice) + (p.pricePrefix ? ' ' + p.pricePrefix : '');
   if (p.rentalMonthly) return '렌탈 전용';
+  const f = fromInfo(p); if (f && f.kind === 'from') return f.text;
   return '상담 시 안내';
 }
 function rentText(p){
+  if (hasOpts(p) && minMonth(p) != null) return '월 ' + won(minMonth(p)) + '부터 (' + RENT_BASIS_SHORT + ')';
   if (p.rentalMonthly != null) return '월 ' + won(p.rentalMonthly);
   if (p.rentalInquire) return '렌탈 가능 여부 상담 시 안내';
   return '상담 시 안내';
 }
+function rentHtml(p){
+  if (hasOpts(p) && minMonth(p) != null) return esc('월 ' + won(minMonth(p)) + '부터') + `<small class="basis">${esc(RENT_BASIS_SHORT)}</small>`;
+  return esc(rentText(p));
+}
+/* 비고 셀: '* A * B * C' → ['A','B','C'] (원문은 데이터에 한 줄로 보존) */
+const noteLines = s => String(s || '').split(/\s*\*\s*/).map(x => x.trim()).filter(Boolean);
 function careShort(p){
   if (p.partner) return '셀프 교체 (소모품·부품)';
   if (p.type === 'service') return '전문가 방문 서비스';
+  if (p.priceMatrix) return '상담 시 안내';
   if (p.rentalMonthly) return '방문 관리 · ' + ((p.visitCycles||[]).join(' / ') || '주기 상담');
   if (p.category === 'air' || p.category === 'water') return '케어십 선택 · 셀프 관리';
   if (p.subscribable) return '셀프 사용 · 정기배송 가능';
@@ -96,8 +118,12 @@ function consultAttrs(p, topic){
 function productCard(p, opts={}){
   const rows = [];
   rows.push(['사용공간', esc(p.spaces || '상담 시 안내'), '']);
-  if (isRentalCat(p) && !p.partner) rows.push(['월 렌탈료', esc(rentText(p)), p.rentalMonthly ? 'rent' : 'ask']);
-  rows.push(['구매가격', esc(buyText(p)), p.buyPrice != null ? 'price' : 'ask']);
+  const fi = fromInfo(p);
+  if (fi && fi.kind === 'from') rows.push([fi.label, esc(fi.text) + `<small class="basis">${esc(fi.short)}</small>`, 'price']);
+  else {
+    if (isRentalCat(p) && !p.partner) rows.push(['월 렌탈료', rentHtml(p), p.rentalMonthly ? 'rent' : 'ask']);
+    rows.push(['구매가격', esc(buyText(p)), p.buyPrice != null ? 'price' : 'ask']);
+  }
   rows.push(['관리방식', esc(careShort(p)), '']);
   const rank = opts.rank ? `<span class="badge rank">${opts.rank}위</span>` : '';
   const rv = opts.showReview && p.popularity ? `<div class="review">${ico('star')} 평점 ${p.popularity.rating} · 리뷰 ${p.popularity.reviews.toLocaleString()}개 <span class="muted">(세스코몰)</span></div>` : '';
@@ -122,7 +148,8 @@ const SYN = {
   '공기청정기':['공기청정','공기청정기','청정기','미세먼지','에어'],'정수기':['정수기','정수','냉온정','직수'],'반려동물':['반려동물','펫','pet','강아지','고양이','반려견','반려묘'],
   '아기':['아기','영유아','baby','아이','신생아','젖병'],'냄새':['냄새','탈취','악취','방향','향기','탈취제'],'해충':['해충','벌레','바퀴','초파리','나방','개미','빈대','모기','진드기','방충'],
   '필터':['필터','헤파','프리필터','교체'],'렌탈':['렌탈','월 렌탈','방문관리','약정'],'정기배송':['정기배송','정기 배송','구독'],'pc방':['pc방','피씨방','피시방'],
-  '살균':['살균','소독','살균소독','위생','uv'],'샤워':['샤워','샤워기','샤워필터','샤워헤드'],'비데':['비데','욕실','화장실'],'어르신':['어르신','시니어','senior','부모님']
+  '살균':['살균','소독','살균소독','위생','uv'],'샤워':['샤워','샤워기','샤워필터','샤워헤드'],'비데':['비데','욕실','화장실'],'어르신':['어르신','시니어','senior','부모님'],
+  '에어컨':['에어컨','에어컨크리닝','에어컨청소','냉방기'],'매트리스':['매트리스','침대','침구'],'크리닝':['크리닝','클리닝','세척','청소']
 };
 function norm(s){ return String(s||'').toLowerCase().replace(/\s+/g,' ').trim(); }
 function expand(tok){
@@ -138,10 +165,14 @@ function buildIndex(){
   (window.HOMECARES||[]).forEach(h => h.picks.forEach(id => add(id, h.name + ' ' + h.ko)));
   const idx = [];
   P.forEach(p => {
-    const rentalTxt = p.rentalMonthly ? '렌탈 월렌탈 방문관리 약정' : '';
+    let rentalTxt = p.rentalMonthly ? '렌탈 월렌탈 방문관리 약정' : '';
+    if (hasOpts(p)) rentalTxt += ' 이달의 판매가 온라인 노출가 현장 할인가 단품 결합 재렌탈 프로모션 ' + rOpts(p).map(o => [o.periodLabel, o.visit, o.variant, o.note, o.monthPrice, o.listPrice, o.onsiteSingle, o.onsiteBundle].filter(x => x != null).join(' ')).join(' ');
+    if (p.priceMatrix) rentalTxt += ' 판매가 무이자 할부 규격 ' + p.priceMatrix.cols.join(' ') + ' ' + p.priceMatrix.rows.map(r => r.label).join(' ');
+    if (p.servicePrices) rentalTxt += ' 비수기 4분기 특판 옵션 추가금 ' + p.servicePrices.rows.map(r => [r.g1, r.g2, r.g3, r.detail].join(' ')).join(' ');
     const subTxt = p.subscribable ? '정기배송 정기 배송' : '';
     const hay = norm([p.name, p.description, p.features.join(' '), p.spaces, p.targets.join(' '), p.keywords.join(' '), CATNAME[p.category], catLabel(p), rentalTxt, subTxt, p.partner ? '아롬비 제휴 파트너 partner' : '', p.filterInfo, (extras[p.id]||[]).join(' '), p.concerns.join(' ')].join(' | '));
-    idx.push({ type:'제품', id:p.id, title:p.name, sub:p.description, href:'#/product/'+p.id, img:p.image, hay, nameHay:norm(p.name+' '+p.keywords.join(' ')) });
+    const fi = fromInfo(p);
+    idx.push({ type:'제품', id:p.id, title:p.name, sub:(fi ? fi.text + ' (' + fi.short + ') · ' : '') + p.description, href:'#/product/'+p.id, img:p.image, hay, nameHay:norm(p.name+' '+p.keywords.join(' ')) });
   });
   (window.CONCERNS||[]).forEach(c => idx.push({ type:'케어', id:c.id, title:c.name + ' 케어', sub:c.sub, href:'#/concern/'+c.id, icon:c.icon, hay:norm([c.name,c.sub,c.lead,c.checks.join(' '),c.approach].join(' ')), nameHay:norm(c.name+' '+c.sub) }));
   (window.HOMECARES||[]).forEach(h => idx.push({ type:'케어', id:h.id, title:h.name + ' CARE · ' + h.ko, sub:h.summary, href:'#/home-care/'+h.id, icon:'home', hay:norm([h.name,h.ko,h.summary,h.worries.join(' '),h.care.join(' '),h.buy].join(' ')+(h.id==='pet'?' 반려동물 펫':'')+(h.id==='baby'?' 아기 영유아':'')), nameHay:norm(h.name+' '+h.ko+(h.id==='pet'?' 반려동물 펫':'')+(h.id==='baby'?' 아기 영유아':'')) }));
@@ -187,8 +218,8 @@ function consultStrip(title, text, topic){
   return `<div class="cta-strip"><div><h3>${title||'무엇이 필요한지 모르겠다면, 먼저 살펴보겠습니다.'}</h3><p>${text||'견적서보다 처방전을 먼저 씁니다. — 세스코 라이프케어 SOL 플래너 최영척'}</p></div>
   <div class="btn-stack" style="flex:0 0 auto"><button class="btn btn-white" data-act="consult" ${topic?`data-topic="${esc(topic)}"`:''}>${ico('message')} 상담하기</button><a class="btn btn-line-w" href="${C.planner.phoneTel}">${ico('phone')} ${esc(C.planner.phone)}</a></div></div>`;
 }
-function disclaimer(){ return `<div class="notice">${ico('info')}<div>표시된 가격·월 렌탈료·계약 조건은 세스코몰 등 공식 판매처에 게시된 정보를 <b>${C.priceCheckedAt}</b>에 확인한 값이며, 프로모션·제휴카드·약정기간·방문주기·옵션에 따라 달라질 수 있습니다. 확인되지 않은 항목은 “상담 시 안내”로 표시하며, 최종 가격과 계약 조건은 공식 판매/계약 기준을 따릅니다.</div></div>`; }
+function disclaimer(){ return `<div class="notice">${ico('info')}<div>표시된 가격·월 렌탈료·계약 조건은 세스코몰 등 공식 판매처 게시 정보(<b>${C.priceCheckedAt}</b> 확인)와 플래너 제공 가격표(<b>${C.priceTableAt}</b> 반영)를 기준으로 하며, 프로모션·제휴카드·약정기간·방문주기·옵션에 따라 달라질 수 있습니다. 확인되지 않은 항목은 “상담 시 안내”로 표시하며, 최종 가격과 계약 조건은 공식 판매/계약 기준을 따릅니다.</div></div>`; }
 function partnerNotice(){ return `<div class="notice partner">${ico('handshake')}<div><b>PARTNER PRODUCT · 제휴·판매 상품 안내</b><br>아롬비(AROMVI) 샤워필터·관련 부품은 세스코 자체 제품이 아닌 <b>제휴·판매 상품</b>입니다. 제품 사양·품질·배송·교환/환불은 판매처(아롬비) 기준이며, 이 사이트에서는 구매 방법을 상담으로 안내해 드립니다.</div></div>`; }
 
-window.U = { C, P, byId, $, $$, esc, won, ico, img, PH, CATNAME, catLabel, isRentalCat, hasBuy, hasRent, buyText, rentText, careShort, badgesFor, consultAttrs, productCard, pgrid, search, sectionHead, pageHero, consultStrip, disclaimer, partnerNotice, norm };
+window.U = { C, P, byId, $, $$, esc, won, ico, img, PH, CATNAME, catLabel, isRentalCat, hasBuy, hasRent, buyText, rentText, rentHtml, rOpts, hasOpts, minMonth, fromInfo, noteLines, RENT_BASIS, RENT_BASIS_SHORT, careShort, badgesFor, consultAttrs, productCard, pgrid, search, sectionHead, pageHero, consultStrip, disclaimer, partnerNotice, norm };
 })();

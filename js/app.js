@@ -37,7 +37,7 @@ function footerHtml(){
     </div>
     <div class="legal">
       <p><b>본 사이트는 세스코 라이프케어 플래너의 상품 안내 및 상담을 위한 페이지입니다.</b></p>
-      <p>가격, 월 렌탈료, 계약 조건(의무사용기간·방문주기·약정·위약금 등)은 공식 판매/계약 기준에 따라 달라질 수 있으며, 최종 조건은 계약 시점의 공식 안내를 따릅니다. 표시된 정보는 세스코몰(${esc(C.mallUrl.replace('https://',''))}) 등에서 ${esc(C.priceCheckedAt)}에 확인한 내용이며, 확인되지 않은 항목은 “상담 시 안내”로 표시했습니다.</p>
+      <p>가격, 월 렌탈료, 계약 조건(의무사용기간·방문주기·약정·위약금 등)은 공식 판매/계약 기준에 따라 달라질 수 있으며, 최종 조건은 계약 시점의 공식 안내를 따릅니다. 표시된 정보는 세스코몰(${esc(C.mallUrl.replace('https://',''))}) 등에서 ${esc(C.priceCheckedAt)}에 확인한 내용과 플래너 제공 가격표(${esc(C.priceTableAt)} 반영)이며, 확인되지 않은 항목은 “상담 시 안내”로 표시했습니다.</p>
       <p>PARTNER PRODUCT(제휴·판매 상품)로 표시된 아롬비(AROMVI) 상품은 세스코 자체 제품이 아닙니다. 상품 이미지는 판매처 게시 이미지를 사용 허락을 받아 사용했으며, 분위기 사진은 Unsplash 무료 라이선스 이미지입니다.</p>
       <p>© CESCO ALL CARE · ${esc(c.branch)} ${esc(c.title)} ${esc(c.name)}. 세스코(CESCO)는 해당 권리자의 상표입니다.</p>
     </div></div>`;
@@ -107,7 +107,7 @@ function openSearch(){ closeDrawer(); $('#searchOv').classList.add('open'); docu
 function closeSearch(){ $('#searchOv').classList.remove('open'); if (!$('#consultModal.open')) document.body.style.overflow = ''; }
 function renderSearch(){
   const q = $('#searchInput').value.trim();
-  const sug = ['공기청정기','정수기','반려동물','아기','PC방','냄새','해충','필터','렌탈','정기배송'];
+  const sug = ['공기청정기','정수기','비데','에어컨 크리닝','매트리스','반려동물','PC방','냄새','해충','렌탈'];
   $('#searchBody').innerHTML = q ? PG.searchGroups(q, 4) : `<div class="sgroup"><h4>추천 검색어</h4><div class="chips-row">${sug.map(s => `<button class="chip" data-act="sq" data-q="${s}">${s}</button>`).join('')}</div></div>`;
 }
 $('#searchInput').addEventListener('input', renderSearch);
@@ -120,7 +120,7 @@ function openConsult(o = {}){
   ctx = o;
   const p = o.product ? byId[o.product] : null;
   let topic = o.topic || '';
-  if (p && !topic) topic = p.category === 'air' ? '공기 케어' : p.category === 'water' ? '물 케어 (정수기·샤워·비데)' : p.subscribable ? '정기배송' : p.type === 'service' ? '해충 관리' : '생활·위생용품';
+  if (p && !topic) topic = p.category === 'air' ? '공기 케어' : p.category === 'water' ? '물 케어 (정수기·샤워·비데)' : p.subscribable ? '정기배송' : p.servicePrices ? '에어컨 크리닝 문의' : p.priceMatrix ? '매트리스 문의' : p.type === 'service' ? '해충 관리' : '생활·위생용품';
   const topics = window.TOPICS;
   $('#consultBody').innerHTML = `<div id="cmForm">
     <span class="eyebrow">CONSULTATION</span>
@@ -205,6 +205,8 @@ document.addEventListener('click', e => {
     case 'closeDrawer': closeDrawer(); break;
     case 'openSearch': openSearch(); break;
     case 'closeSearch': closeSearch(); break;
+    case 'rOpt': { PG.optPick(d.id, d.k, d.v); const el = document.getElementById('rentOpt'); if (el) { const y = window.scrollY; el.outerHTML = PG.rentalOptBlock(byId[d.id]); window.scrollTo(0, y); } break; }
+    case 'rOptRow': { PG.optRowPick(d.id, +d.i); const el = document.getElementById('rentOpt'); if (el) { const y = window.scrollY; el.outerHTML = PG.rentalOptBlock(byId[d.id]); const nel = document.getElementById('rentOpt'); const det = nel && nel.querySelector('.opt-all'); if (det) det.open = true; window.scrollTo(0, y); } break; }
     case 'sq': $('#searchInput').value = d.q; renderSearch(); break;
     case 'kakao': if (/REPLACE_ME/.test(C.kakaoUrl)) { e.preventDefault(); toast('카카오톡 상담 채널을 준비 중이에요. 전화 또는 상담 신청을 이용해 주세요.'); } break;
     case 'subCycle': PG.SUB.cycle = +d.m; refreshSub(); break;
@@ -221,6 +223,7 @@ document.addEventListener('submit', e => {
   if (e.target.id === 'searchPageForm') { e.preventDefault(); const q = $('#searchPageInput').value.trim(); location.hash = '#/search?q=' + encodeURIComponent(q); }
 });
 document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && e.target.dataset && e.target.dataset.act === 'rOptRow') { e.target.click(); return; }
   if (e.key === 'Escape') { closeConsult(); closeSearch(); closeDrawer(); }
   if (e.key === '/' && !/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)) { e.preventDefault(); openSearch(); }
 });

@@ -195,7 +195,7 @@ ul{list-style:none}
 .notice b{color:var(--navy)}
 
 /* Product detail */
-.detail{display:grid;grid-template-columns:1.02fr 1fr;gap:clamp(28px,5vw,72px);align-items:start}
+.detail{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,1fr);gap:clamp(28px,5vw,72px);align-items:start}
 .detail .gallery{position:sticky;top:calc(var(--header-h) + 24px);border-radius:var(--r-lg);overflow:hidden;background:var(--gray);aspect-ratio:1/1;box-shadow:var(--sh-1)}
 .detail .gallery img{width:100%;height:100%;object-fit:cover}
 .detail .info{display:grid;gap:22px}
@@ -483,3 +483,57 @@ textarea.input{min-height:96px;resize:vertical}
 }
 @media (min-width:768px){.header .search-btn{display:grid}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* ───── 렌탈 옵션 선택 / 가격표 (rentalOptions, priceMatrix, servicePrices) ───── */
+.basis{display:block;font-size:11px;font-weight:600;color:var(--muted);margin:2px 0 0;letter-spacing:0}
+.pcard-spec dd .basis{margin-left:0}
+.rent-opt{display:grid;gap:14px;border:1px solid var(--line);border-radius:var(--r-md);padding:20px 22px;background:#fff;box-shadow:var(--sh-1);min-width:0}
+.opt-group{display:grid;gap:8px}
+.opt-group .lbl{font-size:13px;font-weight:800;color:var(--muted);letter-spacing:.04em}
+.opt-group .lbl small{font-weight:600;letter-spacing:0}
+.opt-group .chip{padding:9px 16px;font-size:14px}
+.opt-card{background:var(--gray);border-radius:var(--r-md);padding:18px 20px;display:grid;gap:12px}
+.opt-card .sel{font-size:13px;font-weight:700;color:var(--blue)}
+.ladder{display:grid;gap:8px}
+.ladder .lad{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:8px 0;border-bottom:1px dashed var(--gray-2)}
+.ladder .lad .k{font-size:14px;font-weight:600;color:var(--muted)}
+.ladder .lad .k small{display:block;font-size:11.5px;font-weight:500}
+.ladder .lad .v{font-size:20px;font-weight:800;color:var(--navy);letter-spacing:-.02em;white-space:nowrap}
+.ladder .lad.strike .v{color:var(--muted);text-decoration:line-through;font-size:17px;font-weight:700}
+.ladder .lad.mid .v{font-size:24px}
+.ladder .onsite-h{font-size:12.5px;font-weight:800;color:var(--blue);margin-top:6px}
+.ladder .lad.hl{background:var(--sky);border-radius:12px;padding:10px 14px;border-bottom:0}
+.ladder .lad.hl .v{color:var(--blue);font-size:24px}
+.extras{display:grid;gap:6px}
+.extras div{display:flex;justify-content:space-between;gap:12px;font-size:14px;align-items:baseline}
+.extras span{color:var(--muted);font-weight:600}.extras span small{display:block;font-size:11.5px;font-weight:500}
+.extras b{color:var(--navy);font-size:16px}
+.opt-notes{display:grid;gap:4px;font-size:13px;color:#8a5a12;background:#FFF7E8;border-radius:12px;padding:10px 14px}
+.opt-notes li::before{content:'• '}
+.opt-note-all div+div{margin-top:4px}
+.opt-all summary{cursor:pointer;font-weight:700;color:var(--blue);font-size:14.5px;padding:6px 0}
+.opt-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-top:8px;border:1px solid var(--line);border-radius:12px}
+.ptbl{width:100%;border-collapse:collapse;font-size:13.5px;min-width:560px}
+.ptbl th,.ptbl td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap;vertical-align:top}
+.ptbl thead th{background:var(--navy);color:#fff;font-size:12.5px;position:sticky;top:0}
+.ptbl td.n{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+.ptbl td.hl{color:var(--blue);font-weight:800}
+.ptbl td.nt{white-space:normal;min-width:150px;font-size:12px;color:#8a5a12}
+.ptbl tbody tr[data-act]{cursor:pointer}
+.ptbl tbody tr[data-act]:hover{background:var(--sky)}
+.ptbl tbody tr.on{background:var(--sky-2)}
+.ptbl.mx tbody th{background:var(--gray);width:auto}
+.ptbl.svc td:first-child{white-space:normal;min-width:70px}
+.ptbl.svc td:nth-child(2){white-space:normal;min-width:130px}
+.opt-h4{font-size:15px;font-weight:800;color:var(--navy);margin-top:10px}
+.rcard dd small{font-weight:500}
+.cmp small.muted{font-size:11.5px}
+@media (max-width:767px){
+  .rent-opt{padding:16px 14px}
+  .ladder .lad.hl .v,.ladder .lad.mid .v{font-size:21px}
+}
+.detail > *{min-width:0}
+.detail .info{min-width:0}
+.detail .info>*{min-width:0;max-width:100%}
+.detail .info{grid-template-columns:minmax(0,1fr)}
+.rent-opt{grid-template-columns:minmax(0,1fr)}.rent-opt>*{min-width:0}

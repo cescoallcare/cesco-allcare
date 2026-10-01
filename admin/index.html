@@ -94,7 +94,8 @@
     <div class="card">
       <h2>1. 템플릿 받기</h2>
       <p>현재 데이터(수정 중인 내용 포함)를 CSV로 내려받아 엑셀에서 가격을 고친 뒤 업로드하세요. 한글이 깨지지 않도록 UTF-8(BOM)로 저장됩니다.</p>
-      <button class="btn primary" id="btnTemplate" type="button">현재 데이터 CSV 템플릿 다운로드</button>
+      <div class="row-btn"><button class="btn primary" id="btnTemplate" type="button">현재 데이터 CSV 템플릿 다운로드</button><button class="btn ghost" id="btnOptCsv" type="button">렌탈 옵션표 CSV 다운로드 (옵션 행 단위)</button></div>
+      <p class="note-sm">가격표 기반 상품은 <b>옵션 행(의무사용기간×방문주기)</b>이 따로 있습니다. 옵션표 CSV는 첫 줄에 “옵션순번” 컬럼이 있으며, 그대로 수정해 다시 업로드하면 해당 제품의 옵션 배열이 통째로 교체됩니다(미리보기 후 적용). 일반 CSV의 월렌탈료·계약기간·관리주기는 옵션표에서 자동 계산되는 값이라 옵션이 있는 상품에서는 무시됩니다. 매트리스·에어컨 크리닝 가격표는 상세 편집(표 인라인 편집)에서 수정하세요.</p>
       <details class="cols">
         <summary>CSV 컬럼 설명</summary>
         <table class="mini">
@@ -110,6 +111,7 @@
           <tr><td>정기배송</td><td>Y / N (가능 여부). 비우면 변경 없음.</td></tr>
           <tr><td>상담필요</td><td>Y / N ("상담하기" 버튼 표시 여부). 비우면 변경 없음.</td></tr>
           <tr><td>숨김</td><td>Y 이면 사이트에서 숨김. 비우면 변경 없음.</td></tr>
+          <tr><td>(옵션표 CSV) 옵션순번·타입·의무사용기간(개월)·방문주기·정상가·이달의 판매가·현장할인가(단품)·현장할인가(결합)·프로모션·재렌탈가·재렌탈프로모션·비고·표행번호(참고)</td><td>렌탈 옵션 1행 = CSV 1줄. 숫자 칸을 비우면 “-”(해당 없음). 비고는 원문 그대로(줄바꿈은 * 로 구분된 한 셀).</td></tr>
           <tr><td>이미지URL</td><td>상품 이미지 경로/URL. 비우면 변경 없음.</td></tr>
         </table>
       </details>

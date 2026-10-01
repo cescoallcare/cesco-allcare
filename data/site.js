@@ -20,6 +20,7 @@ window.CONFIG = {
   formEndpoint: '',
   siteName: 'CESCO ALL CARE',
   priceCheckedAt: '2026-09-30',
+  priceTableAt: '2026-10-01', // 플래너 제공 가격표(렌탈 옵션·매트리스·에어컨 크리닝) 반영일
   mallUrl: 'https://www.cescomall.co.kr'
 };
 
@@ -140,6 +141,10 @@ window.INDUSTRIES = [
     cta: '맞춤 상담하기' }
 ];
 INDUSTRIES.find(i => i.id === 'office').picks[5] = PID(560);
+/* 에어컨 크리닝(가격표 반영, 신규 서비스 상품) — 사업장/홈 추천에 노출 */
+const ACID = 'allcare-aircon-cleaning', MATID = 'allcare-mattress';
+['restaurant','cafe','pcroom','hotel','office','academy','clinic','store'].forEach(id => { const x = INDUSTRIES.find(i => i.id === id); if (x) x.picks.push(ACID); });
+INDUSTRIES.find(i => i.id === 'hotel').picks.push(MATID);
 
 /* HOME CARE — 5 */
 window.HOMECARES = [
@@ -281,7 +286,7 @@ window.GUIDES = [
 ];
 
 /* 상담 폼 주제 */
-window.TOPICS = ['공기 케어', '물 케어 (정수기·샤워·비데)', '생활·위생용품', '해충 관리', '정기배송', '렌탈 문의', '사업장 맞춤 상담', '잘 모르겠어요 (먼저 진단받고 싶어요)'];
+window.TOPICS = ['공기 케어', '물 케어 (정수기·샤워·비데)', '생활·위생용품', '해충 관리', '정기배송', '렌탈 문의', '에어컨 크리닝 문의', '매트리스 문의', '사업장 맞춤 상담', '잘 모르겠어요 (먼저 진단받고 싶어요)'];
 
 /* CARE FINDER 설정 */
 window.FINDER = {
@@ -308,3 +313,7 @@ window.FINDER = {
     { id: 'any', label: '상담 후 결정할게요', sub: '조건을 비교해 보고 싶어요' }
   ]
 };
+
+/* 가격표 신규 서비스 상품(에어컨 크리닝·매트리스)을 홈케어 추천에도 노출 */
+(window.HOMECARES || []).forEach(h => { if (['family','baby','senior','pet','single'].includes(h.id)) h.picks.push(ACID); });
+(window.HOMECARES || []).forEach(h => { if (h.id === 'baby' || h.id === 'family') h.picks.push(MATID); });

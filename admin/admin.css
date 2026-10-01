@@ -147,3 +147,16 @@ input[type=file]{padding:10px;border:1px dashed #9fb2cf;border-radius:10px;backg
   .modal .box{padding:16px}
 }
 @media (max-width:860px){.top{position:static}.table-wrap{overflow:visible}}
+
+/* 옵션표 편집기 */
+.modal .box{max-width:min(1100px,96vw)}
+.tbled h3{font-size:14px;color:var(--navy);margin:16px 0 6px}.tbled h3 small{font-weight:500;color:var(--muted)}
+.tbl-scroll{overflow:auto;max-height:46vh;border:1px solid var(--line);border-radius:10px}
+.tbl-in{min-width:980px;border-collapse:collapse}
+.tbl-in th,.tbl-in td{padding:4px 5px;border-bottom:1px solid #eef1f6;font-size:12.5px;text-align:left}
+.tbl-in thead th{background:#f4f6fa;position:sticky;top:0;z-index:1;white-space:nowrap}
+.tbl-in input{width:100%;min-width:72px;height:32px;border:1px solid #dbe2ec;border-radius:6px;padding:0 6px;font-size:12.5px}
+.tbl-in input.num{text-align:right;min-width:84px}.tbl-in input.wide{min-width:200px}.tbl-in input.bad{border-color:var(--red);background:#fff4f3}
+.tbl-in input[readonly],.grid input[readonly]{background:#f1f4f9;color:#5a6a82}
+.btn.danger.sm{height:30px;padding:0 10px;font-size:12px}
+@media (max-width:860px){ .tbl-in{display:table!important;min-width:900px} .tbl-in thead{display:table-header-group!important} .tbl-in tbody{display:table-row-group!important} .tbl-in tr{display:table-row!important;border:0;padding:0;margin:0;background:none} .tbl-in td,.tbl-in th{display:table-cell!important;padding:4px 5px} .tbl-in td::before{content:none!important} }

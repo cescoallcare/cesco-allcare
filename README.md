@@ -31,3 +31,9 @@
 - 데이터 구조: 기본 데이터 `data/products.js` + 오버라이드 `data/price-overrides.json`(기본 대비 바뀐 필드만). 사이트는 `js/loader.js` 가 로드 시 `price-overrides.json?v=타임스탬프` 를 받아 `js/overrides.js` 로 병합한 뒤 core/pages/app 을 로드합니다. 파일이 없거나 실패하면 기본 데이터로 동작합니다.
 - 게시: GitHub fine-grained 토큰(이 저장소 Contents: Read and write)을 입력하면 Contents API(`PUT /repos/cescoallcare/cesco-allcare/contents/data/price-overrides.json`)로 커밋 → Pages 자동 재배포(1~2분). 토큰이 없으면 "JSON 다운로드" 후 저장소 `data/` 에 수동 업로드.
 - 배포 복사본에는 `screenshots/`, `tmp/`, `tools/` 를 제외하고 `.nojekyll` 을 유지합니다.
+
+## 가격표 반영 (2026-10-01, 플래너 제공 가격표 5종)
+- 원문: `tools/price-tables.md` → `python3 tools/apply_price_tables.py` 가 `tools/products.base.json`(세스코몰 기준 기본 데이터)에 표를 덧입혀 `data/products.js`/`products.json` 을 다시 생성합니다(멱등). `python3 tools/verify_data.py` 로 원문↔데이터 행·숫자 대조.
+- 새 데이터 필드: `rentalOptions[]`(타입·의무사용기간·방문주기·정상가·이달의 판매가·현장 할인가(단품/결합)·프로모션·재렌탈가·재렌탈 프로모션·비고·표 행번호), `priceMatrix`(매트리스 규격×등급), `servicePrices`(에어컨 크리닝), `priceFrom`(목록 “○○원부터” 기준), `catLabel`.
+- `rentalOptions` 가 있으면 `rentalMonthly`(최저 이달의 판매가) 등은 옵션에서 파생된 값입니다. 목록/카드의 “월 ○○원부터”는 **이달의 판매가(온라인 노출가) 옵션 중 최저가** 기준입니다.
+- 관리자(/admin): 상품 “상세·옵션표”에서 옵션 행/매트리스/서비스 가격표를 인라인 편집(JSON 직접 편집 포함), “렌탈 옵션표 CSV”로 행 단위 라운드트립. `price-overrides.json` 형식(version 1)은 그대로이며 `patches` 에 `rentalOptions` 등이 필드로 들어갑니다.

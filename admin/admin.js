@@ -79,6 +79,44 @@ function parseBool(raw){
 function parseCat(raw){ var s = String(raw == null ? '' : raw).trim().toLowerCase(); var k = KO_CAT[s] || KO_CAT[String(raw).trim()]; return k ? { v: k } : { err: '알 수 없는 카테고리(공기·물·생활·해충·사업장·서비스)' }; }
 function parseText(raw){ return { v: String(raw == null ? '' : raw).trim() }; }
 var SUB_MONTH = { '2주': 0.46, '3주': 0.69, '4주': 0.92 };
+/* ───────────── 렌탈 옵션 / 가격표(매트리스·서비스) 도우미 ───────────── */
+var hasOpt = function(p){ return Array.isArray(p.rentalOptions) && p.rentalOptions.length > 0; };
+var OPT_COLS = [ // key, 라벨, 종류(t: text|num|months), CSV 컬럼명
+  ['variant', '타입', 't', '타입'], ['period', '의무사용기간(개월)', 'months', '의무사용기간(개월)'], ['visit', '방문주기', 't', '방문주기'],
+  ['listPrice', '정상가', 'num', '정상가'], ['monthPrice', '이달의 판매가', 'num', '이달의 판매가'], ['onsiteSingle', '현장 할인가(단품)', 'num', '현장할인가(단품)'],
+  ['onsiteBundle', '현장 할인가(결합)', 'num', '현장할인가(결합)'], ['promo', '프로모션', 'num', '프로모션'], ['rerental', '재렌탈가', 'num', '재렌탈가'],
+  ['rerentalPromo', '재렌탈 프로모션', 'num', '재렌탈프로모션'], ['note', '비고', 't', '비고'], ['src', '표 행번호(참고)', 't', '표행번호(참고)']
+];
+function normOpt(o){
+  var r = {};
+  r.period = o.period == null || o.period === '' ? null : o.period;
+  r.periodLabel = r.period == null ? '-' : r.period + '개월';
+  r.visit = String(o.visit == null ? '' : o.visit).trim();
+  r.variant = o.variant ? String(o.variant).trim() : null;
+  ['listPrice', 'monthPrice', 'onsiteSingle', 'onsiteBundle', 'promo', 'rerental', 'rerentalPromo'].forEach(function(k){ r[k] = o[k] == null || o[k] === '' ? null : o[k]; });
+  r.note = o.note == null ? '' : String(o.note).trim();
+  r.src = o.src == null ? '' : String(o.src).trim();
+  return r;
+}
+/* 옵션 배열 → 목록/렌탈 페이지가 쓰는 파생 필드(최저 이달의 판매가·방문주기·계약기간) 갱신. 사이트(js/core.js)와 같은 기준 */
+function deriveRental(p){
+  var o = p.rentalOptions || [], ps = o.filter(function(x){ return x.monthPrice != null; });
+  var best = null; ps.forEach(function(x){ if (!best || x.monthPrice < best.monthPrice) best = x; });
+  p.rentalMonthly = best ? best.monthPrice : null; p.rentalBase = best ? best.listPrice : null; p.rentalContractMonths = best ? best.period : null;
+  var vs = [], yrs = [];
+  o.forEach(function(x){ if (x.visit && vs.indexOf(x.visit) < 0) vs.push(x.visit); if (x.period && x.period % 12 === 0 && yrs.indexOf(String(x.period / 12)) < 0) yrs.push(String(x.period / 12)); });
+  p.visitCycles = vs; p.rentalYears = yrs; p.rentalTotal = null;
+  if (vs.length) p.careMethod = '세스코 방문 관리(렌탈) · 방문주기 ' + vs.join(' / ');
+}
+function deriveFrom(p){
+  if (p.priceMatrix) { var all = []; p.priceMatrix.rows.forEach(function(r){ r.values.forEach(function(v){ if (v != null) all.push(v); }); }); p.priceFrom = Object.assign({}, p.priceFrom || {}, { price: all.length ? Math.min.apply(null, all) : null }); }
+  if (p.servicePrices) {
+    var b = p.servicePrices.rows.filter(function(r){ return r.kind === 'base' && r.offPeak != null; }), w = b.filter(function(r){ return r.g2 === '벽걸이'; })[0];
+    var price = w ? w.offPeak : (b.length ? Math.min.apply(null, b.map(function(r){ return r.offPeak; })) : null);
+    p.priceFrom = Object.assign({}, p.priceFrom || {}, { price: price });
+  }
+}
+var hasTable = function(p){ return hasOpt(p) || !!p.priceMatrix || !!p.servicePrices; };
 function cycleToMonths(c){ if (SUB_MONTH[c] != null) return SUB_MONTH[c]; var m = /^(\d+)개월$/.exec(c); return m ? +m[1] : null; }
 
 /* 필드 정의: key, 표시 이름, 파서, CSV 컬럼, 비워도 되는지(비움=null 처리) */
@@ -96,6 +134,7 @@ var F = {
 };
 var CSV_KEYS = ['category', 'buyPrice', 'rentalMonthly', 'rentalContractMonths', 'visitCycles', 'filterInfo', 'subscribable', 'consultRequired', 'hidden', 'image'];
 function fmt(key, v){
+  if (key === 'rentalOptions') return (v || []).length ? (v.length + '행 (최저 이달의 판매가 ' + (function(){ var m = v.filter(function(x){ return x.monthPrice != null; }).map(function(x){ return x.monthPrice; }); return m.length ? nf(Math.min.apply(null, m)) + '원' : '-'; })() + ')') : '(없음)';
   if (key === 'buyPrice' || key === 'rentalMonthly') return v == null ? '상담 시 안내' : nf(v) + '원';
   if (key === 'rentalContractMonths') return v == null ? '(미지정)' : v + '개월';
   if (key === 'visitCycles') return (v || []).length ? v.join(' | ') : '(없음)';
@@ -195,6 +234,7 @@ function diffKeys(p, b){
 }
 var NUMCLS = { buyPrice: 1, rentalMonthly: 1 };
 function inputHtml(p, key, cls, attrs){
+  if (hasOpt(p) && (key === 'rentalMonthly' || key === 'rentalContractMonths' || key === 'visitCycles')) attrs = (attrs || '') + ' readonly title="렌탈 옵션표에서 자동 계산됩니다(최저 이달의 판매가 기준). 상세 → 옵션표에서 수정하세요."';
   var v = p[key], txt;
   if (key === 'visitCycles') txt = (v || []).join(' | ');
   else if (key === 'buyPrice' || key === 'rentalMonthly') txt = v == null ? '' : nf(v);
@@ -205,9 +245,9 @@ function inputHtml(p, key, cls, attrs){
 }
 function rowHtml(p, pm){
   var st = rowStatus(p, pm), dis = p._del ? ' disabled' : '';
-  var tags = (p._del ? '<span class="tag del">삭제됨</span>' : '') + (st === 'new' ? '<span class="tag new">신규</span>' : st === 'chg' ? '<span class="tag chg">변경됨</span>' : '') + (p.hidden && !p._del ? '<span class="tag hid">숨김</span>' : '');
+  var tags = (hasOpt(p) ? '<span class="tag">옵션 ' + p.rentalOptions.length + '행</span>' : p.priceMatrix ? '<span class="tag">가격 매트릭스</span>' : p.servicePrices ? '<span class="tag">서비스 가격표</span>' : '') + (p._del ? '<span class="tag del">삭제됨</span>' : '') + (st === 'new' ? '<span class="tag new">신규</span>' : st === 'chg' ? '<span class="tag chg">변경됨</span>' : '') + (p.hidden && !p._del ? '<span class="tag hid">숨김</span>' : '');
   var acts = p._del ? '<button class="btn ghost" data-a="restore" type="button">복원</button>'
-    : '<button class="btn ghost" data-a="detail" type="button">상세</button>' + (st === 'chg' && pm[p.id] ? '<button class="btn ghost" data-a="revert" type="button">되돌리기</button>' : '') + '<button class="btn danger" data-a="del" type="button">삭제</button>';
+    : '<button class="btn ghost" data-a="detail" type="button">' + (hasTable(p) ? '상세·옵션표' : '상세') + '</button>' + (st === 'chg' && pm[p.id] ? '<button class="btn ghost" data-a="revert" type="button">되돌리기</button>' : '') + '<button class="btn danger" data-a="del" type="button">삭제</button>';
   var catOpts = CATS.map(function(c){ return '<option value="' + c[0] + '"' + (p.category === c[0] ? ' selected' : '') + '>' + c[1] + '</option>'; }).join('');
   return '<tr data-id="' + esc(p.id) + '" class="' + (p._del ? 'is-del' : p.hidden ? 'is-hidden' : '') + '">' +
     '<td class="c-hide" data-label="숨김"><input type="checkbox" data-f="hidden"' + (p.hidden ? ' checked' : '') + dis + ' aria-label="사이트에서 숨김"></td>' +
@@ -240,7 +280,7 @@ function filtered(){
     if (q && (p.name + ' ' + p.id + ' ' + (p.model || '') + ' ' + (p.keywords || []).join(' ')).toLowerCase().replace(/\s+/g, '').indexOf(q) < 0) return false;
     if (stt === 'deleted') return p._del;
     if (p._del) return false;
-    if (stt === 'noprice') return p.buyPrice == null || (!p.rentalMonthly && !p.buyPrice);
+    if (stt === 'noprice') return p.buyPrice == null && p.rentalMonthly == null && !(p.priceFrom && p.priceFrom.price != null);
     if (stt === 'rental') return p.rentalMonthly != null;
     if (stt === 'sub') return !!p.subscribable;
     if (stt === 'changed') return !!rowStatus(p, pm);
@@ -264,7 +304,7 @@ function renderList(){
 }
 function renderStat(){
   var live = work.filter(function(p){ return !p._del; });
-  var noPrice = live.filter(function(p){ return p.buyPrice == null && p.rentalMonthly == null; }).length;
+  var noPrice = live.filter(function(p){ return p.buyPrice == null && p.rentalMonthly == null && !(p.priceFrom && p.priceFrom.price != null); }).length;
   var ch = changeList().length;
   $('#topStat').innerHTML = '상품 <b>' + live.length + '</b>개 · 가격 미정 <b>' + noPrice + '</b>개 · ' + (ch ? '<span class="dirty">미게시 변경 ' + ch + '건</span>' : '게시본과 동일');
 }
@@ -305,7 +345,7 @@ $('#gridBody').addEventListener('change', function(e){
   markChanged(tr, p, b);
   tr.classList.toggle('is-hidden', !!p.hidden);
   var st = rowStatus(p, pm);
-  tr.querySelector('.tags').innerHTML = (st === 'new' ? '<span class="tag new">신규</span>' : st === 'chg' ? '<span class="tag chg">변경됨</span>' : '') + (p.hidden ? '<span class="tag hid">숨김</span>' : '');
+  tr.querySelector('.tags').innerHTML = (hasOpt(p) ? '<span class="tag">옵션 ' + p.rentalOptions.length + '행</span>' : p.priceMatrix ? '<span class="tag">가격 매트릭스</span>' : p.servicePrices ? '<span class="tag">서비스 가격표</span>' : '') + (st === 'new' ? '<span class="tag new">신규</span>' : st === 'chg' ? '<span class="tag chg">변경됨</span>' : '') + (p.hidden ? '<span class="tag hid">숨김</span>' : '');
   var act = tr.querySelector('.act'), hasRev = !!act.querySelector('[data-a=revert]');
   if (st === 'chg' && b && !hasRev) act.insertAdjacentHTML('afterbegin', '<button class="btn ghost" data-a="revert" type="button">되돌리기</button>');
   if ((st !== 'chg' || !b) && hasRev) act.querySelector('[data-a=revert]').remove();
@@ -354,17 +394,101 @@ function openModal(p, isNew){
     else if (t === 'area') inner = '<textarea data-m="' + k + '">' + esc(v || '') + '</textarea>';
     else {
       var txt = t === 'list' ? (v || []).join(' | ') : v == null ? '' : v;
-      inner = '<input type="text" data-m="' + k + '" value="' + esc(txt) + '"' + (t === 'price' || t === 'months' ? ' inputmode="numeric"' : '') + '>';
+      var ro = hasOpt(p) && (k === 'rentalMonthly' || k === 'rentalContractMonths' || k === 'rentalTotal' || k === 'visitCycles');
+      inner = '<input type="text" data-m="' + k + '" value="' + esc(txt) + '"' + (t === 'price' || t === 'months' ? ' inputmode="numeric"' : '') + (ro ? ' readonly title="렌탈 옵션표에서 자동 계산됩니다"' : '') + '>';
     }
     return '<label class="fld' + full + '">' + esc(label) + inner + '</label>';
   }).join('') + '</div>' +
+  '<div id="tblEd"></div>' +
   '<div class="fld" style="margin-top:10px">이미지 미리보기<img id="mImgPrev" alt="" style="max-height:120px;max-width:100%;object-fit:contain;border:1px solid #e3e8f0;border-radius:8px;padding:4px;background:#fff;justify-self:start"></div>' +
   '<div class="login-err" id="mErr" role="alert"></div>' +
   '<div class="mfoot"><button type="button" class="btn ghost" data-close>취소</button><button type="submit" class="btn primary">' + (isNew ? '추가' : '적용') + '</button></div>';
   $('#mForm').innerHTML = html;
+  modalCtx.tbl = { opts: clone(p.rentalOptions || []), matrix: p.priceMatrix ? clone(p.priceMatrix) : null, svc: p.servicePrices ? clone(p.servicePrices) : null, dirty: false };
+  renderTblEd();
   updImgPrev();
   $('#modal').hidden = false; document.body.style.overflow = 'hidden';
   setTimeout(function(){ var f = $('#mForm [data-m=name]'); if (f) f.focus(); }, 0);
+}
+/* ── 표 편집기(렌탈 옵션 배열 · 매트리스 가격표 · 서비스 가격표) ── */
+var nfv = function(v){ return v == null ? '' : nf(v); };
+function renderTblEd(){
+  var box = $('#tblEd'); if (!box || !modalCtx) return;
+  var T = modalCtx.tbl, h = '';
+  h += '<div class="tbled"><h3>렌탈 옵션표 <small>(의무사용기간 × 방문주기별 · 모든 금액은 월 렌탈료 원, 비우면 “-”)</small></h3>';
+  h += '<div class="tbl-scroll"><table class="grid tbl-in"><thead><tr>' + OPT_COLS.slice(0, 11).map(function(c){ return '<th>' + esc(c[1]) + '</th>'; }).join('') + '<th></th></tr></thead><tbody>';
+  T.opts.forEach(function(o, i){
+    h += '<tr data-i="' + i + '">' + OPT_COLS.slice(0, 11).map(function(c){
+      var k = c[0], v = o[k], txt = c[2] === 'num' ? nfv(v) : (v == null ? '' : v);
+      return '<td><input type="text" data-oi="' + i + '" data-ok="' + k + '" value="' + esc(txt) + '"' + (c[2] !== 't' ? ' inputmode="numeric" class="num"' : (k === 'note' ? ' class="wide"' : '')) + ' aria-label="' + esc(c[1]) + '"></td>';
+    }).join('') + '<td><button type="button" class="btn danger sm" data-oa="del" data-oi="' + i + '" aria-label="행 삭제">삭제</button></td></tr>';
+  });
+  h += '</tbody></table></div><div class="row-btn" style="margin:8px 0"><button type="button" class="btn ghost sm" data-oa="add">＋ 옵션 행 추가</button><span class="note-sm" style="margin:0">적용하면 상품의 “월 렌탈료·계약기간·방문주기”는 옵션표(최저 이달의 판매가)에서 자동 계산됩니다. 행이 0개면 기존 단일 렌탈료 방식으로 돌아갑니다.</span></div>';
+  if (T.matrix) {
+    var m = T.matrix;
+    h += '<h3>' + esc(m.title) + ' <small>(' + esc(m.rowHeader) + ' · 원)</small></h3><div class="tbl-scroll"><table class="grid tbl-in"><thead><tr><th>' + esc(m.rowHeader) + '</th>' + m.cols.map(function(c){ return '<th>' + esc(c) + '</th>'; }).join('') + '</tr></thead><tbody>' +
+      m.rows.map(function(r, ri){ return '<tr><th>' + esc(r.label) + '</th>' + r.values.map(function(v, ci){ return '<td><input type="text" class="num" inputmode="numeric" data-mx="' + ri + ',' + ci + '" value="' + esc(nfv(v)) + '" aria-label="' + esc(r.label + ' ' + m.cols[ci]) + '"></td>'; }).join('') + '</tr>'; }).join('') + '</tbody></table></div>';
+  }
+  if (T.svc) {
+    var s = T.svc;
+    h += '<h3>' + esc(s.title) + ' <small>(원 · 비우면 “-”)</small></h3><div class="tbl-scroll"><table class="grid tbl-in"><thead><tr><th>구분 1</th><th>구분 2</th><th>구분 3</th><th>세부</th><th>' + esc(s.colOffPeak) + '</th><th>' + esc(s.colQ4) + '</th></tr></thead><tbody>' +
+      s.rows.map(function(r, ri){ return '<tr><td>' + esc(r.g1) + '</td><td>' + esc(r.g2) + '</td><td>' + esc(r.g3) + '</td><td>' + esc(r.detail) + '</td>' +
+        '<td><input type="text" class="num" inputmode="numeric" data-sv="' + ri + ',offPeak" value="' + esc(nfv(r.offPeak)) + '" aria-label="비수기 판매가"></td><td><input type="text" class="num" inputmode="numeric" data-sv="' + ri + ',q4Special" value="' + esc(nfv(r.q4Special)) + '" aria-label="4분기 특판가"></td></tr>'; }).join('') + '</tbody></table></div>';
+  }
+  var jsonSrc = { rentalOptions: T.opts }; if (T.matrix) jsonSrc.priceMatrix = T.matrix; if (T.svc) jsonSrc.servicePrices = T.svc;
+  h += '<details style="margin-top:10px"><summary>고급: 표 데이터 JSON 직접 편집</summary><textarea id="tblJson" spellcheck="false" style="width:100%;min-height:160px;font-family:monospace;font-size:12px;margin-top:6px">' + esc(JSON.stringify(jsonSrc, null, 1)) + '</textarea>' +
+    '<div class="row-btn" style="margin-top:6px"><button type="button" class="btn ghost sm" data-oa="json">JSON → 위 표에 반영</button></div></details></div>';
+  box.innerHTML = h;
+}
+function parseOptField(c, raw){
+  var s = String(raw == null ? '' : raw).trim();
+  if (c[2] === 'num') { if (s === '' || s === '-') return { v: null }; var r = parsePrice(s); return r; }
+  if (c[2] === 'months') { if (s === '' || s === '-') return { v: null }; var r2 = parseMonths(s); return r2; }
+  return { v: s };
+}
+document.addEventListener('change', function(e){
+  var el = e.target, T = modalCtx && modalCtx.tbl; if (!T || !el.dataset) return;
+  if (el.dataset.ok != null) {
+    var i = +el.dataset.oi, c = OPT_COLS.filter(function(x){ return x[0] === el.dataset.ok; })[0], r = parseOptField(c, el.value);
+    if (r.err) { el.classList.add('bad'); toast(c[1] + ': ' + r.err); return; }
+    el.classList.remove('bad'); T.opts[i][el.dataset.ok] = r.v === '' && c[2] === 't' && c[0] !== 'visit' && c[0] !== 'note' && c[0] !== 'src' ? null : r.v;
+    if (el.dataset.ok === 'period') T.opts[i].periodLabel = r.v == null ? '-' : r.v + '개월';
+    if (c[2] === 'num') el.value = nfv(r.v);
+    T.dirty = true;
+  } else if (el.dataset.mx != null) {
+    var p2 = el.dataset.mx.split(','), r3 = parsePrice(el.value);
+    if (r3.err) { el.classList.add('bad'); toast(r3.err); return; }
+    el.classList.remove('bad'); T.matrix.rows[+p2[0]].values[+p2[1]] = r3.v; el.value = nfv(r3.v); T.dirty = true;
+  } else if (el.dataset.sv != null) {
+    var p3 = el.dataset.sv.split(','), r4 = parsePrice(el.value);
+    if (r4.err) { el.classList.add('bad'); toast(r4.err); return; }
+    el.classList.remove('bad'); T.svc.rows[+p3[0]][p3[1]] = r4.v; el.value = nfv(r4.v); T.dirty = true;
+  }
+});
+document.addEventListener('click', function(e){
+  var b = e.target.closest && e.target.closest('[data-oa]'); if (!b || !modalCtx || !modalCtx.tbl) return;
+  var T = modalCtx.tbl, a = b.dataset.oa;
+  if (a === 'add') { var last = T.opts[T.opts.length - 1]; T.opts.push(normOpt(last ? { period: last.period, visit: last.visit, variant: last.variant } : { period: 36, visit: '' })); T.dirty = true; renderTblEd(); }
+  else if (a === 'del') { T.opts.splice(+b.dataset.oi, 1); T.dirty = true; renderTblEd(); }
+  else if (a === 'json') {
+    try {
+      var j = JSON.parse($('#tblJson').value);
+      if (!j || typeof j !== 'object' || !Array.isArray(j.rentalOptions)) throw new Error('rentalOptions 배열이 필요합니다');
+      T.opts = j.rentalOptions.map(normOpt);
+      if (T.matrix && j.priceMatrix) T.matrix = j.priceMatrix;
+      if (T.svc && j.servicePrices) T.svc = j.servicePrices;
+      T.dirty = true; renderTblEd(); toast('JSON을 표에 반영했습니다. “적용”을 눌러야 저장됩니다.');
+    } catch (ex) { toast('JSON 오류: ' + ex.message); }
+  }
+});
+function validateTbl(T){
+  for (var i = 0; i < T.opts.length; i++) {
+    var o = T.opts[i];
+    if (!o.visit) return (i + 1) + '번째 옵션 행: 방문주기를 입력하세요.';
+    var any = ['listPrice', 'monthPrice', 'onsiteSingle', 'onsiteBundle', 'promo', 'rerental', 'rerentalPromo'].some(function(k){ return o[k] != null; });
+    if (!any) return (i + 1) + '번째 옵션 행: 가격이 하나도 없습니다.';
+  }
+  return '';
 }
 function imgSrc(v){ v = String(v || '').trim(); if (!v) return ''; return /^(https?:)?\/\//i.test(v) || v.charAt(0) === '/' ? v : '../' + v; }
 function updImgPrev(){ var i = $('#mImgPrev'), inp = $('#mForm [data-m=image]'); if (!i || !inp) return; var s = imgSrc(inp.value); if (s) { i.src = s; i.style.display = ''; } else i.style.display = 'none'; }
@@ -385,6 +509,7 @@ $('#mForm').addEventListener('submit', function(e){
     if (r.err) { err = f[1].split(' —')[0] + ': ' + r.err; return; }
     vals[k] = r.v;
   });
+  if (!err && modalCtx.tbl) err = validateTbl(modalCtx.tbl);
   if (!err && !vals.name) err = '제품명을 입력하세요.';
   if (!err) vals.subCycles.forEach(function(c){ if (cycleToMonths(c) == null) err = '정기배송 주기는 "2주", "1개월" 같은 형식으로 입력하세요: ' + c; });
   if (err) { $('#mErr').textContent = err; return; }
@@ -402,6 +527,15 @@ $('#mForm').addEventListener('submit', function(e){
     }
     if (ctx.isNew || !same(v, orig[k])) { if (k === 'subscribable' && !v) target[k] = v; else setField(target, k, v); }
   });
+  if (ctx.tbl && ctx.tbl.dirty) {
+    var T = ctx.tbl;
+    target.rentalOptions = T.opts.map(normOpt);
+    if (!target.rentalOptions.length) delete target.rentalOptions;
+    if (T.matrix) target.priceMatrix = T.matrix;
+    if (T.svc) target.servicePrices = T.svc;
+  }
+  if (hasOpt(target)) deriveRental(target);
+  deriveFrom(target);
   if (ctx.isNew) {
     target.rentalYears = target.rentalYears || [];
     if (target.rentalMonthly != null && target.rentalTotal == null) target.rentalTotal = target.rentalMonthly * (target.rentalContractMonths || 36);
@@ -444,10 +578,20 @@ function buildCsv(){
   var rows = [head].concat(work.filter(function(p){ return !p._del; }).map(function(p){ return [p.id, p.name].concat(CSV_KEYS.map(function(k){ return csvVal(p, k); })); }));
   return '\uFEFF' + rows.map(function(r){ return r.map(csvCell).join(','); }).join('\r\n') + '\r\n';
 }
+var OPT_CSV_COLS = OPT_COLS.slice();
+function buildOptCsv(){
+  var head = ['제품ID', '제품명', '옵션순번'].concat(OPT_CSV_COLS.map(function(c){ return c[3]; }));
+  var rows = [head];
+  work.filter(function(p){ return !p._del && hasOpt(p); }).forEach(function(p){
+    p.rentalOptions.forEach(function(o, i){ rows.push([p.id, p.name, i + 1].concat(OPT_CSV_COLS.map(function(c){ var v = o[c[0]]; return v == null ? '' : v; }))); });
+  });
+  return '\uFEFF' + rows.map(function(r){ return r.map(csvCell).join(','); }).join('\r\n') + '\r\n';
+}
 function download(name, text, mime){
   var a = document.createElement('a'), url = URL.createObjectURL(new Blob([text], { type: mime }));
   a.href = url; a.download = name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(function(){ URL.revokeObjectURL(url); }, 2000);
 }
+$('#btnOptCsv').addEventListener('click', function(){ download('cesco-rental-options-' + new Date().toISOString().slice(0, 10) + '.csv', buildOptCsv(), 'text/csv;charset=utf-8'); toast('렌탈 옵션 CSV를 내려받았습니다.'); });
 $('#btnTemplate').addEventListener('click', function(){ download('cesco-products-' + new Date().toISOString().slice(0, 10) + '.csv', buildCsv(), 'text/csv;charset=utf-8'); toast('CSV 템플릿을 내려받았습니다.'); });
 function currentOvJson(){ var ov = toOv(work); ov.updatedAt = new Date().toISOString(); return JSON.stringify(ov, null, 2) + '\n'; }
 function dlJson(){ download('price-overrides.json', currentOvJson(), 'application/json'); toast('price-overrides.json 을 내려받았습니다. 저장소 data 폴더에 덮어쓰면 반영됩니다.'); }
@@ -511,9 +655,44 @@ function mapHeaders(head){
 var normName = function(s){ return String(s == null ? '' : s).replace(/\s+/g, '').toLowerCase(); };
 
 /* 업로드 행 → 변경 사항 계산(미리보기용). work 를 수정하지 않음 */
+function planOptUpload(rows){
+  var res = { total: 0, matched: 0, changes: [], unchanged: 0, unmatched: [], errors: [], warns: [], cols: ['렌탈 옵션(행 단위)'], optMode: true };
+  var h = rows[0].map(normHead), col = {};
+  OPT_CSV_COLS.forEach(function(c){ var i = h.indexOf(normHead(c[3])); if (i < 0) i = h.indexOf(normHead(c[1])); if (i >= 0) col[c[0]] = i; });
+  var idI = h.indexOf('제품id'); if (idI < 0) { res.errors.push('렌탈 옵션 CSV에는 "제품ID" 컬럼이 필요합니다.'); return res; }
+  var byId = {}; work.forEach(function(p){ byId[p.id] = p; });
+  var per = {}, order = [];
+  for (var r = 1; r < rows.length; r++) {
+    var row = rows[r], line = r + 1;
+    if (!row || row.every(function(c){ return String(c == null ? '' : c).trim() === ''; })) continue;
+    res.total++;
+    var id = String(row[idI] == null ? '' : row[idI]).trim(), p = byId[id];
+    if (!p || p._del) { res.unmatched.push(line + '행: ' + id); continue; }
+    var o = {}, bad = false;
+    OPT_CSV_COLS.forEach(function(c){
+      if (col[c[0]] == null) { o[c[0]] = null; return; }
+      var pr = parseOptField(c, row[col[c[0]]]);
+      if (pr.err) { res.errors.push(line + '행 [' + p.name + '] ' + c[1] + ': ' + pr.err); bad = true; return; }
+      o[c[0]] = pr.v;
+    });
+    if (bad) continue;
+    if (!String(o.visit || '').trim()) { res.errors.push(line + '행 [' + p.name + ']: 방문주기가 비어 있습니다.'); continue; }
+    if (!per[id]) { per[id] = []; order.push(id); }
+    per[id].push(normOpt(o));
+  }
+  order.forEach(function(id){
+    var p = byId[id], next = per[id];
+    res.matched++;
+    if (same(p.rentalOptions || [], next)) { res.unchanged++; return; }
+    res.changes.push({ p: p, ch: [{ key: 'rentalOptions', before: p.rentalOptions || [], after: next }] });
+  });
+  res.warns.push('옵션 CSV는 파일에 포함된 제품의 옵션 배열을 통째로 교체합니다(파일에 없는 제품은 변경 없음).');
+  return res;
+}
 function planUpload(rows){
   var res = { total: 0, matched: 0, changes: [], unchanged: 0, unmatched: [], errors: [], warns: [], cols: [] };
   if (!rows.length) { res.errors.push('빈 파일입니다.'); return res; }
+  if (rows[0].map(normHead).indexOf('옵션순번') >= 0) return planOptUpload(rows);
   var idx = mapHeaders(rows[0]);
   if (idx.id == null && idx.name == null) { res.errors.push('첫 줄에 "제품ID" 또는 "제품명" 컬럼이 필요합니다. (템플릿을 내려받아 사용하세요)'); return res; }
   var keys = Object.keys(F).filter(function(k){ return idx[k] != null; });
@@ -535,6 +714,11 @@ function planUpload(rows){
     if (per[p.id]) res.warns.push(line + '행: ' + p.name + ' 이(가) 파일에 중복되어 마지막 줄 값을 사용합니다.');
     if (!per[p.id]) { per[p.id] = { p: p, vals: {} }; order.push(p.id); }
     keys.forEach(function(k){
+      if (hasOpt(p) && (k === 'rentalMonthly' || k === 'rentalContractMonths' || k === 'visitCycles')) { // 옵션표에서 파생되는 값 — 이 CSV로는 바꾸지 않음
+        var rw = String(row[idx[k]] == null ? '' : row[idx[k]]).trim(), cur = k === 'visitCycles' ? (p[k] || []).join('|') : (p[k] == null ? '' : String(p[k]));
+        if (rw !== '' && rw.replace(/[,\s원]/g, '') !== cur.replace(/\s+/g, '') && k !== 'visitCycles') res.warns.push(line + '행 [' + p.name + '] ' + F[k].csv + ' 은(는) 렌탈 옵션표에서 자동 계산되어 무시합니다. (옵션 CSV 또는 상세 편집에서 수정)');
+        return;
+      }
       var raw = row[idx[k]], s = String(raw == null ? '' : raw).trim();
       if (s === '' && !F[k].emptyClears) return; // 비어 있으면 변경 없음 (가격류만 비움=상담 시 안내)
       var pr = F[k].parse(raw);
@@ -565,7 +749,7 @@ function renderPreview(res){
     h += '<div class="pv-wrap"><table class="pv-tbl"><thead><tr><th>제품</th><th>항목</th><th>변경 전</th><th>변경 후</th></tr></thead><tbody>' +
       res.changes.map(function(c){ return c.ch.map(function(x, i){
         return '<tr>' + (i === 0 ? '<td rowspan="' + c.ch.length + '"><b>' + esc(c.p.name) + '</b><br><small style="color:#8a94a6">' + esc(c.p.id) + '</small></td>' : '') +
-          '<td>' + esc(F[x.key].label) + '</td><td class="old">' + esc(fmt(x.key, x.before)) + '</td><td class="new">' + esc(fmt(x.key, x.after)) + '</td></tr>';
+          '<td>' + esc((F[x.key] ? F[x.key].label : '렌탈 옵션표')) + '</td><td class="old">' + esc(fmt(x.key, x.before)) + '</td><td class="new">' + esc(fmt(x.key, x.after)) + '</td></tr>';
       }).join(''); }).join('') + '</tbody></table></div>' +
       '<div class="row-btn" style="margin-top:10px"><button class="btn primary" id="btnApplyUp" type="button">미리보기대로 ' + res.changes.length + '개 제품에 적용</button><button class="btn ghost" id="btnCancelUp" type="button">취소</button></div>' +
       '<div class="note-sm">적용해도 아직 사이트에는 반영되지 않습니다. 확인 후 "게시 · 토큰" 탭에서 GitHub에 게시하세요.</div>';
@@ -576,7 +760,7 @@ $('#previewBox').addEventListener('click', function(e){
   if (e.target.id === 'btnCancelUp') { plan = null; $('#previewBox').innerHTML = ''; $('#fileIn').value = ''; }
   if (e.target.id === 'btnApplyUp' && plan) {
     var n = 0;
-    plan.changes.forEach(function(c){ var p = findP(c.p.id); if (!p) return; c.ch.forEach(function(x){ setField(p, x.key, clone(x.after)); n++; }); });
+    plan.changes.forEach(function(c){ var p = findP(c.p.id); if (!p) return; c.ch.forEach(function(x){ if (x.key === 'rentalOptions') { p.rentalOptions = clone(x.after); deriveRental(p); } else setField(p, x.key, clone(x.after)); n++; }); });
     saveDraft(); renderAll();
     $('#previewBox').innerHTML = '<p class="pv-sum"><span class="ok">' + plan.changes.length + '개 제품, ' + n + '개 값을 적용했습니다. "게시 · 토큰" 탭에서 GitHub에 게시하세요.</span></p>';
     plan = null; $('#fileIn').value = ''; toast('일괄 업로드 내용을 적용했습니다.');
@@ -607,7 +791,7 @@ function renderPublishSummary(){
   if (!$('#pubSummary')) return;
   var ch = changeList();
   $('#pubSummary').innerHTML = ch.length ? '<b>게시본 대비 변경 ' + ch.length + '건</b><ul style="padding-left:18px;margin-top:4px">' + ch.slice(0, 80).map(function(c){
-    return '<li>[' + c.kind + '] ' + esc(c.name) + (c.fields.length ? ' — ' + c.fields.map(function(k){ return esc(F[k] ? F[k].label : k); }).join(', ') : '') + '</li>'; }).join('') + (ch.length > 80 ? '<li>…외 ' + (ch.length - 80) + '건</li>' : '') + '</ul>' : '게시본과 동일합니다. (변경 사항 없음)';
+    return '<li>[' + c.kind + '] ' + esc(c.name) + (c.fields.length ? ' — ' + c.fields.map(function(k){ return esc(F[k] ? F[k].label : (k === 'rentalOptions' ? '렌탈 옵션표' : k === 'priceMatrix' ? '가격 매트릭스' : k === 'servicePrices' ? '서비스 가격표' : k)); }).join(', ') : '') + '</li>'; }).join('') + (ch.length > 80 ? '<li>…외 ' + (ch.length - 80) + '건</li>' : '') + '</ul>' : '게시본과 동일합니다. (변경 사항 없음)';
   var inp = $('#commitMsg'); if (inp && !inp.dataset.touched) inp.value = '상품 가격/정보 업데이트 (' + ch.length + '건) - 관리자 페이지';
 }
 $('#commitMsg').addEventListener('input', function(){ this.dataset.touched = '1'; });

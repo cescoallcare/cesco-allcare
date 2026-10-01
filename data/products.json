@@ -12,7 +12,7 @@
    "프리필터 · 기능성(유해가스) 필터 · 하이엔드 헤파필터 기본 구성",
    "헤파필터는 구리 항균 섬유로 제작(제품 설명 기준)",
    "극초미세먼지 감소율 시험 결과 공개(KOTITI)",
-   "렌탈 시 방문 관리, 필터 교체 주기 안내"
+   "의무사용기간·방문주기·월 요금은 아래 옵션표(플래너 제공 가격표) 기준"
   ],
   "spaces": "20평형 · 거실 / 큰 방 / 소형 사업장",
   "spaceKeys": [
@@ -68,23 +68,22 @@
   "nonMemberPrice": 1017000,
   "buyNote": "세스코몰 온라인 회원 등급가 기준(로그인 시 적용) · 케어십(방문관리) 포함 여부·옵션에 따라 달라질 수 있음",
   "buyUrl": "https://www.cescomall.co.kr/products/view/G2000001213",
-  "rentalMonthly": 31900,
-  "rentalBase": 35900,
-  "rentalContractMonths": 36,
+  "rentalMonthly": 22900,
+  "rentalBase": 26900,
+  "rentalContractMonths": 72,
   "rentalYears": [
    "3",
    "5",
    "6"
   ],
-  "rentalTotal": 1148400,
+  "rentalTotal": null,
   "visitCycles": [
    "4개월",
-   "12개월",
-   "12개월 (필터지급)"
+   "12개월"
   ],
-  "rentalNote": "프로모션 적용 후 월 렌탈료(의무사용 36개월 기준). 제휴카드 청구할인은 미포함이며, 약정기간·방문주기·옵션에 따라 달라질 수 있습니다.",
-  "careMethod": "세스코 방문 관리(렌탈) · 방문주기 4개월 / 12개월 / 12개월 (필터지급)",
-  "filterInfo": "프리필터·하이엔드 헤파필터는 서비스 방문 시 12개월 주기 교체(렌탈·케어십 이용 고객). 기능성(유해가스) 필터는 4개월 주기 자가교체 — 12개월 방문주기 선택 시 2개 추가 지급(세스코몰 안내 기준).",
+  "rentalNote": "월 렌탈료는 플래너 제공 가격표(2026-10-01 반영) 기준입니다. ‘이달의 판매가’는 온라인 노출가이고, 현장 할인가(단품·결합)와 재렌탈가는 방문 상담 시 적용되는 가격으로 안내합니다. 적용 조건과 최종 금액은 계약 시점에 상담으로 확인해 주세요.",
+  "careMethod": "세스코 방문 관리(렌탈) · 방문주기 4개월 / 12개월",
+  "filterInfo": "방문 관리 시 필터 교체·점검(방문주기별 세부 교체 주기는 상담 시 안내)",
   "subscribable": false,
   "subCycles": [],
   "subMonths": [],
@@ -100,6 +99,103 @@
    "name": "세스코몰(cescomall.co.kr)",
    "url": "https://www.cescomall.co.kr/products/view/G2000001213",
    "checkedAt": "2026-09-30"
+  },
+  "rentalOptions": [
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 35900,
+    "monthPrice": 31900,
+    "onsiteSingle": 27900,
+    "onsiteBundle": 26900,
+    "promo": null,
+    "rerental": 26900,
+    "rerentalPromo": 25900,
+    "note": "",
+    "src": "2-19"
+   },
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "12개월",
+    "variant": null,
+    "listPrice": 32900,
+    "monthPrice": 28900,
+    "onsiteSingle": 24900,
+    "onsiteBundle": 23900,
+    "promo": null,
+    "rerental": 23900,
+    "rerentalPromo": 22900,
+    "note": "",
+    "src": "2-20"
+   },
+   {
+    "period": 60,
+    "periodLabel": "60개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 31900,
+    "monthPrice": 27900,
+    "onsiteSingle": 23900,
+    "onsiteBundle": 22900,
+    "promo": null,
+    "rerental": 22900,
+    "rerentalPromo": 21900,
+    "note": "",
+    "src": "2-21"
+   },
+   {
+    "period": 60,
+    "periodLabel": "60개월",
+    "visit": "12개월",
+    "variant": null,
+    "listPrice": 28900,
+    "monthPrice": 24900,
+    "onsiteSingle": 20900,
+    "onsiteBundle": 19900,
+    "promo": null,
+    "rerental": 19900,
+    "rerentalPromo": 18900,
+    "note": "",
+    "src": "2-22"
+   },
+   {
+    "period": 72,
+    "periodLabel": "72개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 29900,
+    "monthPrice": 25900,
+    "onsiteSingle": 21900,
+    "onsiteBundle": 20900,
+    "promo": null,
+    "rerental": 20900,
+    "rerentalPromo": 19900,
+    "note": "",
+    "src": "2-23"
+   },
+   {
+    "period": 72,
+    "periodLabel": "72개월",
+    "visit": "12개월",
+    "variant": null,
+    "listPrice": 26900,
+    "monthPrice": 22900,
+    "onsiteSingle": 18900,
+    "onsiteBundle": 17900,
+    "promo": null,
+    "rerental": 17900,
+    "rerentalPromo": 16900,
+    "note": "",
+    "src": "2-24"
+   }
+  ],
+  "priceSource": {
+   "name": "플래너 제공 가격표",
+   "checkedAt": "2026-10-01",
+   "table": 2
   }
  },
  {
@@ -115,7 +211,7 @@
    "프리필터 · 기능성(유해가스) 필터 · 하이엔드 헤파필터 기본 구성",
    "구리 항균 섬유 헤파필터(제품 설명 기준)",
    "넓은 공간에 맞춘 25평형",
-   "렌탈 시 방문 관리"
+   "의무사용기간·방문주기·월 요금은 아래 옵션표(플래너 제공 가격표) 기준"
   ],
   "spaces": "25평형 · 넓은 거실 / 매장 / 사무실",
   "spaceKeys": [
@@ -171,23 +267,22 @@
   "nonMemberPrice": 1107000,
   "buyNote": "세스코몰 온라인 회원 등급가 기준(로그인 시 적용) · 케어십(방문관리) 포함 여부·옵션에 따라 달라질 수 있음",
   "buyUrl": "https://www.cescomall.co.kr/products/view/G2000001212",
-  "rentalMonthly": 34900,
-  "rentalBase": 38900,
-  "rentalContractMonths": 36,
+  "rentalMonthly": 25900,
+  "rentalBase": 29900,
+  "rentalContractMonths": 72,
   "rentalYears": [
    "3",
    "5",
    "6"
   ],
-  "rentalTotal": 1256400,
+  "rentalTotal": null,
   "visitCycles": [
    "4개월",
-   "12개월",
-   "12개월 (필터지급)"
+   "12개월"
   ],
-  "rentalNote": "프로모션 적용 후 월 렌탈료(의무사용 36개월 기준). 제휴카드 청구할인은 미포함이며, 약정기간·방문주기·옵션에 따라 달라질 수 있습니다.",
-  "careMethod": "세스코 방문 관리(렌탈) · 방문주기 4개월 / 12개월 / 12개월 (필터지급)",
-  "filterInfo": "프리필터·하이엔드 헤파필터는 서비스 방문 시 12개월 주기 교체(렌탈·케어십 이용 고객). 기능성(유해가스) 필터는 4개월 주기 자가교체(세스코몰 안내 기준).",
+  "rentalNote": "월 렌탈료는 플래너 제공 가격표(2026-10-01 반영) 기준입니다. ‘이달의 판매가’는 온라인 노출가이고, 현장 할인가(단품·결합)와 재렌탈가는 방문 상담 시 적용되는 가격으로 안내합니다. 적용 조건과 최종 금액은 계약 시점에 상담으로 확인해 주세요.",
+  "careMethod": "세스코 방문 관리(렌탈) · 방문주기 4개월 / 12개월",
+  "filterInfo": "방문 관리 시 필터 교체·점검(방문주기별 세부 교체 주기는 상담 시 안내)",
   "subscribable": false,
   "subCycles": [],
   "subMonths": [],
@@ -199,6 +294,103 @@
    "name": "세스코몰(cescomall.co.kr)",
    "url": "https://www.cescomall.co.kr/products/view/G2000001212",
    "checkedAt": "2026-09-30"
+  },
+  "rentalOptions": [
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 38900,
+    "monthPrice": 34900,
+    "onsiteSingle": 30900,
+    "onsiteBundle": 29900,
+    "promo": null,
+    "rerental": 29900,
+    "rerentalPromo": 28900,
+    "note": "",
+    "src": "2-13"
+   },
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "12개월",
+    "variant": null,
+    "listPrice": 35900,
+    "monthPrice": 31900,
+    "onsiteSingle": 27900,
+    "onsiteBundle": 26900,
+    "promo": null,
+    "rerental": 26900,
+    "rerentalPromo": 25900,
+    "note": "",
+    "src": "2-14"
+   },
+   {
+    "period": 60,
+    "periodLabel": "60개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 34900,
+    "monthPrice": 30900,
+    "onsiteSingle": 26900,
+    "onsiteBundle": 25900,
+    "promo": null,
+    "rerental": 25900,
+    "rerentalPromo": 24900,
+    "note": "",
+    "src": "2-15"
+   },
+   {
+    "period": 60,
+    "periodLabel": "60개월",
+    "visit": "12개월",
+    "variant": null,
+    "listPrice": 31900,
+    "monthPrice": 27900,
+    "onsiteSingle": 23900,
+    "onsiteBundle": 22900,
+    "promo": null,
+    "rerental": 22900,
+    "rerentalPromo": 21900,
+    "note": "",
+    "src": "2-16"
+   },
+   {
+    "period": 72,
+    "periodLabel": "72개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 32900,
+    "monthPrice": 28900,
+    "onsiteSingle": 24900,
+    "onsiteBundle": 23900,
+    "promo": null,
+    "rerental": 23900,
+    "rerentalPromo": 22900,
+    "note": "",
+    "src": "2-17"
+   },
+   {
+    "period": 72,
+    "periodLabel": "72개월",
+    "visit": "12개월",
+    "variant": null,
+    "listPrice": 29900,
+    "monthPrice": 25900,
+    "onsiteSingle": 21900,
+    "onsiteBundle": 20900,
+    "promo": null,
+    "rerental": 20900,
+    "rerentalPromo": 19900,
+    "note": "",
+    "src": "2-18"
+   }
+  ],
+  "priceSource": {
+   "name": "플래너 제공 가격표",
+   "checkedAt": "2026-10-01",
+   "table": 2
   }
  },
  {
@@ -215,7 +407,7 @@
    "판테온 트루살균 시리즈: 인플루엔자 바이러스 살균 시험(25평형 기준, 고려대 바이러스병 연구소 공동연구)",
    "부유 곰팡이 저감 성능 시험(한국건설생활환경시험연구원)",
    "하이엔드 헤파필터 · 기능성 필터 구성",
-   "렌탈 시 방문 관리"
+   "의무사용기간·방문주기·월 요금은 아래 옵션표(플래너 제공 가격표) 기준"
   ],
   "spaces": "20평형 · 거실 / 큰 방 / 소형 사업장",
   "spaceKeys": [
@@ -273,23 +465,22 @@
   "nonMemberPrice": 1437000,
   "buyNote": "세스코몰 온라인 회원 등급가 기준(로그인 시 적용) · 케어십(방문관리) 포함 여부·옵션에 따라 달라질 수 있음",
   "buyUrl": "https://www.cescomall.co.kr/products/view/G2000001211",
-  "rentalMonthly": 43900,
-  "rentalBase": 47900,
-  "rentalContractMonths": 36,
+  "rentalMonthly": 34900,
+  "rentalBase": 38900,
+  "rentalContractMonths": 72,
   "rentalYears": [
    "3",
    "5",
    "6"
   ],
-  "rentalTotal": 1580400,
+  "rentalTotal": null,
   "visitCycles": [
    "4개월",
-   "12개월",
-   "12개월 (필터지급)"
+   "12개월"
   ],
-  "rentalNote": "프로모션 적용 후 월 렌탈료(의무사용 36개월 기준). 제휴카드 청구할인은 미포함이며, 약정기간·방문주기·옵션에 따라 달라질 수 있습니다.",
-  "careMethod": "세스코 방문 관리(렌탈) · 방문주기 4개월 / 12개월 / 12개월 (필터지급)",
-  "filterInfo": "서비스 방문 시 필터 교체(방문주기 4개월/12개월 선택). 세부 교체 주기는 상담 시 안내.",
+  "rentalNote": "월 렌탈료는 플래너 제공 가격표(2026-10-01 반영) 기준입니다. ‘이달의 판매가’는 온라인 노출가이고, 현장 할인가(단품·결합)와 재렌탈가는 방문 상담 시 적용되는 가격으로 안내합니다. 적용 조건과 최종 금액은 계약 시점에 상담으로 확인해 주세요.",
+  "careMethod": "세스코 방문 관리(렌탈) · 방문주기 4개월 / 12개월",
+  "filterInfo": "방문 관리 시 필터 교체·점검(방문주기별 세부 교체 주기는 상담 시 안내)",
   "subscribable": false,
   "subCycles": [],
   "subMonths": [],
@@ -305,6 +496,103 @@
    "name": "세스코몰(cescomall.co.kr)",
    "url": "https://www.cescomall.co.kr/products/view/G2000001211",
    "checkedAt": "2026-09-30"
+  },
+  "rentalOptions": [
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 47900,
+    "monthPrice": 43900,
+    "onsiteSingle": 39900,
+    "onsiteBundle": 38900,
+    "promo": null,
+    "rerental": 38900,
+    "rerentalPromo": 37900,
+    "note": "",
+    "src": "2-7"
+   },
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "12개월",
+    "variant": null,
+    "listPrice": 44900,
+    "monthPrice": 40900,
+    "onsiteSingle": 36900,
+    "onsiteBundle": 35900,
+    "promo": null,
+    "rerental": 35900,
+    "rerentalPromo": 34900,
+    "note": "",
+    "src": "2-8"
+   },
+   {
+    "period": 60,
+    "periodLabel": "60개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 43900,
+    "monthPrice": 39900,
+    "onsiteSingle": 35900,
+    "onsiteBundle": 34900,
+    "promo": null,
+    "rerental": 34900,
+    "rerentalPromo": 33900,
+    "note": "",
+    "src": "2-9"
+   },
+   {
+    "period": 60,
+    "periodLabel": "60개월",
+    "visit": "12개월",
+    "variant": null,
+    "listPrice": 40900,
+    "monthPrice": 36900,
+    "onsiteSingle": 32900,
+    "onsiteBundle": 31900,
+    "promo": null,
+    "rerental": 31900,
+    "rerentalPromo": 30900,
+    "note": "",
+    "src": "2-10"
+   },
+   {
+    "period": 72,
+    "periodLabel": "72개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 41900,
+    "monthPrice": 37900,
+    "onsiteSingle": 33900,
+    "onsiteBundle": 32900,
+    "promo": null,
+    "rerental": 32900,
+    "rerentalPromo": 31900,
+    "note": "",
+    "src": "2-11"
+   },
+   {
+    "period": 72,
+    "periodLabel": "72개월",
+    "visit": "12개월",
+    "variant": null,
+    "listPrice": 38900,
+    "monthPrice": 34900,
+    "onsiteSingle": 30900,
+    "onsiteBundle": 29900,
+    "promo": null,
+    "rerental": 29900,
+    "rerentalPromo": 28900,
+    "note": "",
+    "src": "2-12"
+   }
+  ],
+  "priceSource": {
+   "name": "플래너 제공 가격표",
+   "checkedAt": "2026-10-01",
+   "table": 2
   }
  },
  {
@@ -321,7 +609,7 @@
    "공기 중 인플루엔자(H1N1) 바이러스 99.99% 살균(25평형 시험 완료, 고려대 바이러스병 연구소 공동연구)",
    "부유 곰팡이 저감 성능 시험(ISO 16000-43:2025에 준함)",
    "하이엔드 헤파필터 · 기능성 필터 구성",
-   "렌탈 시 방문 관리"
+   "의무사용기간·방문주기·월 요금은 아래 옵션표(플래너 제공 가격표) 기준"
   ],
   "spaces": "25평형 · 넓은 거실 / 매장 / 사무실",
   "spaceKeys": [
@@ -380,23 +668,22 @@
   "nonMemberPrice": 1527000,
   "buyNote": "세스코몰 온라인 회원 등급가 기준(로그인 시 적용) · 케어십(방문관리) 포함 여부·옵션에 따라 달라질 수 있음",
   "buyUrl": "https://www.cescomall.co.kr/products/view/G2000001210",
-  "rentalMonthly": 46900,
-  "rentalBase": 50900,
-  "rentalContractMonths": 36,
+  "rentalMonthly": 37900,
+  "rentalBase": 41900,
+  "rentalContractMonths": 72,
   "rentalYears": [
    "3",
    "5",
    "6"
   ],
-  "rentalTotal": 1688400,
+  "rentalTotal": null,
   "visitCycles": [
    "4개월",
-   "12개월",
-   "12개월 (필터지급)"
+   "12개월"
   ],
-  "rentalNote": "프로모션 적용 후 월 렌탈료(의무사용 36개월 기준). 제휴카드 청구할인은 미포함이며, 약정기간·방문주기·옵션에 따라 달라질 수 있습니다.",
-  "careMethod": "세스코 방문 관리(렌탈) · 방문주기 4개월 / 12개월 / 12개월 (필터지급)",
-  "filterInfo": "서비스 방문 시 필터 교체(방문주기 4개월/12개월 선택). 세부 교체 주기는 상담 시 안내.",
+  "rentalNote": "월 렌탈료는 플래너 제공 가격표(2026-10-01 반영) 기준입니다. ‘이달의 판매가’는 온라인 노출가이고, 현장 할인가(단품·결합)와 재렌탈가는 방문 상담 시 적용되는 가격으로 안내합니다. 적용 조건과 최종 금액은 계약 시점에 상담으로 확인해 주세요.",
+  "careMethod": "세스코 방문 관리(렌탈) · 방문주기 4개월 / 12개월",
+  "filterInfo": "방문 관리 시 필터 교체·점검(방문주기별 세부 교체 주기는 상담 시 안내)",
   "subscribable": false,
   "subCycles": [],
   "subMonths": [],
@@ -412,6 +699,103 @@
    "name": "세스코몰(cescomall.co.kr)",
    "url": "https://www.cescomall.co.kr/products/view/G2000001210",
    "checkedAt": "2026-09-30"
+  },
+  "rentalOptions": [
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 50900,
+    "monthPrice": 46900,
+    "onsiteSingle": 42900,
+    "onsiteBundle": 41900,
+    "promo": null,
+    "rerental": 41900,
+    "rerentalPromo": 40900,
+    "note": "",
+    "src": "2-1"
+   },
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "12개월",
+    "variant": null,
+    "listPrice": 47900,
+    "monthPrice": 43900,
+    "onsiteSingle": 39900,
+    "onsiteBundle": 38900,
+    "promo": null,
+    "rerental": 38900,
+    "rerentalPromo": 37900,
+    "note": "",
+    "src": "2-2"
+   },
+   {
+    "period": 60,
+    "periodLabel": "60개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 46900,
+    "monthPrice": 42900,
+    "onsiteSingle": 38900,
+    "onsiteBundle": 37900,
+    "promo": null,
+    "rerental": 37900,
+    "rerentalPromo": 36900,
+    "note": "",
+    "src": "2-3"
+   },
+   {
+    "period": 60,
+    "periodLabel": "60개월",
+    "visit": "12개월",
+    "variant": null,
+    "listPrice": 43900,
+    "monthPrice": 39900,
+    "onsiteSingle": 35900,
+    "onsiteBundle": 34900,
+    "promo": null,
+    "rerental": 34900,
+    "rerentalPromo": 33900,
+    "note": "",
+    "src": "2-4"
+   },
+   {
+    "period": 72,
+    "periodLabel": "72개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 44900,
+    "monthPrice": 40900,
+    "onsiteSingle": 36900,
+    "onsiteBundle": 35900,
+    "promo": null,
+    "rerental": 35900,
+    "rerentalPromo": 34900,
+    "note": "",
+    "src": "2-5"
+   },
+   {
+    "period": 72,
+    "periodLabel": "72개월",
+    "visit": "12개월",
+    "variant": null,
+    "listPrice": 41900,
+    "monthPrice": 37900,
+    "onsiteSingle": 33900,
+    "onsiteBundle": 32900,
+    "promo": null,
+    "rerental": 32900,
+    "rerentalPromo": 31900,
+    "note": "",
+    "src": "2-6"
+   }
+  ],
+  "priceSource": {
+   "name": "플래너 제공 가격표",
+   "checkedAt": "2026-10-01",
+   "table": 2
   }
  },
  {
@@ -427,7 +811,7 @@
    "미세먼지 · 헤파필터 · 프리필터 · 탈취필터 구성",
    "33㎡~66㎡ 적용",
    "27W 저소비전력, 340×267×505mm 컴팩트 사이즈",
-   "렌탈 시 방문 관리(4개월/12개월 필터지급 선택)"
+   "의무사용기간·방문주기·월 요금은 아래 옵션표(플래너 제공 가격표) 기준"
   ],
   "spaces": "33~66㎡(10~20평) · 방 / 작은 거실 / 원룸",
   "spaceKeys": [
@@ -479,21 +863,21 @@
   "nonMemberPrice": 650000,
   "buyNote": "세스코몰 온라인 회원 등급가 기준(로그인 시 적용) · 케어십(방문관리) 포함 여부·옵션에 따라 달라질 수 있음",
   "buyUrl": "https://www.cescomall.co.kr/products/view/G2000000530",
-  "rentalMonthly": 29500,
-  "rentalBase": 32500,
-  "rentalContractMonths": 36,
+  "rentalMonthly": 23500,
+  "rentalBase": 26500,
+  "rentalContractMonths": 60,
   "rentalYears": [
    "3",
    "5"
   ],
-  "rentalTotal": 1062000,
+  "rentalTotal": null,
   "visitCycles": [
    "4개월",
-   "12개월 (필터지급)"
+   "12개월 (교체필터:택배/달월)"
   ],
-  "rentalNote": "프로모션 적용 후 월 렌탈료(의무사용 36개월 기준). 제휴카드 청구할인은 미포함이며, 약정기간·방문주기·옵션에 따라 달라질 수 있습니다.",
-  "careMethod": "세스코 방문 관리(렌탈) · 방문주기 4개월 / 12개월 (필터지급)",
-  "filterInfo": "서비스 방문 시 필터 교체(방문주기 4개월 또는 12개월·필터지급 선택). 세부 교체 주기는 상담 시 안내.",
+  "rentalNote": "월 렌탈료는 플래너 제공 가격표(2026-10-01 반영) 기준입니다. ‘이달의 판매가’는 온라인 노출가이고, 현장 할인가(단품·결합)와 재렌탈가는 방문 상담 시 적용되는 가격으로 안내합니다. 적용 조건과 최종 금액은 계약 시점에 상담으로 확인해 주세요.",
+  "careMethod": "세스코 방문 관리(렌탈) · 방문주기 4개월 / 12개월 (교체필터:택배/달월)",
+  "filterInfo": "방문 관리 시 필터 교체·점검(방문주기별 세부 교체 주기는 상담 시 안내)",
   "subscribable": false,
   "subCycles": [],
   "subMonths": [],
@@ -505,6 +889,73 @@
    "name": "세스코몰(cescomall.co.kr)",
    "url": "https://www.cescomall.co.kr/products/view/G2000000530",
    "checkedAt": "2026-09-30"
+  },
+  "rentalOptions": [
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 32500,
+    "monthPrice": 29500,
+    "onsiteSingle": 27500,
+    "onsiteBundle": 26500,
+    "promo": null,
+    "rerental": 26500,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "2-33"
+   },
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "12개월 (교체필터:택배/달월)",
+    "variant": null,
+    "listPrice": 27500,
+    "monthPrice": 24500,
+    "onsiteSingle": 22500,
+    "onsiteBundle": 21500,
+    "promo": null,
+    "rerental": 21500,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "2-34"
+   },
+   {
+    "period": 60,
+    "periodLabel": "60개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 30000,
+    "monthPrice": 27000,
+    "onsiteSingle": 21900,
+    "onsiteBundle": 20900,
+    "promo": null,
+    "rerental": 20900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "2-35"
+   },
+   {
+    "period": 60,
+    "periodLabel": "60개월",
+    "visit": "12개월 (교체필터:택배/달월)",
+    "variant": null,
+    "listPrice": 26500,
+    "monthPrice": 23500,
+    "onsiteSingle": 18400,
+    "onsiteBundle": 17400,
+    "promo": null,
+    "rerental": 17400,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "2-36"
+   }
+  ],
+  "priceSource": {
+   "name": "플래너 제공 가격표",
+   "checkedAt": "2026-10-01",
+   "table": 2
   }
  },
  {
@@ -520,7 +971,7 @@
    "휘발성 유기화합물 등 보이지 않는 유해 물질 감지",
    "바이러스·세균·곰팡이 증식 억제 3UP 필터 시스템",
    "활성탄 탈취 필터로 악취·음식 냄새 케어(펫 필터 등 선택형 필터 운영 — 세스코몰 기준)",
-   "렌탈 시 방문 관리"
+   "의무사용기간·방문주기·월 요금은 아래 옵션표(플래너 제공 가격표) 기준"
   ],
   "spaces": "10~20평 미만 · 방 / 주방 인접 거실",
   "spaceKeys": [
@@ -573,20 +1024,20 @@
   "nonMemberPrice": 700000,
   "buyNote": "세스코몰 온라인 회원 등급가 기준(로그인 시 적용) · 케어십(방문관리) 포함 여부·옵션에 따라 달라질 수 있음",
   "buyUrl": "https://www.cescomall.co.kr/products/view/G2000000784",
-  "rentalMonthly": 30900,
-  "rentalBase": 34900,
-  "rentalContractMonths": 36,
+  "rentalMonthly": 23900,
+  "rentalBase": 27900,
+  "rentalContractMonths": 60,
   "rentalYears": [
    "3",
    "5"
   ],
-  "rentalTotal": 1112400,
+  "rentalTotal": null,
   "visitCycles": [
    "4개월",
-   "12개월 (필터지급)"
+   "12개월 (교체필터:택배/달월)"
   ],
-  "rentalNote": "프로모션 적용 후 월 렌탈료(의무사용 36개월 기준). 제휴카드 청구할인은 미포함이며, 약정기간·방문주기·옵션에 따라 달라질 수 있습니다.",
-  "careMethod": "세스코 방문 관리(렌탈) · 방문주기 4개월 / 12개월 (필터지급)",
+  "rentalNote": "월 렌탈료는 플래너 제공 가격표(2026-10-01 반영) 기준입니다. ‘이달의 판매가’는 온라인 노출가이고, 현장 할인가(단품·결합)와 재렌탈가는 방문 상담 시 적용되는 가격으로 안내합니다. 적용 조건과 최종 금액은 계약 시점에 상담으로 확인해 주세요.",
+  "careMethod": "세스코 방문 관리(렌탈) · 방문주기 4개월 / 12개월 (교체필터:택배/달월)",
   "filterInfo": "필터 종류(유해가스·알레르겐·오일미스트·펫 등)는 사용 환경에 따라 선택 — 교체 주기는 상담 시 안내.",
   "subscribable": false,
   "subCycles": [],
@@ -603,6 +1054,73 @@
    "name": "세스코몰(cescomall.co.kr)",
    "url": "https://www.cescomall.co.kr/products/view/G2000000784",
    "checkedAt": "2026-09-30"
+  },
+  "rentalOptions": [
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 34900,
+    "monthPrice": 30900,
+    "onsiteSingle": 28900,
+    "onsiteBundle": 27900,
+    "promo": null,
+    "rerental": 27900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "2-25"
+   },
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "12개월 (교체필터:택배/달월)",
+    "variant": null,
+    "listPrice": 32900,
+    "monthPrice": 28900,
+    "onsiteSingle": 26900,
+    "onsiteBundle": 25900,
+    "promo": null,
+    "rerental": 25900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "2-26"
+   },
+   {
+    "period": 60,
+    "periodLabel": "60개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 29900,
+    "monthPrice": 25900,
+    "onsiteSingle": 23900,
+    "onsiteBundle": 22900,
+    "promo": null,
+    "rerental": 22900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "2-27"
+   },
+   {
+    "period": 60,
+    "periodLabel": "60개월",
+    "visit": "12개월 (교체필터:택배/달월)",
+    "variant": null,
+    "listPrice": 27900,
+    "monthPrice": 23900,
+    "onsiteSingle": 21900,
+    "onsiteBundle": 20900,
+    "promo": null,
+    "rerental": 20900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "2-28"
+   }
+  ],
+  "priceSource": {
+   "name": "플래너 제공 가격표",
+   "checkedAt": "2026-10-01",
+   "table": 2
   }
  },
  {
@@ -702,7 +1220,7 @@
    "미세먼지 · 헤파필터 · 프리필터 · 탈취필터 구성",
    "99㎡~132㎡ 적용",
    "58W · 에너지소비효율 2등급",
-   "렌탈 시 방문 관리"
+   "의무사용기간·방문주기·월 요금은 아래 옵션표(플래너 제공 가격표) 기준"
   ],
   "spaces": "99~132㎡(30~40평) · 대형 거실 / 매장 / 사무실",
   "spaceKeys": [
@@ -754,21 +1272,21 @@
   "nonMemberPrice": 1285000,
   "buyNote": "세스코몰 온라인 회원 등급가 기준(로그인 시 적용) · 케어십(방문관리) 포함 여부·옵션에 따라 달라질 수 있음",
   "buyUrl": "https://www.cescomall.co.kr/products/view/G2000001247",
-  "rentalMonthly": 41900,
-  "rentalBase": 45900,
-  "rentalContractMonths": 36,
+  "rentalMonthly": 34900,
+  "rentalBase": 38900,
+  "rentalContractMonths": 60,
   "rentalYears": [
    "3",
    "5"
   ],
-  "rentalTotal": 1508400,
+  "rentalTotal": null,
   "visitCycles": [
    "4개월",
-   "12개월 (필터지급)"
+   "12개월 (교체필터:택배/달월)"
   ],
-  "rentalNote": "프로모션 적용 후 월 렌탈료(의무사용 36개월 기준). 제휴카드 청구할인은 미포함이며, 약정기간·방문주기·옵션에 따라 달라질 수 있습니다.",
-  "careMethod": "세스코 방문 관리(렌탈) · 방문주기 4개월 / 12개월 (필터지급)",
-  "filterInfo": "서비스 방문 시 필터 교체(방문주기 4개월 또는 12개월·필터지급 선택). 세부 교체 주기는 상담 시 안내.",
+  "rentalNote": "월 렌탈료는 플래너 제공 가격표(2026-10-01 반영) 기준입니다. ‘이달의 판매가’는 온라인 노출가이고, 현장 할인가(단품·결합)와 재렌탈가는 방문 상담 시 적용되는 가격으로 안내합니다. 적용 조건과 최종 금액은 계약 시점에 상담으로 확인해 주세요.",
+  "careMethod": "세스코 방문 관리(렌탈) · 방문주기 4개월 / 12개월 (교체필터:택배/달월)",
+  "filterInfo": "방문 관리 시 필터 교체·점검(방문주기별 세부 교체 주기는 상담 시 안내)",
   "subscribable": false,
   "subCycles": [],
   "subMonths": [],
@@ -784,6 +1302,73 @@
    "name": "세스코몰(cescomall.co.kr)",
    "url": "https://www.cescomall.co.kr/products/view/G2000001247",
    "checkedAt": "2026-09-30"
+  },
+  "rentalOptions": [
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 45900,
+    "monthPrice": 41900,
+    "onsiteSingle": 35900,
+    "onsiteBundle": 34900,
+    "promo": null,
+    "rerental": 34900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "2-29"
+   },
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "12개월 (교체필터:택배/달월)",
+    "variant": null,
+    "listPrice": 43900,
+    "monthPrice": 39900,
+    "onsiteSingle": 33900,
+    "onsiteBundle": 32900,
+    "promo": null,
+    "rerental": 32900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "2-30"
+   },
+   {
+    "period": 60,
+    "periodLabel": "60개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 40900,
+    "monthPrice": 36900,
+    "onsiteSingle": 29900,
+    "onsiteBundle": 28900,
+    "promo": null,
+    "rerental": 28900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "2-31"
+   },
+   {
+    "period": 60,
+    "periodLabel": "60개월",
+    "visit": "12개월 (교체필터:택배/달월)",
+    "variant": null,
+    "listPrice": 38900,
+    "monthPrice": 34900,
+    "onsiteSingle": 27900,
+    "onsiteBundle": 26900,
+    "promo": null,
+    "rerental": 26900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "2-32"
+   }
+  ],
+  "priceSource": {
+   "name": "플래너 제공 가격표",
+   "checkedAt": "2026-10-01",
+   "table": 2
   }
  },
  {
@@ -800,7 +1385,7 @@
    "공기 청정 + 살균 동시 수행",
    "극초미세먼지 99.9%, 바이러스 99.98%까지 제거 가능(제품 설명 기준)",
    "UV 살균 엔진 탑재",
-   "렌탈 시 3년/5년 약정, 4개월 방문 관리"
+   "의무사용기간·방문주기·월 요금은 아래 옵션표(플래너 제공 가격표) 기준"
   ],
   "spaces": "10~20평 미만 · 방 / 진료실 / 작은 매장",
   "spaceKeys": [
@@ -851,20 +1436,20 @@
   "nonMemberPrice": null,
   "buyNote": "세스코몰 표시가 기준 · 케어십(방문관리) 포함 여부·옵션에 따라 달라질 수 있음",
   "buyUrl": "https://www.cescomall.co.kr/products/view/G2000000424",
-  "rentalMonthly": 34900,
-  "rentalBase": 50900,
-  "rentalContractMonths": 36,
+  "rentalMonthly": 44900,
+  "rentalBase": 48900,
+  "rentalContractMonths": 60,
   "rentalYears": [
    "3",
    "5"
   ],
-  "rentalTotal": 1256400,
+  "rentalTotal": null,
   "visitCycles": [
    "4개월"
   ],
-  "rentalNote": "프로모션 적용 후 월 렌탈료(의무사용 36개월 기준). 제휴카드 청구할인은 미포함이며, 약정기간·방문주기·옵션에 따라 달라질 수 있습니다.",
+  "rentalNote": "월 렌탈료는 플래너 제공 가격표(2026-10-01 반영) 기준입니다. ‘이달의 판매가’는 온라인 노출가이고, 현장 할인가(단품·결합)와 재렌탈가는 방문 상담 시 적용되는 가격으로 안내합니다. 적용 조건과 최종 금액은 계약 시점에 상담으로 확인해 주세요.",
   "careMethod": "세스코 방문 관리(렌탈) · 방문주기 4개월",
-  "filterInfo": "서비스 방문(4개월 주기) 시 관리. 세부 교체 주기는 상담 시 안내.",
+  "filterInfo": "방문 관리 시 필터 교체·점검(방문주기별 세부 교체 주기는 상담 시 안내)",
   "subscribable": false,
   "subCycles": [],
   "subMonths": [],
@@ -880,6 +1465,43 @@
    "name": "세스코몰(cescomall.co.kr)",
    "url": "https://www.cescomall.co.kr/products/view/G2000000424",
    "checkedAt": "2026-09-30"
+  },
+  "rentalOptions": [
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 50900,
+    "monthPrice": 46900,
+    "onsiteSingle": 44900,
+    "onsiteBundle": 34900,
+    "promo": null,
+    "rerental": 34900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "2-37"
+   },
+   {
+    "period": 60,
+    "periodLabel": "60개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 48900,
+    "monthPrice": 44900,
+    "onsiteSingle": 42900,
+    "onsiteBundle": 32900,
+    "promo": null,
+    "rerental": 32900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "2-38"
+   }
+  ],
+  "priceSource": {
+   "name": "플래너 제공 가격표",
+   "checkedAt": "2026-10-01",
+   "table": 2
   }
  },
  {
@@ -945,21 +1567,21 @@
   "nonMemberPrice": 1692000,
   "buyNote": "세스코몰 온라인 회원 등급가 기준(로그인 시 적용) · 케어십(방문관리) 포함 여부·옵션에 따라 달라질 수 있음",
   "buyUrl": "https://www.cescomall.co.kr/products/view/G2000000521",
-  "rentalMonthly": 36900,
-  "rentalBase": 45900,
-  "rentalContractMonths": 36,
+  "rentalMonthly": 29900,
+  "rentalBase": 37900,
+  "rentalContractMonths": 60,
   "rentalYears": [
    "3",
    "5"
   ],
-  "rentalTotal": 1328400,
+  "rentalTotal": null,
   "visitCycles": [
    "4개월",
-   "12개월 (필터지급)"
+   "12개월"
   ],
-  "rentalNote": "프로모션 적용 후 월 렌탈료(의무사용 36개월 기준). 제휴카드 청구할인은 미포함이며, 약정기간·방문주기·옵션에 따라 달라질 수 있습니다.",
-  "careMethod": "세스코 방문 관리(렌탈) · 방문주기 4개월 / 12개월 (필터지급)",
-  "filterInfo": "방문 관리 시 램프·프리필터 점검(4개월/12개월 필터지급). 세부 주기는 상담 시 안내.",
+  "rentalNote": "월 렌탈료는 플래너 제공 가격표(2026-10-01 반영) 기준입니다. ‘이달의 판매가’는 온라인 노출가이고, 현장 할인가(단품·결합)와 재렌탈가는 방문 상담 시 적용되는 가격으로 안내합니다. 적용 조건과 최종 금액은 계약 시점에 상담으로 확인해 주세요.",
+  "careMethod": "세스코 방문 관리(렌탈) · 방문주기 4개월 / 12개월",
+  "filterInfo": "방문 관리 시 필터 교체·점검(방문주기별 세부 교체 주기는 상담 시 안내)",
   "subscribable": false,
   "subCycles": [],
   "subMonths": [],
@@ -975,6 +1597,73 @@
    "name": "세스코몰(cescomall.co.kr)",
    "url": "https://www.cescomall.co.kr/products/view/G2000000521",
    "checkedAt": "2026-09-30"
+  },
+  "rentalOptions": [
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 45900,
+    "monthPrice": 36900,
+    "onsiteSingle": 34900,
+    "onsiteBundle": 33900,
+    "promo": null,
+    "rerental": 33900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "2-40"
+   },
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "12개월",
+    "variant": null,
+    "listPrice": 43900,
+    "monthPrice": 34900,
+    "onsiteSingle": 32900,
+    "onsiteBundle": 31900,
+    "promo": null,
+    "rerental": 31900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "2-41"
+   },
+   {
+    "period": 60,
+    "periodLabel": "60개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 39900,
+    "monthPrice": 31900,
+    "onsiteSingle": 29900,
+    "onsiteBundle": 28900,
+    "promo": null,
+    "rerental": 28900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "2-42"
+   },
+   {
+    "period": 60,
+    "periodLabel": "60개월",
+    "visit": "12개월",
+    "variant": null,
+    "listPrice": 37900,
+    "monthPrice": 29900,
+    "onsiteSingle": 27900,
+    "onsiteBundle": 26900,
+    "promo": null,
+    "rerental": 26900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "2-43"
+   }
+  ],
+  "priceSource": {
+   "name": "플래너 제공 가격표",
+   "checkedAt": "2026-10-01",
+   "table": 2
   }
  },
  {
@@ -1044,22 +1733,22 @@
   "nonMemberPrice": 867000,
   "buyNote": "세스코몰 온라인 회원 등급가 기준(로그인 시 적용) · 케어십(방문관리) 포함 여부·옵션에 따라 달라질 수 있음",
   "buyUrl": "https://www.cescomall.co.kr/products/view/G2000000429",
-  "rentalMonthly": 29900,
-  "rentalBase": 37900,
-  "rentalContractMonths": 36,
+  "rentalMonthly": 22900,
+  "rentalBase": 28900,
+  "rentalContractMonths": 72,
   "rentalYears": [
    "3",
    "5",
    "6"
   ],
-  "rentalTotal": 1076400,
+  "rentalTotal": null,
   "visitCycles": [
    "4개월",
-   "12개월 (필터지급)"
+   "12개월"
   ],
-  "rentalNote": "프로모션 적용 후 월 렌탈료(의무사용 36개월 기준). 제휴카드 청구할인은 미포함이며, 약정기간·방문주기·옵션에 따라 달라질 수 있습니다.",
-  "careMethod": "세스코 방문 관리(렌탈) · 방문주기 4개월 / 12개월 (필터지급)",
-  "filterInfo": "방문 관리 시 램프 등 점검(4개월/12개월 필터지급). 세부 주기는 상담 시 안내.",
+  "rentalNote": "월 렌탈료는 플래너 제공 가격표(2026-10-01 반영) 기준입니다. ‘이달의 판매가’는 온라인 노출가이고, 현장 할인가(단품·결합)와 재렌탈가는 방문 상담 시 적용되는 가격으로 안내합니다. 적용 조건과 최종 금액은 계약 시점에 상담으로 확인해 주세요.",
+  "careMethod": "세스코 방문 관리(렌탈) · 방문주기 4개월 / 12개월",
+  "filterInfo": "방문 관리 시 필터 교체·점검(방문주기별 세부 교체 주기는 상담 시 안내)",
   "subscribable": false,
   "subCycles": [],
   "subMonths": [],
@@ -1075,6 +1764,103 @@
    "name": "세스코몰(cescomall.co.kr)",
    "url": "https://www.cescomall.co.kr/products/view/G2000000429",
    "checkedAt": "2026-09-30"
+  },
+  "rentalOptions": [
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 37900,
+    "monthPrice": 29900,
+    "onsiteSingle": 27900,
+    "onsiteBundle": 26900,
+    "promo": null,
+    "rerental": 26900,
+    "rerentalPromo": 25900,
+    "note": "",
+    "src": "2-44"
+   },
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "12개월",
+    "variant": null,
+    "listPrice": 35900,
+    "monthPrice": 28900,
+    "onsiteSingle": 26900,
+    "onsiteBundle": 25900,
+    "promo": null,
+    "rerental": 25900,
+    "rerentalPromo": 24900,
+    "note": "",
+    "src": "2-45"
+   },
+   {
+    "period": 60,
+    "periodLabel": "60개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 32900,
+    "monthPrice": 25900,
+    "onsiteSingle": 23900,
+    "onsiteBundle": 20900,
+    "promo": 19900,
+    "rerental": 20900,
+    "rerentalPromo": 19900,
+    "note": "",
+    "src": "2-46"
+   },
+   {
+    "period": 60,
+    "periodLabel": "60개월",
+    "visit": "12개월",
+    "variant": null,
+    "listPrice": 30900,
+    "monthPrice": 24900,
+    "onsiteSingle": 22900,
+    "onsiteBundle": 19900,
+    "promo": 14900,
+    "rerental": 19900,
+    "rerentalPromo": 18900,
+    "note": "",
+    "src": "2-47"
+   },
+   {
+    "period": 72,
+    "periodLabel": "72개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 30900,
+    "monthPrice": 23900,
+    "onsiteSingle": 21900,
+    "onsiteBundle": 18900,
+    "promo": 13900,
+    "rerental": 18900,
+    "rerentalPromo": 17900,
+    "note": "",
+    "src": "2-48"
+   },
+   {
+    "period": 72,
+    "periodLabel": "72개월",
+    "visit": "12개월",
+    "variant": null,
+    "listPrice": 28900,
+    "monthPrice": 22900,
+    "onsiteSingle": 20900,
+    "onsiteBundle": 17900,
+    "promo": 9900,
+    "rerental": 17900,
+    "rerentalPromo": 16900,
+    "note": "",
+    "src": "2-49"
+   }
+  ],
+  "priceSource": {
+   "name": "플래너 제공 가격표",
+   "checkedAt": "2026-10-01",
+   "table": 2
   }
  },
  {
@@ -1138,15 +1924,13 @@
   "buyUrl": "https://www.cescomall.co.kr/products/view/G2000001033",
   "rentalMonthly": 26900,
   "rentalBase": 27900,
-  "rentalContractMonths": 36,
-  "rentalYears": [
-   "3"
-  ],
-  "rentalTotal": 968400,
+  "rentalContractMonths": null,
+  "rentalYears": [],
+  "rentalTotal": null,
   "visitCycles": [
    "2개월"
   ],
-  "rentalNote": "프로모션 적용 후 월 렌탈료(의무사용 36개월 기준). 제휴카드 청구할인은 미포함이며, 약정기간·방문주기·옵션에 따라 달라질 수 있습니다.",
+  "rentalNote": "월 렌탈료는 플래너 제공 가격표(2026-10-01 반영) 기준입니다. ‘이달의 판매가’는 온라인 노출가이고, 현장 할인가(단품·결합)와 재렌탈가는 방문 상담 시 적용되는 가격으로 안내합니다. 적용 조건과 최종 금액은 계약 시점에 상담으로 확인해 주세요.",
   "careMethod": "세스코 방문 관리(렌탈) · 방문주기 2개월",
   "filterInfo": "상담 시 안내",
   "subscribable": false,
@@ -1161,7 +1945,29 @@
    "url": "https://www.cescomall.co.kr/products/view/G2000001033",
    "checkedAt": "2026-09-30"
   },
-  "detailNote": "이 상품은 사업자 고객 대상 서비스입니다(세스코몰 안내: 가정집 고객 대상 렌탈 계약 중단 / 사업자 인증 후 계약 가능)."
+  "detailNote": "이 상품은 사업자 고객 대상 서비스입니다(세스코몰 안내: 가정집 고객 대상 렌탈 계약 중단 / 사업자 인증 후 계약 가능).",
+  "rentalOptions": [
+   {
+    "period": null,
+    "periodLabel": "-",
+    "visit": "2개월",
+    "variant": null,
+    "listPrice": 27900,
+    "monthPrice": 26900,
+    "onsiteSingle": 24900,
+    "onsiteBundle": 19900,
+    "promo": null,
+    "rerental": null,
+    "rerentalPromo": null,
+    "note": "* 단독계약 가능 / 위약 시 설치비 청구",
+    "src": "2-39"
+   }
+  ],
+  "priceSource": {
+   "name": "플래너 제공 가격표",
+   "checkedAt": "2026-10-01",
+   "table": 2
+  }
  },
  {
   "id": "G2000001719",
@@ -1173,9 +1979,8 @@
   ],
   "description": "공간 향기 솔루션 월 서비스 상품(36개월).",
   "features": [
-   "월 서비스 형태(의무사용 36개월)",
-   "방문주기 1개월 또는 2개월 선택",
-   "세부 사양은 상담 시 안내"
+   "세부 사양은 상담 시 안내",
+   "의무사용기간·방문주기·월 요금은 아래 옵션표(플래너 제공 가격표) 기준"
   ],
   "spaces": "매장 / 로비 / 사무실 등 향기 연출 공간",
   "spaceKeys": [
@@ -1215,18 +2020,18 @@
   "nonMemberPrice": null,
   "buyNote": "렌탈(월 서비스) 전용 상품 — 별도 판매가 없음(세스코몰 안내)",
   "buyUrl": "https://www.cescomall.co.kr/products/view/G2000001719",
-  "rentalMonthly": 139900,
-  "rentalBase": 150900,
+  "rentalMonthly": 65900,
+  "rentalBase": 70900,
   "rentalContractMonths": 36,
   "rentalYears": [
    "3"
   ],
-  "rentalTotal": 5036400,
+  "rentalTotal": null,
   "visitCycles": [
    "1개월",
    "2개월"
   ],
-  "rentalNote": "프로모션 적용 후 월 렌탈료(의무사용 36개월 기준). 제휴카드 청구할인은 미포함이며, 약정기간·방문주기·옵션에 따라 달라질 수 있습니다.",
+  "rentalNote": "월 렌탈료는 플래너 제공 가격표(2026-10-01 반영) 기준입니다. ‘이달의 판매가’는 온라인 노출가이고, 현장 할인가(단품·결합)와 재렌탈가는 방문 상담 시 적용되는 가격으로 안내합니다. 적용 조건과 최종 금액은 계약 시점에 상담으로 확인해 주세요.",
   "careMethod": "세스코 방문 관리(렌탈) · 방문주기 1개월 / 2개월",
   "filterInfo": "상담 시 안내",
   "subscribable": false,
@@ -1241,7 +2046,44 @@
    "url": "https://www.cescomall.co.kr/products/view/G2000001719",
    "checkedAt": "2026-09-30"
   },
-  "detailNote": "이 상품은 월 서비스 형태로 운영되며, 세부 조건은 상담 시 안내드립니다."
+  "detailNote": "이 상품은 월 서비스 형태로 운영되며, 세부 조건은 상담 시 안내드립니다.",
+  "rentalOptions": [
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "1개월",
+    "variant": null,
+    "listPrice": 110900,
+    "monthPrice": 99900,
+    "onsiteSingle": 86900,
+    "onsiteBundle": 81900,
+    "promo": null,
+    "rerental": 81900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "3-30"
+   },
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "2개월",
+    "variant": null,
+    "listPrice": 70900,
+    "monthPrice": 65900,
+    "onsiteSingle": 55900,
+    "onsiteBundle": 50900,
+    "promo": null,
+    "rerental": 50900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "3-31"
+   }
+  ],
+  "priceSource": {
+   "name": "플래너 제공 가격표",
+   "checkedAt": "2026-10-01",
+   "table": 3
+  }
  },
  {
   "id": "G2000001175",
@@ -1427,7 +2269,7 @@
    "초슬림 23cm · 스탠드형",
    "전체 스테인리스 저수조 탱크",
    "2way 출수 레버 · 개방형 설계 · 온수 잠금 버튼",
-   "렌탈 시 4개월 방문 관리"
+   "의무사용기간·방문주기·월 요금은 아래 옵션표(플래너 제공 가격표) 기준"
   ],
   "spaces": "주방 / 거실 / 사무실 (좁은 공간 OK)",
   "spaceKeys": [],
@@ -1473,20 +2315,20 @@
   "nonMemberPrice": 987000,
   "buyNote": "세스코몰 온라인 회원 등급가 기준(로그인 시 적용) · 케어십(방문관리) 포함 여부·옵션에 따라 달라질 수 있음",
   "buyUrl": "https://www.cescomall.co.kr/products/view/G2000000556",
-  "rentalMonthly": 25900,
-  "rentalBase": 29900,
-  "rentalContractMonths": 36,
+  "rentalMonthly": 21900,
+  "rentalBase": 25900,
+  "rentalContractMonths": 60,
   "rentalYears": [
    "3",
    "5"
   ],
-  "rentalTotal": 932400,
+  "rentalTotal": null,
   "visitCycles": [
    "4개월"
   ],
-  "rentalNote": "프로모션 적용 후 월 렌탈료(의무사용 36개월 기준). 제휴카드 청구할인은 미포함이며, 약정기간·방문주기·옵션에 따라 달라질 수 있습니다.",
+  "rentalNote": "월 렌탈료는 플래너 제공 가격표(2026-10-01 반영) 기준입니다. ‘이달의 판매가’는 온라인 노출가이고, 현장 할인가(단품·결합)와 재렌탈가는 방문 상담 시 적용되는 가격으로 안내합니다. 적용 조건과 최종 금액은 계약 시점에 상담으로 확인해 주세요.",
   "careMethod": "세스코 방문 관리(렌탈) · 방문주기 4개월",
-  "filterInfo": "렌탈 방문 관리(4개월 주기) 시 필터 교체 · 세부 교체 주기는 상담 시 안내.",
+  "filterInfo": "방문 관리 시 필터 교체·점검(방문주기별 세부 교체 주기는 상담 시 안내)",
   "subscribable": false,
   "subCycles": [],
   "subMonths": [],
@@ -1502,6 +2344,43 @@
    "name": "세스코몰(cescomall.co.kr)",
    "url": "https://www.cescomall.co.kr/products/view/G2000000556",
    "checkedAt": "2026-09-30"
+  },
+  "rentalOptions": [
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 29900,
+    "monthPrice": 25900,
+    "onsiteSingle": 20900,
+    "onsiteBundle": 18900,
+    "promo": null,
+    "rerental": 18900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "1-31"
+   },
+   {
+    "period": 60,
+    "periodLabel": "60개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 25900,
+    "monthPrice": 21900,
+    "onsiteSingle": 17900,
+    "onsiteBundle": 15900,
+    "promo": null,
+    "rerental": 15900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "1-32"
+   }
+  ],
+  "priceSource": {
+   "name": "플래너 제공 가격표",
+   "checkedAt": "2026-10-01",
+   "table": 1
   }
  },
  {
@@ -1517,7 +2396,7 @@
    "UF 중공사막 필터 방식",
    "스탠드형 슬림 사이즈(230×434×1,200mm)",
    "냉수 · 온수 · 정수",
-   "렌탈 시 4개월 방문 관리"
+   "의무사용기간·방문주기·월 요금은 아래 옵션표(플래너 제공 가격표) 기준"
   ],
   "spaces": "주방 / 거실 / 사무실",
   "spaceKeys": [],
@@ -1562,20 +2441,20 @@
   "nonMemberPrice": 888000,
   "buyNote": "세스코몰 온라인 회원 등급가 기준(로그인 시 적용) · 케어십(방문관리) 포함 여부·옵션에 따라 달라질 수 있음",
   "buyUrl": "https://www.cescomall.co.kr/products/view/G2000001384",
-  "rentalMonthly": 22900,
-  "rentalBase": 26900,
-  "rentalContractMonths": 36,
+  "rentalMonthly": 18900,
+  "rentalBase": 22900,
+  "rentalContractMonths": 60,
   "rentalYears": [
    "3",
    "5"
   ],
-  "rentalTotal": 824400,
+  "rentalTotal": null,
   "visitCycles": [
    "4개월"
   ],
-  "rentalNote": "프로모션 적용 후 월 렌탈료(의무사용 36개월 기준). 제휴카드 청구할인은 미포함이며, 약정기간·방문주기·옵션에 따라 달라질 수 있습니다.",
+  "rentalNote": "월 렌탈료는 플래너 제공 가격표(2026-10-01 반영) 기준입니다. ‘이달의 판매가’는 온라인 노출가이고, 현장 할인가(단품·결합)와 재렌탈가는 방문 상담 시 적용되는 가격으로 안내합니다. 적용 조건과 최종 금액은 계약 시점에 상담으로 확인해 주세요.",
   "careMethod": "세스코 방문 관리(렌탈) · 방문주기 4개월",
-  "filterInfo": "렌탈 방문 관리(4개월 주기) 시 필터 교체 · 세부 교체 주기는 상담 시 안내.",
+  "filterInfo": "방문 관리 시 필터 교체·점검(방문주기별 세부 교체 주기는 상담 시 안내)",
   "subscribable": false,
   "subCycles": [],
   "subMonths": [],
@@ -1591,6 +2470,43 @@
    "name": "세스코몰(cescomall.co.kr)",
    "url": "https://www.cescomall.co.kr/products/view/G2000001384",
    "checkedAt": "2026-09-30"
+  },
+  "rentalOptions": [
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 26900,
+    "monthPrice": 22900,
+    "onsiteSingle": 17900,
+    "onsiteBundle": 15900,
+    "promo": null,
+    "rerental": 15900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "1-35"
+   },
+   {
+    "period": 60,
+    "periodLabel": "60개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 22900,
+    "monthPrice": 18900,
+    "onsiteSingle": 14900,
+    "onsiteBundle": 12900,
+    "promo": null,
+    "rerental": 12900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "1-36"
+   }
+  ],
+  "priceSource": {
+   "name": "플래너 제공 가격표",
+   "checkedAt": "2026-10-01",
+   "table": 1
   }
  },
  {
@@ -1655,21 +2571,21 @@
   "nonMemberPrice": 1085000,
   "buyNote": "세스코몰 온라인 회원 등급가 기준(로그인 시 적용) · 케어십(방문관리) 포함 여부·옵션에 따라 달라질 수 있음",
   "buyUrl": "https://www.cescomall.co.kr/products/view/G2000000767",
-  "rentalMonthly": 31900,
-  "rentalBase": 35900,
-  "rentalContractMonths": 36,
+  "rentalMonthly": 25900,
+  "rentalBase": 29900,
+  "rentalContractMonths": 72,
   "rentalYears": [
    "3",
    "5",
    "6"
   ],
-  "rentalTotal": 1148400,
+  "rentalTotal": null,
   "visitCycles": [
    "4개월"
   ],
-  "rentalNote": "프로모션 적용 후 월 렌탈료(의무사용 36개월 기준). 제휴카드 청구할인은 미포함이며, 약정기간·방문주기·옵션에 따라 달라질 수 있습니다.",
+  "rentalNote": "월 렌탈료는 플래너 제공 가격표(2026-10-01 반영) 기준입니다. ‘이달의 판매가’는 온라인 노출가이고, 현장 할인가(단품·결합)와 재렌탈가는 방문 상담 시 적용되는 가격으로 안내합니다. 적용 조건과 최종 금액은 계약 시점에 상담으로 확인해 주세요.",
   "careMethod": "세스코 방문 관리(렌탈) · 방문주기 4개월",
-  "filterInfo": "렌탈 방문 관리(4개월 주기) 시 필터 교체 · 세부 교체 주기는 상담 시 안내.",
+  "filterInfo": "방문 관리 시 필터 교체·점검(방문주기별 세부 교체 주기는 상담 시 안내)",
   "subscribable": false,
   "subCycles": [],
   "subMonths": [],
@@ -1685,6 +2601,58 @@
    "name": "세스코몰(cescomall.co.kr)",
    "url": "https://www.cescomall.co.kr/products/view/G2000000767",
    "checkedAt": "2026-09-30"
+  },
+  "rentalOptions": [
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 35900,
+    "monthPrice": 31900,
+    "onsiteSingle": 27900,
+    "onsiteBundle": 25900,
+    "promo": null,
+    "rerental": 25900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "1-25"
+   },
+   {
+    "period": 60,
+    "periodLabel": "60개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 31900,
+    "monthPrice": 27900,
+    "onsiteSingle": 24900,
+    "onsiteBundle": 22900,
+    "promo": null,
+    "rerental": 22900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "1-26"
+   },
+   {
+    "period": 72,
+    "periodLabel": "72개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 29900,
+    "monthPrice": 25900,
+    "onsiteSingle": 22900,
+    "onsiteBundle": 20900,
+    "promo": null,
+    "rerental": 20900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "1-27"
+   }
+  ],
+  "priceSource": {
+   "name": "플래너 제공 가격표",
+   "checkedAt": "2026-10-01",
+   "table": 1
   }
  },
  {
@@ -1700,7 +2668,7 @@
    "UF 방식",
    "스탠드형 (370×480×1,304.5mm)",
    "냉수 · 온수",
-   "렌탈 시 4개월 방문 관리"
+   "의무사용기간·방문주기·월 요금은 아래 옵션표(플래너 제공 가격표) 기준"
   ],
   "spaces": "사무실 / 학원 / 매장 / 대가족",
   "spaceKeys": [
@@ -1748,21 +2716,21 @@
   "nonMemberPrice": 1280000,
   "buyNote": "세스코몰 온라인 회원 등급가 기준(로그인 시 적용) · 케어십(방문관리) 포함 여부·옵션에 따라 달라질 수 있음",
   "buyUrl": "https://www.cescomall.co.kr/products/view/G2000001497",
-  "rentalMonthly": 35900,
-  "rentalBase": 38900,
-  "rentalContractMonths": 36,
+  "rentalMonthly": 29900,
+  "rentalBase": 32900,
+  "rentalContractMonths": 72,
   "rentalYears": [
    "3",
    "5",
    "6"
   ],
-  "rentalTotal": 1292400,
+  "rentalTotal": null,
   "visitCycles": [
    "4개월"
   ],
-  "rentalNote": "프로모션 적용 후 월 렌탈료(의무사용 36개월 기준). 제휴카드 청구할인은 미포함이며, 약정기간·방문주기·옵션에 따라 달라질 수 있습니다.",
+  "rentalNote": "월 렌탈료는 플래너 제공 가격표(2026-10-01 반영) 기준입니다. ‘이달의 판매가’는 온라인 노출가이고, 현장 할인가(단품·결합)와 재렌탈가는 방문 상담 시 적용되는 가격으로 안내합니다. 적용 조건과 최종 금액은 계약 시점에 상담으로 확인해 주세요.",
   "careMethod": "세스코 방문 관리(렌탈) · 방문주기 4개월",
-  "filterInfo": "렌탈 방문 관리(4개월 주기) 시 필터 교체 · 세부 교체 주기는 상담 시 안내.",
+  "filterInfo": "방문 관리 시 필터 교체·점검(방문주기별 세부 교체 주기는 상담 시 안내)",
   "subscribable": false,
   "subCycles": [],
   "subMonths": [],
@@ -1774,6 +2742,58 @@
    "name": "세스코몰(cescomall.co.kr)",
    "url": "https://www.cescomall.co.kr/products/view/G2000001497",
    "checkedAt": "2026-09-30"
+  },
+  "rentalOptions": [
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 38900,
+    "monthPrice": 35900,
+    "onsiteSingle": 32900,
+    "onsiteBundle": 30900,
+    "promo": null,
+    "rerental": 30900,
+    "rerentalPromo": 29900,
+    "note": "",
+    "src": "1-19"
+   },
+   {
+    "period": 60,
+    "periodLabel": "60개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 34900,
+    "monthPrice": 31900,
+    "onsiteSingle": 28900,
+    "onsiteBundle": 26900,
+    "promo": null,
+    "rerental": 26900,
+    "rerentalPromo": 25900,
+    "note": "",
+    "src": "1-20"
+   },
+   {
+    "period": 72,
+    "periodLabel": "72개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 32900,
+    "monthPrice": 29900,
+    "onsiteSingle": 26900,
+    "onsiteBundle": 24900,
+    "promo": null,
+    "rerental": 24900,
+    "rerentalPromo": 23900,
+    "note": "",
+    "src": "1-21"
+   }
+  ],
+  "priceSource": {
+   "name": "플래너 제공 가격표",
+   "checkedAt": "2026-10-01",
+   "table": 1
   }
  },
  {
@@ -1789,7 +2809,7 @@
    "RO 방식",
    "스탠드형 (370×480×1,304.5mm)",
    "냉수 · 온수",
-   "렌탈 시 4개월 방문 관리"
+   "의무사용기간·방문주기·월 요금은 아래 옵션표(플래너 제공 가격표) 기준"
   ],
   "spaces": "사무실 / 학원 / 매장 / 대가족",
   "spaceKeys": [
@@ -1838,21 +2858,21 @@
   "nonMemberPrice": 1420000,
   "buyNote": "세스코몰 온라인 회원 등급가 기준(로그인 시 적용) · 케어십(방문관리) 포함 여부·옵션에 따라 달라질 수 있음",
   "buyUrl": "https://www.cescomall.co.kr/products/view/G2000001498",
-  "rentalMonthly": 39900,
-  "rentalBase": 42900,
-  "rentalContractMonths": 36,
+  "rentalMonthly": 33900,
+  "rentalBase": 36900,
+  "rentalContractMonths": 72,
   "rentalYears": [
    "3",
    "5",
    "6"
   ],
-  "rentalTotal": 1436400,
+  "rentalTotal": null,
   "visitCycles": [
    "4개월"
   ],
-  "rentalNote": "프로모션 적용 후 월 렌탈료(의무사용 36개월 기준). 제휴카드 청구할인은 미포함이며, 약정기간·방문주기·옵션에 따라 달라질 수 있습니다.",
+  "rentalNote": "월 렌탈료는 플래너 제공 가격표(2026-10-01 반영) 기준입니다. ‘이달의 판매가’는 온라인 노출가이고, 현장 할인가(단품·결합)와 재렌탈가는 방문 상담 시 적용되는 가격으로 안내합니다. 적용 조건과 최종 금액은 계약 시점에 상담으로 확인해 주세요.",
   "careMethod": "세스코 방문 관리(렌탈) · 방문주기 4개월",
-  "filterInfo": "렌탈 방문 관리(4개월 주기) 시 필터 교체 · 세부 교체 주기는 상담 시 안내.",
+  "filterInfo": "방문 관리 시 필터 교체·점검(방문주기별 세부 교체 주기는 상담 시 안내)",
   "subscribable": false,
   "subCycles": [],
   "subMonths": [],
@@ -1864,6 +2884,58 @@
    "name": "세스코몰(cescomall.co.kr)",
    "url": "https://www.cescomall.co.kr/products/view/G2000001498",
    "checkedAt": "2026-09-30"
+  },
+  "rentalOptions": [
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 42900,
+    "monthPrice": 39900,
+    "onsiteSingle": 36900,
+    "onsiteBundle": 34900,
+    "promo": null,
+    "rerental": 34900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "1-16"
+   },
+   {
+    "period": 60,
+    "periodLabel": "60개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 38900,
+    "monthPrice": 35900,
+    "onsiteSingle": 32900,
+    "onsiteBundle": 30900,
+    "promo": null,
+    "rerental": 30900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "1-17"
+   },
+   {
+    "period": 72,
+    "periodLabel": "72개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 36900,
+    "monthPrice": 33900,
+    "onsiteSingle": 30900,
+    "onsiteBundle": 28900,
+    "promo": null,
+    "rerental": 28900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "1-18"
+   }
+  ],
+  "priceSource": {
+   "name": "플래너 제공 가격표",
+   "checkedAt": "2026-10-01",
+   "table": 1
   }
  },
  {
@@ -1879,7 +2951,7 @@
    "직수 방식 · 냉온정",
    "에너지소비효율 1등급",
    "170×470×422mm, 약 10kg 컴팩트",
-   "렌탈 시 4개월 / 12개월(필터지급) 방문 선택"
+   "의무사용기간·방문주기·월 요금은 아래 옵션표(플래너 제공 가격표) 기준"
   ],
   "spaces": "주방 / 거실 / 소규모 사무실",
   "spaceKeys": [],
@@ -1924,22 +2996,22 @@
   "nonMemberPrice": 1747000,
   "buyNote": "세스코몰 온라인 회원 등급가 기준(로그인 시 적용) · 케어십(방문관리) 포함 여부·옵션에 따라 달라질 수 있음",
   "buyUrl": "https://www.cescomall.co.kr/products/view/G2000001053",
-  "rentalMonthly": 45900,
-  "rentalBase": 49900,
-  "rentalContractMonths": 36,
+  "rentalMonthly": 35900,
+  "rentalBase": 39900,
+  "rentalContractMonths": 72,
   "rentalYears": [
    "3",
    "5",
    "6"
   ],
-  "rentalTotal": 1652400,
+  "rentalTotal": null,
   "visitCycles": [
    "4개월",
-   "12개월 (필터지급)"
+   "12개월(필터지급)"
   ],
-  "rentalNote": "프로모션 적용 후 월 렌탈료(의무사용 36개월 기준). 제휴카드 청구할인은 미포함이며, 약정기간·방문주기·옵션에 따라 달라질 수 있습니다.",
-  "careMethod": "세스코 방문 관리(렌탈) · 방문주기 4개월 / 12개월 (필터지급)",
-  "filterInfo": "방문주기 4개월 또는 12개월(필터지급) 선택 · 세부 교체 주기는 상담 시 안내.",
+  "rentalNote": "월 렌탈료는 플래너 제공 가격표(2026-10-01 반영) 기준입니다. ‘이달의 판매가’는 온라인 노출가이고, 현장 할인가(단품·결합)와 재렌탈가는 방문 상담 시 적용되는 가격으로 안내합니다. 적용 조건과 최종 금액은 계약 시점에 상담으로 확인해 주세요.",
+  "careMethod": "세스코 방문 관리(렌탈) · 방문주기 4개월 / 12개월(필터지급)",
+  "filterInfo": "방문 관리 시 필터 교체·점검(방문주기별 세부 교체 주기는 상담 시 안내)",
   "subscribable": false,
   "subCycles": [],
   "subMonths": [],
@@ -1955,6 +3027,103 @@
    "name": "세스코몰(cescomall.co.kr)",
    "url": "https://www.cescomall.co.kr/products/view/G2000001053",
    "checkedAt": "2026-09-30"
+  },
+  "rentalOptions": [
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 49900,
+    "monthPrice": 45900,
+    "onsiteSingle": 34900,
+    "onsiteBundle": 32900,
+    "promo": null,
+    "rerental": 32900,
+    "rerentalPromo": 31900,
+    "note": "",
+    "src": "1-4"
+   },
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "12개월(필터지급)",
+    "variant": null,
+    "listPrice": 46900,
+    "monthPrice": 42900,
+    "onsiteSingle": 31900,
+    "onsiteBundle": 29900,
+    "promo": null,
+    "rerental": 29900,
+    "rerentalPromo": 28900,
+    "note": "",
+    "src": "1-5"
+   },
+   {
+    "period": 60,
+    "periodLabel": "60개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 44900,
+    "monthPrice": 40900,
+    "onsiteSingle": 30900,
+    "onsiteBundle": 28900,
+    "promo": null,
+    "rerental": 28900,
+    "rerentalPromo": 27900,
+    "note": "",
+    "src": "1-6"
+   },
+   {
+    "period": 60,
+    "periodLabel": "60개월",
+    "visit": "12개월(필터지급)",
+    "variant": null,
+    "listPrice": 41900,
+    "monthPrice": 37900,
+    "onsiteSingle": 27900,
+    "onsiteBundle": 25900,
+    "promo": null,
+    "rerental": 25900,
+    "rerentalPromo": 24900,
+    "note": "",
+    "src": "1-7"
+   },
+   {
+    "period": 72,
+    "periodLabel": "72개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 42900,
+    "monthPrice": 38900,
+    "onsiteSingle": 28900,
+    "onsiteBundle": 26900,
+    "promo": null,
+    "rerental": 26900,
+    "rerentalPromo": 25900,
+    "note": "",
+    "src": "1-8"
+   },
+   {
+    "period": 72,
+    "periodLabel": "72개월",
+    "visit": "12개월(필터지급)",
+    "variant": null,
+    "listPrice": 39900,
+    "monthPrice": 35900,
+    "onsiteSingle": 25900,
+    "onsiteBundle": 23900,
+    "promo": null,
+    "rerental": 23900,
+    "rerentalPromo": 22900,
+    "note": "",
+    "src": "1-9"
+   }
+  ],
+  "priceSource": {
+   "name": "플래너 제공 가격표",
+   "checkedAt": "2026-10-01",
+   "table": 1
   }
  },
  {
@@ -1969,7 +3138,7 @@
   "features": [
    "직수 방식 · 냉온정 + 얼음",
    "270×543×505.5mm, 약 18.5kg",
-   "렌탈 시 4개월 방문 관리"
+   "의무사용기간·방문주기·월 요금은 아래 옵션표(플래너 제공 가격표) 기준"
   ],
   "spaces": "주방 / 카페 / 사무실",
   "spaceKeys": [
@@ -2016,21 +3185,21 @@
   "nonMemberPrice": 2142000,
   "buyNote": "세스코몰 온라인 회원 등급가 기준(로그인 시 적용) · 케어십(방문관리) 포함 여부·옵션에 따라 달라질 수 있음",
   "buyUrl": "https://www.cescomall.co.kr/products/view/G2000001098",
-  "rentalMonthly": 53900,
-  "rentalBase": 57900,
-  "rentalContractMonths": 36,
+  "rentalMonthly": 47900,
+  "rentalBase": 51900,
+  "rentalContractMonths": 72,
   "rentalYears": [
    "3",
    "5",
    "6"
   ],
-  "rentalTotal": 1940400,
+  "rentalTotal": null,
   "visitCycles": [
    "4개월"
   ],
-  "rentalNote": "프로모션 적용 후 월 렌탈료(의무사용 36개월 기준). 제휴카드 청구할인은 미포함이며, 약정기간·방문주기·옵션에 따라 달라질 수 있습니다.",
+  "rentalNote": "월 렌탈료는 플래너 제공 가격표(2026-10-01 반영) 기준입니다. ‘이달의 판매가’는 온라인 노출가이고, 현장 할인가(단품·결합)와 재렌탈가는 방문 상담 시 적용되는 가격으로 안내합니다. 적용 조건과 최종 금액은 계약 시점에 상담으로 확인해 주세요.",
   "careMethod": "세스코 방문 관리(렌탈) · 방문주기 4개월",
-  "filterInfo": "렌탈 방문 관리(4개월 주기) 시 필터 교체 · 세부 교체 주기는 상담 시 안내.",
+  "filterInfo": "방문 관리 시 필터 교체·점검(방문주기별 세부 교체 주기는 상담 시 안내)",
   "subscribable": false,
   "subCycles": [],
   "subMonths": [],
@@ -2042,6 +3211,58 @@
    "name": "세스코몰(cescomall.co.kr)",
    "url": "https://www.cescomall.co.kr/products/view/G2000001098",
    "checkedAt": "2026-09-30"
+  },
+  "rentalOptions": [
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 57900,
+    "monthPrice": 53900,
+    "onsiteSingle": 47900,
+    "onsiteBundle": 45900,
+    "promo": null,
+    "rerental": 45900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "1-1"
+   },
+   {
+    "period": 60,
+    "periodLabel": "60개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 53900,
+    "monthPrice": 49900,
+    "onsiteSingle": 43900,
+    "onsiteBundle": 41900,
+    "promo": null,
+    "rerental": 41900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "1-2"
+   },
+   {
+    "period": 72,
+    "periodLabel": "72개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 51900,
+    "monthPrice": 47900,
+    "onsiteSingle": 41900,
+    "onsiteBundle": 39900,
+    "promo": null,
+    "rerental": 39900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "1-3"
+   }
+  ],
+  "priceSource": {
+   "name": "플래너 제공 가격표",
+   "checkedAt": "2026-10-01",
+   "table": 1
   }
  },
  {
@@ -2102,22 +3323,22 @@
   "nonMemberPrice": 797000,
   "buyNote": "세스코몰 온라인 회원 등급가 기준(로그인 시 적용) · 케어십(방문관리) 포함 여부·옵션에 따라 달라질 수 있음",
   "buyUrl": "https://www.cescomall.co.kr/products/view/G2000001504",
-  "rentalMonthly": 21900,
-  "rentalBase": 24900,
-  "rentalContractMonths": 36,
+  "rentalMonthly": 12900,
+  "rentalBase": 15900,
+  "rentalContractMonths": 72,
   "rentalYears": [
    "3",
    "5",
    "6"
   ],
-  "rentalTotal": 788400,
+  "rentalTotal": null,
   "visitCycles": [
    "6개월",
-   "12개월 (필터지급)"
+   "12개월(필터지급)"
   ],
-  "rentalNote": "프로모션 적용 후 월 렌탈료(의무사용 36개월 기준). 제휴카드 청구할인은 미포함이며, 약정기간·방문주기·옵션에 따라 달라질 수 있습니다.",
-  "careMethod": "세스코 방문 관리(렌탈) · 방문주기 6개월 / 12개월 (필터지급)",
-  "filterInfo": "필터 셀프 교체(방문 6개월 또는 12개월·필터지급 선택). 세부 주기는 상담 시 안내.",
+  "rentalNote": "월 렌탈료는 플래너 제공 가격표(2026-10-01 반영) 기준입니다. ‘이달의 판매가’는 온라인 노출가이고, 현장 할인가(단품·결합)와 재렌탈가는 방문 상담 시 적용되는 가격으로 안내합니다. 적용 조건과 최종 금액은 계약 시점에 상담으로 확인해 주세요.",
+  "careMethod": "세스코 방문 관리(렌탈) · 방문주기 6개월 / 12개월(필터지급)",
+  "filterInfo": "방문 관리 시 필터 교체·점검(방문주기별 세부 교체 주기는 상담 시 안내)",
   "subscribable": false,
   "subCycles": [],
   "subMonths": [],
@@ -2129,6 +3350,103 @@
    "name": "세스코몰(cescomall.co.kr)",
    "url": "https://www.cescomall.co.kr/products/view/G2000001504",
    "checkedAt": "2026-09-30"
+  },
+  "rentalOptions": [
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "6개월",
+    "variant": null,
+    "listPrice": 24900,
+    "monthPrice": 21900,
+    "onsiteSingle": 18900,
+    "onsiteBundle": 17900,
+    "promo": null,
+    "rerental": 17900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "1-10"
+   },
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "12개월(필터지급)",
+    "variant": null,
+    "listPrice": 21900,
+    "monthPrice": 18900,
+    "onsiteSingle": 15900,
+    "onsiteBundle": 14900,
+    "promo": null,
+    "rerental": 14900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "1-11"
+   },
+   {
+    "period": 60,
+    "periodLabel": "60개월",
+    "visit": "6개월",
+    "variant": null,
+    "listPrice": 20900,
+    "monthPrice": 17900,
+    "onsiteSingle": 14900,
+    "onsiteBundle": 13900,
+    "promo": null,
+    "rerental": 13900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "1-12"
+   },
+   {
+    "period": 60,
+    "periodLabel": "60개월",
+    "visit": "12개월(필터지급)",
+    "variant": null,
+    "listPrice": 17900,
+    "monthPrice": 14900,
+    "onsiteSingle": 11900,
+    "onsiteBundle": 10900,
+    "promo": null,
+    "rerental": 10900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "1-13"
+   },
+   {
+    "period": 72,
+    "periodLabel": "72개월",
+    "visit": "6개월",
+    "variant": null,
+    "listPrice": 18900,
+    "monthPrice": 15900,
+    "onsiteSingle": 13900,
+    "onsiteBundle": 12900,
+    "promo": null,
+    "rerental": 12900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "1-14"
+   },
+   {
+    "period": 72,
+    "periodLabel": "72개월",
+    "visit": "12개월(필터지급)",
+    "variant": null,
+    "listPrice": 15900,
+    "monthPrice": 12900,
+    "onsiteSingle": 10900,
+    "onsiteBundle": 9900,
+    "promo": null,
+    "rerental": 9900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "1-15"
+   }
+  ],
+  "priceSource": {
+   "name": "플래너 제공 가격표",
+   "checkedAt": "2026-10-01",
+   "table": 1
   }
  },
  {
@@ -2144,7 +3462,7 @@
    "렌탈 시 바스존 케어 서비스 제공(세스코몰 안내)",
    "470×534×162mm",
    "소비전력 1,470W",
-   "방문 4개월 / 12개월(필터지급) 선택"
+   "의무사용기간·방문주기·월 요금은 아래 옵션표(플래너 제공 가격표) 기준"
   ],
   "spaces": "욕실(화장실)",
   "spaceKeys": [],
@@ -2191,21 +3509,21 @@
   "nonMemberPrice": null,
   "buyNote": "세스코몰 표시가 기준 · 케어십(방문관리) 포함 여부·옵션에 따라 달라질 수 있음",
   "buyUrl": "https://www.cescomall.co.kr/products/view/G2000001349",
-  "rentalMonthly": 21900,
-  "rentalBase": 24900,
-  "rentalContractMonths": 36,
+  "rentalMonthly": 14900,
+  "rentalBase": 17900,
+  "rentalContractMonths": 72,
   "rentalYears": [
    "3",
    "5",
    "6"
   ],
-  "rentalTotal": 788400,
+  "rentalTotal": null,
   "visitCycles": [
    "4개월",
-   "12개월 (필터지급)"
+   "12개월"
   ],
-  "rentalNote": "프로모션 적용 후 월 렌탈료(의무사용 36개월 기준). 제휴카드 청구할인은 미포함이며, 약정기간·방문주기·옵션에 따라 달라질 수 있습니다.",
-  "careMethod": "세스코 방문 관리(렌탈) · 방문주기 4개월 / 12개월 (필터지급)",
+  "rentalNote": "월 렌탈료는 플래너 제공 가격표(2026-10-01 반영) 기준입니다. ‘이달의 판매가’는 온라인 노출가이고, 현장 할인가(단품·결합)와 재렌탈가는 방문 상담 시 적용되는 가격으로 안내합니다. 적용 조건과 최종 금액은 계약 시점에 상담으로 확인해 주세요.",
+  "careMethod": "세스코 방문 관리(렌탈) · 방문주기 4개월 / 12개월",
   "filterInfo": "렌탈 방문 관리 시 필터 교체 · 세부 교체 주기는 상담 시 안내.",
   "subscribable": false,
   "subCycles": [],
@@ -2222,6 +3540,103 @@
    "name": "세스코몰(cescomall.co.kr)",
    "url": "https://www.cescomall.co.kr/products/view/G2000001349",
    "checkedAt": "2026-09-30"
+  },
+  "rentalOptions": [
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 24900,
+    "monthPrice": 21900,
+    "onsiteSingle": 16900,
+    "onsiteBundle": 15900,
+    "promo": null,
+    "rerental": 15900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "3-19"
+   },
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "12개월",
+    "variant": null,
+    "listPrice": 21900,
+    "monthPrice": 18900,
+    "onsiteSingle": 13900,
+    "onsiteBundle": 12900,
+    "promo": null,
+    "rerental": 12900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "3-20"
+   },
+   {
+    "period": 60,
+    "periodLabel": "60개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 22900,
+    "monthPrice": 19900,
+    "onsiteSingle": 14900,
+    "onsiteBundle": 13900,
+    "promo": null,
+    "rerental": 13900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "3-21"
+   },
+   {
+    "period": 60,
+    "periodLabel": "60개월",
+    "visit": "12개월",
+    "variant": null,
+    "listPrice": 19900,
+    "monthPrice": 16900,
+    "onsiteSingle": 11900,
+    "onsiteBundle": 10900,
+    "promo": null,
+    "rerental": 10900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "3-22"
+   },
+   {
+    "period": 72,
+    "periodLabel": "72개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 20900,
+    "monthPrice": 17900,
+    "onsiteSingle": 13900,
+    "onsiteBundle": 12900,
+    "promo": null,
+    "rerental": 12900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "3-23"
+   },
+   {
+    "period": 72,
+    "periodLabel": "72개월",
+    "visit": "12개월",
+    "variant": null,
+    "listPrice": 17900,
+    "monthPrice": 14900,
+    "onsiteSingle": 10900,
+    "onsiteBundle": 9900,
+    "promo": null,
+    "rerental": 9900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "3-24"
+   }
+  ],
+  "priceSource": {
+   "name": "플래너 제공 가격표",
+   "checkedAt": "2026-10-01",
+   "table": 3
   }
  },
  {
@@ -2285,21 +3700,21 @@
   "nonMemberPrice": 687000,
   "buyNote": "세스코몰 온라인 회원 등급가 기준(로그인 시 적용) · 케어십(방문관리) 포함 여부·옵션에 따라 달라질 수 있음",
   "buyUrl": "https://www.cescomall.co.kr/products/view/G2000001366",
-  "rentalMonthly": 23900,
-  "rentalBase": 26900,
-  "rentalContractMonths": 36,
+  "rentalMonthly": 16900,
+  "rentalBase": 19900,
+  "rentalContractMonths": 72,
   "rentalYears": [
    "3",
    "5",
    "6"
   ],
-  "rentalTotal": 860400,
+  "rentalTotal": null,
   "visitCycles": [
    "4개월",
-   "12개월 (필터지급)"
+   "12개월"
   ],
-  "rentalNote": "프로모션 적용 후 월 렌탈료(의무사용 36개월 기준). 제휴카드 청구할인은 미포함이며, 약정기간·방문주기·옵션에 따라 달라질 수 있습니다.",
-  "careMethod": "세스코 방문 관리(렌탈) · 방문주기 4개월 / 12개월 (필터지급)",
+  "rentalNote": "월 렌탈료는 플래너 제공 가격표(2026-10-01 반영) 기준입니다. ‘이달의 판매가’는 온라인 노출가이고, 현장 할인가(단품·결합)와 재렌탈가는 방문 상담 시 적용되는 가격으로 안내합니다. 적용 조건과 최종 금액은 계약 시점에 상담으로 확인해 주세요.",
+  "careMethod": "세스코 방문 관리(렌탈) · 방문주기 4개월 / 12개월",
   "filterInfo": "유어핏 스윙필터 교체(렌탈 시 방문 관리) · 세부 교체 주기는 상담 시 안내.",
   "subscribable": false,
   "subCycles": [],
@@ -2312,6 +3727,103 @@
    "name": "세스코몰(cescomall.co.kr)",
    "url": "https://www.cescomall.co.kr/products/view/G2000001366",
    "checkedAt": "2026-09-30"
+  },
+  "rentalOptions": [
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 26900,
+    "monthPrice": 23900,
+    "onsiteSingle": 18900,
+    "onsiteBundle": 17900,
+    "promo": null,
+    "rerental": 17900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "3-13"
+   },
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "12개월",
+    "variant": null,
+    "listPrice": 23900,
+    "monthPrice": 20900,
+    "onsiteSingle": 15900,
+    "onsiteBundle": 14900,
+    "promo": null,
+    "rerental": 14900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "3-14"
+   },
+   {
+    "period": 60,
+    "periodLabel": "60개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 24900,
+    "monthPrice": 21900,
+    "onsiteSingle": 16900,
+    "onsiteBundle": 15900,
+    "promo": null,
+    "rerental": 15900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "3-15"
+   },
+   {
+    "period": 60,
+    "periodLabel": "60개월",
+    "visit": "12개월",
+    "variant": null,
+    "listPrice": 21900,
+    "monthPrice": 18900,
+    "onsiteSingle": 13900,
+    "onsiteBundle": 12900,
+    "promo": null,
+    "rerental": 12900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "3-16"
+   },
+   {
+    "period": 72,
+    "periodLabel": "72개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 22900,
+    "monthPrice": 19900,
+    "onsiteSingle": 15900,
+    "onsiteBundle": 14900,
+    "promo": null,
+    "rerental": 14900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "3-17"
+   },
+   {
+    "period": 72,
+    "periodLabel": "72개월",
+    "visit": "12개월",
+    "variant": null,
+    "listPrice": 19900,
+    "monthPrice": 16900,
+    "onsiteSingle": 12900,
+    "onsiteBundle": 11900,
+    "promo": null,
+    "rerental": 11900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "3-18"
+   }
+  ],
+  "priceSource": {
+   "name": "플래너 제공 가격표",
+   "checkedAt": "2026-10-01",
+   "table": 3
   }
  },
  {
@@ -4062,8 +5574,7 @@
   "description": "화장실 위생을 위한 삽입형 핸드 드라이어 월 서비스.",
   "features": [
    "삽입형 300×208×566mm",
-   "월 서비스 형태(의무사용 36개월)",
-   "방문주기 4개월"
+   "의무사용기간·방문주기·월 요금은 아래 옵션표(플래너 제공 가격표) 기준"
   ],
   "spaces": "사업장 화장실",
   "spaceKeys": [
@@ -4104,18 +5615,18 @@
   "nonMemberPrice": null,
   "buyNote": "렌탈(월 서비스) 전용 상품 — 별도 판매가 없음(세스코몰 안내)",
   "buyUrl": "https://www.cescomall.co.kr/products/view/G2000000806",
-  "rentalMonthly": 24900,
-  "rentalBase": 28900,
+  "rentalMonthly": 22900,
+  "rentalBase": 25900,
   "rentalContractMonths": 36,
   "rentalYears": [
    "3"
   ],
-  "rentalTotal": 896400,
+  "rentalTotal": null,
   "visitCycles": [
    "4개월"
   ],
-  "rentalNote": "프로모션 적용 후 월 렌탈료(의무사용 36개월 기준). 제휴카드 청구할인은 미포함이며, 약정기간·방문주기·옵션에 따라 달라질 수 있습니다.",
-  "careMethod": "월 서비스형 · 세스코 방문 관리 · 방문주기 4개월",
+  "rentalNote": "월 렌탈료는 플래너 제공 가격표(2026-10-01 반영) 기준입니다. ‘이달의 판매가’는 온라인 노출가이고, 현장 할인가(단품·결합)와 재렌탈가는 방문 상담 시 적용되는 가격으로 안내합니다. 적용 조건과 최종 금액은 계약 시점에 상담으로 확인해 주세요.",
+  "careMethod": "세스코 방문 관리(렌탈) · 방문주기 4개월",
   "filterInfo": "상담 시 안내",
   "subscribable": false,
   "subCycles": [],
@@ -4128,6 +5639,43 @@
    "name": "세스코몰(cescomall.co.kr)",
    "url": "https://www.cescomall.co.kr/products/view/G2000000806",
    "checkedAt": "2026-09-30"
+  },
+  "rentalOptions": [
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "4개월",
+    "variant": "타입 A",
+    "listPrice": 28900,
+    "monthPrice": 26900,
+    "onsiteSingle": 24900,
+    "onsiteBundle": 23900,
+    "promo": null,
+    "rerental": 23900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "3-25"
+   },
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "4개월",
+    "variant": "타입 B",
+    "listPrice": 25900,
+    "monthPrice": 22900,
+    "onsiteSingle": 20900,
+    "onsiteBundle": 19900,
+    "promo": null,
+    "rerental": 19900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "3-26"
+   }
+  ],
+  "priceSource": {
+   "name": "플래너 제공 가격표",
+   "checkedAt": "2026-10-01",
+   "table": 3
   }
  },
  {
@@ -6191,6 +7739,1853 @@
    "name": "세스코몰(cescomall.co.kr)",
    "url": "https://www.cescomall.co.kr/products/view/G2000000753",
    "checkedAt": "2026-09-30"
+  }
+ },
+ {
+  "id": "G2000001496",
+  "code": "G2000001496",
+  "name": "더슬림 스탠드 정수기 더블 RO (EWES552)",
+  "category": "water",
+  "sections": [
+   "water.drink"
+  ],
+  "description": "더슬림 스탠드 정수기 더블 RO 렌탈 상품. 가격은 가격표 기준입니다.",
+  "features": [
+   "모델코드 EWES552 (세스코몰 표기)",
+   "렌탈 월 요금은 아래 옵션표 기준"
+  ],
+  "spaces": "주방 / 거실 / 사무실",
+  "spaceKeys": [],
+  "targets": [
+   "가정",
+   "사무실"
+  ],
+  "concerns": [
+   "water"
+  ],
+  "places": [
+   "kitchen",
+   "living",
+   "biz"
+  ],
+  "env": [],
+  "keywords": [
+   "더슬림",
+   "더블",
+   "RO",
+   "정수기",
+   "EWES552"
+  ],
+  "type": "product",
+  "audience": "both",
+  "bizFit": false,
+  "rentalInquire": false,
+  "bizOnlyRental": false,
+  "image": "assets/products/G2000001496.jpg",
+  "model": "EWES552",
+  "buyPrice": null,
+  "listPrice": null,
+  "buyOptions": [],
+  "buyLabel": "구매하기",
+  "nonMemberPrice": null,
+  "buyNote": "",
+  "buyUrl": "",
+  "rentalMonthly": 30900,
+  "rentalBase": 33900,
+  "rentalContractMonths": 72,
+  "rentalYears": [
+   "3",
+   "5",
+   "6"
+  ],
+  "rentalTotal": null,
+  "visitCycles": [
+   "4개월"
+  ],
+  "rentalNote": "월 렌탈료는 플래너 제공 가격표(2026-10-01 반영) 기준입니다. ‘이달의 판매가’는 온라인 노출가이고, 현장 할인가(단품·결합)와 재렌탈가는 방문 상담 시 적용되는 가격으로 안내합니다. 적용 조건과 최종 금액은 계약 시점에 상담으로 확인해 주세요.",
+  "careMethod": "세스코 방문 관리(렌탈) · 방문주기 4개월",
+  "filterInfo": "상담 시 안내",
+  "subscribable": false,
+  "subCycles": [],
+  "subMonths": [],
+  "subRecommend": null,
+  "consultRequired": true,
+  "popularity": null,
+  "soldOut": false,
+  "source": {
+   "name": "세스코몰(cescomall.co.kr)",
+   "url": "https://www.cescomall.co.kr/products/view/G2000001496",
+   "checkedAt": "2026-09-30"
+  },
+  "rentalOptions": [
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 39900,
+    "monthPrice": 36900,
+    "onsiteSingle": 33900,
+    "onsiteBundle": 31900,
+    "promo": null,
+    "rerental": 31900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "1-22"
+   },
+   {
+    "period": 60,
+    "periodLabel": "60개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 35900,
+    "monthPrice": 32900,
+    "onsiteSingle": 29900,
+    "onsiteBundle": 27900,
+    "promo": null,
+    "rerental": 27900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "1-23"
+   },
+   {
+    "period": 72,
+    "periodLabel": "72개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 33900,
+    "monthPrice": 30900,
+    "onsiteSingle": 27900,
+    "onsiteBundle": 25900,
+    "promo": null,
+    "rerental": 25900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "1-24"
+   }
+  ],
+  "priceSource": {
+   "name": "플래너 제공 가격표",
+   "checkedAt": "2026-10-01",
+   "table": 1
+  }
+ },
+ {
+  "id": "G2000001385",
+  "code": "G2000001385",
+  "name": "더슬림 스탠드 정수기 더블 UF (냉온정) (EWES551)",
+  "category": "water",
+  "sections": [
+   "water.drink"
+  ],
+  "description": "더슬림 스탠드 정수기 더블 UF 렌탈 상품. 가격은 가격표 기준입니다.",
+  "features": [
+   "모델코드 EWES551 (세스코몰 표기)",
+   "렌탈 월 요금은 아래 옵션표 기준"
+  ],
+  "spaces": "주방 / 거실 / 사무실",
+  "spaceKeys": [],
+  "targets": [
+   "가정",
+   "사무실"
+  ],
+  "concerns": [
+   "water"
+  ],
+  "places": [
+   "kitchen",
+   "living",
+   "biz"
+  ],
+  "env": [],
+  "keywords": [
+   "더슬림",
+   "더블",
+   "UF",
+   "정수기",
+   "냉온정",
+   "EWES551"
+  ],
+  "type": "product",
+  "audience": "both",
+  "bizFit": false,
+  "rentalInquire": false,
+  "bizOnlyRental": false,
+  "image": "assets/products/G2000001385.jpg",
+  "model": "EWES551",
+  "buyPrice": null,
+  "listPrice": null,
+  "buyOptions": [],
+  "buyLabel": "구매하기",
+  "nonMemberPrice": null,
+  "buyNote": "",
+  "buyUrl": "",
+  "rentalMonthly": 22900,
+  "rentalBase": 26900,
+  "rentalContractMonths": 72,
+  "rentalYears": [
+   "3",
+   "5",
+   "6"
+  ],
+  "rentalTotal": null,
+  "visitCycles": [
+   "4개월"
+  ],
+  "rentalNote": "월 렌탈료는 플래너 제공 가격표(2026-10-01 반영) 기준입니다. ‘이달의 판매가’는 온라인 노출가이고, 현장 할인가(단품·결합)와 재렌탈가는 방문 상담 시 적용되는 가격으로 안내합니다. 적용 조건과 최종 금액은 계약 시점에 상담으로 확인해 주세요.",
+  "careMethod": "세스코 방문 관리(렌탈) · 방문주기 4개월",
+  "filterInfo": "상담 시 안내",
+  "subscribable": false,
+  "subCycles": [],
+  "subMonths": [],
+  "subRecommend": null,
+  "consultRequired": true,
+  "popularity": null,
+  "soldOut": false,
+  "source": {
+   "name": "세스코몰(cescomall.co.kr)",
+   "url": "https://www.cescomall.co.kr/products/view/G2000001385",
+   "checkedAt": "2026-09-30"
+  },
+  "rentalOptions": [
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 32900,
+    "monthPrice": 28900,
+    "onsiteSingle": 24900,
+    "onsiteBundle": 22900,
+    "promo": null,
+    "rerental": 22900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "1-28"
+   },
+   {
+    "period": 60,
+    "periodLabel": "60개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 28900,
+    "monthPrice": 24900,
+    "onsiteSingle": 21900,
+    "onsiteBundle": 19900,
+    "promo": null,
+    "rerental": 19900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "1-29"
+   },
+   {
+    "period": 72,
+    "periodLabel": "72개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 26900,
+    "monthPrice": 22900,
+    "onsiteSingle": 19900,
+    "onsiteBundle": 17900,
+    "promo": null,
+    "rerental": 17900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "1-30"
+   }
+  ],
+  "priceSource": {
+   "name": "플래너 제공 가격표",
+   "checkedAt": "2026-10-01",
+   "table": 1
+  }
+ },
+ {
+  "id": "G2000000565",
+  "code": "G2000000565",
+  "name": "더슬림 정수기 데스크탑 (냉온정) (EWBD351)",
+  "category": "water",
+  "sections": [
+   "water.drink"
+  ],
+  "description": "더슬림 정수기 데스크탑형 렌탈 상품. 가격은 가격표 기준입니다.",
+  "features": [
+   "모델코드 EWBD351 (세스코몰 표기)",
+   "렌탈 월 요금은 아래 옵션표 기준"
+  ],
+  "spaces": "주방 / 사무실 (좁은 공간)",
+  "spaceKeys": [],
+  "targets": [
+   "가정",
+   "소규모 사무실"
+  ],
+  "concerns": [
+   "water"
+  ],
+  "places": [
+   "kitchen",
+   "living",
+   "biz"
+  ],
+  "env": [],
+  "keywords": [
+   "더슬림",
+   "데스크탑",
+   "정수기",
+   "냉온정",
+   "EWBD351"
+  ],
+  "type": "product",
+  "audience": "both",
+  "bizFit": false,
+  "rentalInquire": false,
+  "bizOnlyRental": false,
+  "image": "assets/products/G2000000565.jpg",
+  "model": "EWBD351",
+  "buyPrice": null,
+  "listPrice": null,
+  "buyOptions": [],
+  "buyLabel": "구매하기",
+  "nonMemberPrice": null,
+  "buyNote": "",
+  "buyUrl": "",
+  "rentalMonthly": 21900,
+  "rentalBase": 25900,
+  "rentalContractMonths": 60,
+  "rentalYears": [
+   "3",
+   "5"
+  ],
+  "rentalTotal": null,
+  "visitCycles": [
+   "4개월"
+  ],
+  "rentalNote": "월 렌탈료는 플래너 제공 가격표(2026-10-01 반영) 기준입니다. ‘이달의 판매가’는 온라인 노출가이고, 현장 할인가(단품·결합)와 재렌탈가는 방문 상담 시 적용되는 가격으로 안내합니다. 적용 조건과 최종 금액은 계약 시점에 상담으로 확인해 주세요.",
+  "careMethod": "세스코 방문 관리(렌탈) · 방문주기 4개월",
+  "filterInfo": "상담 시 안내",
+  "subscribable": false,
+  "subCycles": [],
+  "subMonths": [],
+  "subRecommend": null,
+  "consultRequired": true,
+  "popularity": null,
+  "soldOut": false,
+  "source": {
+   "name": "세스코몰(cescomall.co.kr)",
+   "url": "https://www.cescomall.co.kr/products/view/G2000000565",
+   "checkedAt": "2026-09-30"
+  },
+  "rentalOptions": [
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 29900,
+    "monthPrice": 25900,
+    "onsiteSingle": 20900,
+    "onsiteBundle": 18900,
+    "promo": null,
+    "rerental": 18900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "1-33"
+   },
+   {
+    "period": 60,
+    "periodLabel": "60개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 25900,
+    "monthPrice": 21900,
+    "onsiteSingle": 17900,
+    "onsiteBundle": 15900,
+    "promo": null,
+    "rerental": 15900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "1-34"
+   }
+  ],
+  "priceSource": {
+   "name": "플래너 제공 가격표",
+   "checkedAt": "2026-10-01",
+   "table": 1
+  }
+ },
+ {
+  "id": "G2000001383",
+  "code": "G2000001383",
+  "name": "더슬림 정수기 UF 데스크탑 (냉온정) (EWED351)",
+  "category": "water",
+  "sections": [
+   "water.drink"
+  ],
+  "description": "더슬림 정수기 UF 데스크탑형 렌탈 상품. 가격은 가격표 기준입니다.",
+  "features": [
+   "모델코드 EWED351 (세스코몰 표기)",
+   "렌탈 월 요금은 아래 옵션표 기준"
+  ],
+  "spaces": "주방 / 사무실 (좁은 공간)",
+  "spaceKeys": [],
+  "targets": [
+   "가정",
+   "소규모 사무실"
+  ],
+  "concerns": [
+   "water"
+  ],
+  "places": [
+   "kitchen",
+   "living",
+   "biz"
+  ],
+  "env": [],
+  "keywords": [
+   "더슬림",
+   "데스크탑",
+   "UF",
+   "정수기",
+   "냉온정",
+   "EWED351"
+  ],
+  "type": "product",
+  "audience": "both",
+  "bizFit": false,
+  "rentalInquire": false,
+  "bizOnlyRental": false,
+  "image": "assets/products/G2000001383.jpg",
+  "model": "EWED351",
+  "buyPrice": null,
+  "listPrice": null,
+  "buyOptions": [],
+  "buyLabel": "구매하기",
+  "nonMemberPrice": null,
+  "buyNote": "",
+  "buyUrl": "",
+  "rentalMonthly": 18900,
+  "rentalBase": 22900,
+  "rentalContractMonths": 60,
+  "rentalYears": [
+   "3",
+   "5"
+  ],
+  "rentalTotal": null,
+  "visitCycles": [
+   "4개월"
+  ],
+  "rentalNote": "월 렌탈료는 플래너 제공 가격표(2026-10-01 반영) 기준입니다. ‘이달의 판매가’는 온라인 노출가이고, 현장 할인가(단품·결합)와 재렌탈가는 방문 상담 시 적용되는 가격으로 안내합니다. 적용 조건과 최종 금액은 계약 시점에 상담으로 확인해 주세요.",
+  "careMethod": "세스코 방문 관리(렌탈) · 방문주기 4개월",
+  "filterInfo": "상담 시 안내",
+  "subscribable": false,
+  "subCycles": [],
+  "subMonths": [],
+  "subRecommend": null,
+  "consultRequired": true,
+  "popularity": null,
+  "soldOut": false,
+  "source": {
+   "name": "세스코몰(cescomall.co.kr)",
+   "url": "https://www.cescomall.co.kr/products/view/G2000001383",
+   "checkedAt": "2026-09-30"
+  },
+  "rentalOptions": [
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 26900,
+    "monthPrice": 22900,
+    "onsiteSingle": 17900,
+    "onsiteBundle": 15900,
+    "promo": null,
+    "rerental": 15900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "1-37"
+   },
+   {
+    "period": 60,
+    "periodLabel": "60개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 22900,
+    "monthPrice": 18900,
+    "onsiteSingle": 14900,
+    "onsiteBundle": 12900,
+    "promo": null,
+    "rerental": 12900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "1-38"
+   }
+  ],
+  "priceSource": {
+   "name": "플래너 제공 가격표",
+   "checkedAt": "2026-10-01",
+   "table": 1
+  }
+ },
+ {
+  "id": "G2000000974",
+  "code": "G2000000974",
+  "name": "살균방수 비데 올인원 (EBCB151)",
+  "category": "water",
+  "sections": [
+   "water.bath"
+  ],
+  "description": "살균방수 비데 올인원 렌탈 상품. 가격은 가격표 기준입니다.",
+  "features": [
+   "모델코드 EBCB151 (세스코몰 표기)",
+   "렌탈 시 바스존 케어 서비스(세스코몰 안내)"
+  ],
+  "spaces": "욕실(화장실)",
+  "spaceKeys": [],
+  "targets": [
+   "가정"
+  ],
+  "concerns": [
+   "sterilize",
+   "odor"
+  ],
+  "places": [
+   "bath"
+  ],
+  "env": [],
+  "keywords": [
+   "비데",
+   "올인원",
+   "살균방수",
+   "욕실",
+   "EBCB151"
+  ],
+  "type": "product",
+  "audience": "both",
+  "bizFit": false,
+  "rentalInquire": false,
+  "bizOnlyRental": false,
+  "image": "assets/products/G2000000974.jpg",
+  "model": "EBCB151",
+  "buyPrice": null,
+  "listPrice": null,
+  "buyOptions": [],
+  "buyLabel": "구매하기",
+  "nonMemberPrice": null,
+  "buyNote": "",
+  "buyUrl": "",
+  "rentalMonthly": 20900,
+  "rentalBase": 23900,
+  "rentalContractMonths": 72,
+  "rentalYears": [
+   "3",
+   "5",
+   "6"
+  ],
+  "rentalTotal": null,
+  "visitCycles": [
+   "4개월",
+   "12개월"
+  ],
+  "rentalNote": "월 렌탈료는 플래너 제공 가격표(2026-10-01 반영) 기준입니다. ‘이달의 판매가’는 온라인 노출가이고, 현장 할인가(단품·결합)와 재렌탈가는 방문 상담 시 적용되는 가격으로 안내합니다. 적용 조건과 최종 금액은 계약 시점에 상담으로 확인해 주세요.",
+  "careMethod": "세스코 방문 관리(렌탈) · 방문주기 4개월 / 12개월",
+  "filterInfo": "상담 시 안내",
+  "subscribable": false,
+  "subCycles": [],
+  "subMonths": [],
+  "subRecommend": null,
+  "consultRequired": true,
+  "popularity": null,
+  "soldOut": false,
+  "source": {
+   "name": "세스코몰(cescomall.co.kr)",
+   "url": "https://www.cescomall.co.kr/products/view/G2000000974",
+   "checkedAt": "2026-09-30"
+  },
+  "rentalOptions": [
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 30900,
+    "monthPrice": 27900,
+    "onsiteSingle": 22900,
+    "onsiteBundle": 21900,
+    "promo": null,
+    "rerental": 21900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "3-1"
+   },
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "12개월",
+    "variant": null,
+    "listPrice": 27900,
+    "monthPrice": 24900,
+    "onsiteSingle": 19900,
+    "onsiteBundle": 18900,
+    "promo": null,
+    "rerental": 18900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "3-2"
+   },
+   {
+    "period": 60,
+    "periodLabel": "60개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 28900,
+    "monthPrice": 25900,
+    "onsiteSingle": 20900,
+    "onsiteBundle": 19900,
+    "promo": null,
+    "rerental": 19900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "3-3"
+   },
+   {
+    "period": 60,
+    "periodLabel": "60개월",
+    "visit": "12개월",
+    "variant": null,
+    "listPrice": 25900,
+    "monthPrice": 22900,
+    "onsiteSingle": 17900,
+    "onsiteBundle": 16900,
+    "promo": null,
+    "rerental": 16900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "3-4"
+   },
+   {
+    "period": 72,
+    "periodLabel": "72개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 26900,
+    "monthPrice": 23900,
+    "onsiteSingle": 18900,
+    "onsiteBundle": 17900,
+    "promo": null,
+    "rerental": 17900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "3-5"
+   },
+   {
+    "period": 72,
+    "periodLabel": "72개월",
+    "visit": "12개월",
+    "variant": null,
+    "listPrice": 23900,
+    "monthPrice": 20900,
+    "onsiteSingle": 15900,
+    "onsiteBundle": 14900,
+    "promo": null,
+    "rerental": 14900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "3-6"
+   }
+  ],
+  "priceSource": {
+   "name": "플래너 제공 가격표",
+   "checkedAt": "2026-10-01",
+   "table": 3
+  }
+ },
+ {
+  "id": "G2000000973",
+  "code": "G2000000973",
+  "name": "살균방수 비데 듀얼 (EBCB141)",
+  "category": "water",
+  "sections": [
+   "water.bath"
+  ],
+  "description": "살균방수 비데 듀얼 렌탈 상품. 가격은 가격표 기준입니다.",
+  "features": [
+   "모델코드 EBCB141 (세스코몰 표기)",
+   "렌탈 시 바스존 케어 서비스(세스코몰 안내)"
+  ],
+  "spaces": "욕실(화장실)",
+  "spaceKeys": [],
+  "targets": [
+   "가정"
+  ],
+  "concerns": [
+   "sterilize",
+   "odor"
+  ],
+  "places": [
+   "bath"
+  ],
+  "env": [],
+  "keywords": [
+   "비데",
+   "듀얼",
+   "살균방수",
+   "욕실",
+   "EBCB141"
+  ],
+  "type": "product",
+  "audience": "both",
+  "bizFit": false,
+  "rentalInquire": false,
+  "bizOnlyRental": false,
+  "image": "assets/products/G2000000973.jpg",
+  "model": "EBCB141",
+  "buyPrice": null,
+  "listPrice": null,
+  "buyOptions": [],
+  "buyLabel": "구매하기",
+  "nonMemberPrice": null,
+  "buyNote": "",
+  "buyUrl": "",
+  "rentalMonthly": 18900,
+  "rentalBase": 21900,
+  "rentalContractMonths": 72,
+  "rentalYears": [
+   "3",
+   "5",
+   "6"
+  ],
+  "rentalTotal": null,
+  "visitCycles": [
+   "4개월",
+   "12개월"
+  ],
+  "rentalNote": "월 렌탈료는 플래너 제공 가격표(2026-10-01 반영) 기준입니다. ‘이달의 판매가’는 온라인 노출가이고, 현장 할인가(단품·결합)와 재렌탈가는 방문 상담 시 적용되는 가격으로 안내합니다. 적용 조건과 최종 금액은 계약 시점에 상담으로 확인해 주세요.",
+  "careMethod": "세스코 방문 관리(렌탈) · 방문주기 4개월 / 12개월",
+  "filterInfo": "상담 시 안내",
+  "subscribable": false,
+  "subCycles": [],
+  "subMonths": [],
+  "subRecommend": null,
+  "consultRequired": true,
+  "popularity": null,
+  "soldOut": false,
+  "source": {
+   "name": "세스코몰(cescomall.co.kr)",
+   "url": "https://www.cescomall.co.kr/products/view/G2000000973",
+   "checkedAt": "2026-09-30"
+  },
+  "rentalOptions": [
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 28900,
+    "monthPrice": 25900,
+    "onsiteSingle": 20900,
+    "onsiteBundle": 19900,
+    "promo": null,
+    "rerental": 19900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "3-7"
+   },
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "12개월",
+    "variant": null,
+    "listPrice": 25900,
+    "monthPrice": 22900,
+    "onsiteSingle": 17900,
+    "onsiteBundle": 16900,
+    "promo": null,
+    "rerental": 16900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "3-8"
+   },
+   {
+    "period": 60,
+    "periodLabel": "60개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 26900,
+    "monthPrice": 23900,
+    "onsiteSingle": 18900,
+    "onsiteBundle": 17900,
+    "promo": null,
+    "rerental": 17900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "3-9"
+   },
+   {
+    "period": 60,
+    "periodLabel": "60개월",
+    "visit": "12개월",
+    "variant": null,
+    "listPrice": 23900,
+    "monthPrice": 20900,
+    "onsiteSingle": 15900,
+    "onsiteBundle": 14900,
+    "promo": null,
+    "rerental": 14900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "3-10"
+   },
+   {
+    "period": 72,
+    "periodLabel": "72개월",
+    "visit": "4개월",
+    "variant": null,
+    "listPrice": 24900,
+    "monthPrice": 21900,
+    "onsiteSingle": 16900,
+    "onsiteBundle": 15900,
+    "promo": null,
+    "rerental": 15900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "3-11"
+   },
+   {
+    "period": 72,
+    "periodLabel": "72개월",
+    "visit": "12개월",
+    "variant": null,
+    "listPrice": 21900,
+    "monthPrice": 18900,
+    "onsiteSingle": 13900,
+    "onsiteBundle": 12900,
+    "promo": null,
+    "rerental": 12900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "3-12"
+   }
+  ],
+  "priceSource": {
+   "name": "플래너 제공 가격표",
+   "checkedAt": "2026-10-01",
+   "table": 3
+  }
+ },
+ {
+  "id": "allcare-airperfume-100",
+  "code": "allcare-airperfume-100",
+  "name": "에어퍼퓸 100",
+  "category": "air",
+  "sections": [
+   "air.space"
+  ],
+  "description": "공간 향기 월 서비스 상품. 가격은 가격표 기준이며 세부 사양은 상담 시 안내합니다.",
+  "features": [
+   "월 요금은 방문주기별 옵션표 기준"
+  ],
+  "spaces": "매장 / 로비 / 사무실 등 향기 연출 공간",
+  "spaceKeys": [
+   "biz"
+  ],
+  "targets": [
+   "사업장"
+  ],
+  "concerns": [
+   "odor",
+   "biz"
+  ],
+  "places": [
+   "biz"
+  ],
+  "env": [],
+  "keywords": [
+   "에어퍼퓸",
+   "에어퍼퓸100",
+   "향기",
+   "방향",
+   "디퓨저",
+   "공간향기"
+  ],
+  "type": "product",
+  "audience": "both",
+  "bizFit": true,
+  "rentalInquire": false,
+  "bizOnlyRental": false,
+  "image": "assets/img/placeholder.svg",
+  "model": null,
+  "buyPrice": null,
+  "listPrice": null,
+  "buyOptions": [],
+  "buyLabel": "구매하기",
+  "nonMemberPrice": null,
+  "buyNote": "",
+  "buyUrl": "",
+  "rentalMonthly": 15900,
+  "rentalBase": 16900,
+  "rentalContractMonths": 36,
+  "rentalYears": [
+   "3"
+  ],
+  "rentalTotal": null,
+  "visitCycles": [
+   "1개월",
+   "2개월",
+   "12개월(소모품 자가관리)"
+  ],
+  "rentalNote": "월 렌탈료는 플래너 제공 가격표(2026-10-01 반영) 기준입니다. ‘이달의 판매가’는 온라인 노출가이고, 현장 할인가(단품·결합)와 재렌탈가는 방문 상담 시 적용되는 가격으로 안내합니다. 적용 조건과 최종 금액은 계약 시점에 상담으로 확인해 주세요.",
+  "careMethod": "세스코 방문 관리(렌탈) · 방문주기 1개월 / 2개월 / 12개월(소모품 자가관리)",
+  "filterInfo": "상담 시 안내",
+  "subscribable": false,
+  "subCycles": [],
+  "subMonths": [],
+  "subRecommend": null,
+  "consultRequired": true,
+  "popularity": null,
+  "soldOut": false,
+  "source": {
+   "name": "플래너 제공 가격표",
+   "url": "",
+   "checkedAt": "2026-10-01",
+   "table": 0
+  },
+  "rentalOptions": [
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "1개월",
+    "variant": null,
+    "listPrice": 51900,
+    "monthPrice": 50900,
+    "onsiteSingle": 48900,
+    "onsiteBundle": 44900,
+    "promo": null,
+    "rerental": null,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "3-27"
+   },
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "2개월",
+    "variant": null,
+    "listPrice": 35900,
+    "monthPrice": 34900,
+    "onsiteSingle": 32900,
+    "onsiteBundle": 28900,
+    "promo": null,
+    "rerental": null,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "3-28"
+   },
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "12개월(소모품 자가관리)",
+    "variant": null,
+    "listPrice": 16900,
+    "monthPrice": 15900,
+    "onsiteSingle": 13900,
+    "onsiteBundle": 10900,
+    "promo": null,
+    "rerental": null,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "3-29"
+   }
+  ],
+  "priceSource": {
+   "name": "플래너 제공 가격표",
+   "checkedAt": "2026-10-01",
+   "table": 3
+  }
+ },
+ {
+  "id": "allcare-perfume-wedding-basic",
+  "code": "allcare-perfume-wedding-basic",
+  "name": "퍼퓸웨딩 Basic",
+  "category": "air",
+  "sections": [
+   "air.space"
+  ],
+  "description": "퍼퓸웨딩 Basic 월 서비스 요금표 상품. 세부 구성은 상담 시 안내합니다.",
+  "features": [
+   "월 요금은 방문주기별 옵션표 기준"
+  ],
+  "spaces": "상담 시 안내",
+  "spaceKeys": [
+   "biz"
+  ],
+  "targets": [
+   "사업장"
+  ],
+  "concerns": [
+   "odor",
+   "biz"
+  ],
+  "places": [
+   "biz"
+  ],
+  "env": [],
+  "keywords": [
+   "퍼퓸웨딩",
+   "웨딩",
+   "향기",
+   "방향",
+   "Basic"
+  ],
+  "type": "product",
+  "audience": "both",
+  "bizFit": true,
+  "rentalInquire": false,
+  "bizOnlyRental": false,
+  "image": "assets/img/placeholder.svg",
+  "model": null,
+  "buyPrice": null,
+  "listPrice": null,
+  "buyOptions": [],
+  "buyLabel": "구매하기",
+  "nonMemberPrice": null,
+  "buyNote": "",
+  "buyUrl": "",
+  "rentalMonthly": 99900,
+  "rentalBase": 110900,
+  "rentalContractMonths": 36,
+  "rentalYears": [
+   "3"
+  ],
+  "rentalTotal": null,
+  "visitCycles": [
+   "1개월",
+   "2개월"
+  ],
+  "rentalNote": "월 렌탈료는 플래너 제공 가격표(2026-10-01 반영) 기준입니다. ‘이달의 판매가’는 온라인 노출가이고, 현장 할인가(단품·결합)와 재렌탈가는 방문 상담 시 적용되는 가격으로 안내합니다. 적용 조건과 최종 금액은 계약 시점에 상담으로 확인해 주세요.",
+  "careMethod": "세스코 방문 관리(렌탈) · 방문주기 1개월 / 2개월",
+  "filterInfo": "상담 시 안내",
+  "subscribable": false,
+  "subCycles": [],
+  "subMonths": [],
+  "subRecommend": null,
+  "consultRequired": true,
+  "popularity": null,
+  "soldOut": false,
+  "source": {
+   "name": "플래너 제공 가격표",
+   "url": "",
+   "checkedAt": "2026-10-01",
+   "table": 0
+  },
+  "rentalOptions": [
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "1개월",
+    "variant": null,
+    "listPrice": 110900,
+    "monthPrice": 99900,
+    "onsiteSingle": null,
+    "onsiteBundle": 80900,
+    "promo": null,
+    "rerental": 80900,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "3-32"
+   },
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "2개월",
+    "variant": null,
+    "listPrice": 109900,
+    "monthPrice": 107900,
+    "onsiteSingle": null,
+    "onsiteBundle": 80000,
+    "promo": 59900,
+    "rerental": 80000,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "3-33"
+   }
+  ],
+  "priceSource": {
+   "name": "플래너 제공 가격표",
+   "checkedAt": "2026-10-01",
+   "table": 3
+  }
+ },
+ {
+  "id": "allcare-bluezenic-signature",
+  "code": "allcare-bluezenic-signature",
+  "name": "블루제닉 시그니처",
+  "category": "life",
+  "sections": [
+   "healing.hygiene"
+  ],
+  "description": "블루제닉 시그니처 월 서비스 요금표 상품(표에 2세트가 있어 타입 A/B로 구분). 세부 구성은 상담 시 안내합니다.",
+  "features": [
+   "표에 동일 제품명 2세트 → 타입 A / 타입 B (표 순서 기준)",
+   "비고는 가격표에 기재된 그대로 표시"
+  ],
+  "spaces": "사업장 화장실 등",
+  "spaceKeys": [
+   "biz"
+  ],
+  "targets": [
+   "사업장"
+  ],
+  "concerns": [
+   "sterilize",
+   "biz"
+  ],
+  "places": [
+   "biz",
+   "bath"
+  ],
+  "env": [],
+  "keywords": [
+   "블루제닉",
+   "시그니처",
+   "케미컬",
+   "위생"
+  ],
+  "type": "product",
+  "audience": "biz",
+  "bizFit": true,
+  "rentalInquire": false,
+  "bizOnlyRental": false,
+  "image": "assets/img/placeholder.svg",
+  "model": null,
+  "buyPrice": null,
+  "listPrice": null,
+  "buyOptions": [],
+  "buyLabel": "구매하기",
+  "nonMemberPrice": null,
+  "buyNote": "",
+  "buyUrl": "",
+  "rentalMonthly": 12900,
+  "rentalBase": 13900,
+  "rentalContractMonths": 36,
+  "rentalYears": [
+   "3"
+  ],
+  "rentalTotal": null,
+  "visitCycles": [
+   "1개월",
+   "2개월",
+   "월(소모품 자가관리)"
+  ],
+  "rentalNote": "월 렌탈료는 플래너 제공 가격표(2026-10-01 반영) 기준입니다. ‘이달의 판매가’는 온라인 노출가이고, 현장 할인가(단품·결합)와 재렌탈가는 방문 상담 시 적용되는 가격으로 안내합니다. 적용 조건과 최종 금액은 계약 시점에 상담으로 확인해 주세요.",
+  "careMethod": "세스코 방문 관리(렌탈) · 방문주기 1개월 / 2개월 / 월(소모품 자가관리)",
+  "filterInfo": "상담 시 안내",
+  "subscribable": false,
+  "subCycles": [],
+  "subMonths": [],
+  "subRecommend": null,
+  "consultRequired": true,
+  "popularity": null,
+  "soldOut": false,
+  "source": {
+   "name": "플래너 제공 가격표",
+   "url": "",
+   "checkedAt": "2026-10-01",
+   "table": 0
+  },
+  "rentalOptions": [
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "1개월",
+    "variant": "타입 A",
+    "listPrice": 33900,
+    "monthPrice": 32900,
+    "onsiteSingle": 30900,
+    "onsiteBundle": 26900,
+    "promo": null,
+    "rerental": null,
+    "rerentalPromo": null,
+    "note": "* 과세 상품 * 12개월 케미컬 판매가 별도 * 단독계약 가능 / 위약 시 설치비 청구",
+    "src": "3-34"
+   },
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "2개월",
+    "variant": "타입 A",
+    "listPrice": 25900,
+    "monthPrice": 24900,
+    "onsiteSingle": 22900,
+    "onsiteBundle": 18900,
+    "promo": null,
+    "rerental": null,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "3-35"
+   },
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "월(소모품 자가관리)",
+    "variant": "타입 A",
+    "listPrice": 13900,
+    "monthPrice": 12900,
+    "onsiteSingle": 10900,
+    "onsiteBundle": 7900,
+    "promo": null,
+    "rerental": null,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "3-36"
+   },
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "1개월",
+    "variant": "타입 B",
+    "listPrice": 40900,
+    "monthPrice": 39900,
+    "onsiteSingle": 37900,
+    "onsiteBundle": 35900,
+    "promo": null,
+    "rerental": null,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "3-37"
+   },
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "2개월",
+    "variant": "타입 B",
+    "listPrice": 27900,
+    "monthPrice": 26900,
+    "onsiteSingle": 24900,
+    "onsiteBundle": 22900,
+    "promo": null,
+    "rerental": null,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "3-38"
+   },
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "월(소모품 자가관리)",
+    "variant": "타입 B",
+    "listPrice": 13900,
+    "monthPrice": 12900,
+    "onsiteSingle": 10900,
+    "onsiteBundle": 7900,
+    "promo": null,
+    "rerental": null,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "3-39"
+   }
+  ],
+  "priceSource": {
+   "name": "플래너 제공 가격표",
+   "checkedAt": "2026-10-01",
+   "table": 3
+  }
+ },
+ {
+  "id": "allcare-bluezenic",
+  "code": "allcare-bluezenic",
+  "name": "블루제닉",
+  "category": "life",
+  "sections": [
+   "healing.hygiene"
+  ],
+  "description": "블루제닉 월 서비스 요금표 상품(표에 여러 세트가 있어 타입 A/B로 구분). 세부 구성은 상담 시 안내합니다.",
+  "features": [
+   "표에 동일 제품명이 여러 세트 → 타입 A / 타입 B (표 순서 기준)"
+  ],
+  "spaces": "사업장 화장실 등",
+  "spaceKeys": [
+   "biz"
+  ],
+  "targets": [
+   "사업장"
+  ],
+  "concerns": [
+   "sterilize",
+   "biz"
+  ],
+  "places": [
+   "biz",
+   "bath"
+  ],
+  "env": [],
+  "keywords": [
+   "블루제닉",
+   "위생",
+   "케미컬"
+  ],
+  "type": "product",
+  "audience": "biz",
+  "bizFit": true,
+  "rentalInquire": false,
+  "bizOnlyRental": false,
+  "image": "assets/img/placeholder.svg",
+  "model": null,
+  "buyPrice": null,
+  "listPrice": null,
+  "buyOptions": [],
+  "buyLabel": "구매하기",
+  "nonMemberPrice": null,
+  "buyNote": "",
+  "buyUrl": "",
+  "rentalMonthly": 12900,
+  "rentalBase": 13900,
+  "rentalContractMonths": 36,
+  "rentalYears": [
+   "3"
+  ],
+  "rentalTotal": null,
+  "visitCycles": [
+   "1개월",
+   "2개월",
+   "월(소모품 자가관리)"
+  ],
+  "rentalNote": "월 렌탈료는 플래너 제공 가격표(2026-10-01 반영) 기준입니다. ‘이달의 판매가’는 온라인 노출가이고, 현장 할인가(단품·결합)와 재렌탈가는 방문 상담 시 적용되는 가격으로 안내합니다. 적용 조건과 최종 금액은 계약 시점에 상담으로 확인해 주세요.",
+  "careMethod": "세스코 방문 관리(렌탈) · 방문주기 1개월 / 2개월 / 월(소모품 자가관리)",
+  "filterInfo": "상담 시 안내",
+  "subscribable": false,
+  "subCycles": [],
+  "subMonths": [],
+  "subRecommend": null,
+  "consultRequired": true,
+  "popularity": null,
+  "soldOut": false,
+  "source": {
+   "name": "플래너 제공 가격표",
+   "url": "",
+   "checkedAt": "2026-10-01",
+   "table": 0
+  },
+  "rentalOptions": [
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "1개월",
+    "variant": "타입 A",
+    "listPrice": 40900,
+    "monthPrice": 39900,
+    "onsiteSingle": 37900,
+    "onsiteBundle": 35900,
+    "promo": null,
+    "rerental": null,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "3-40"
+   },
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "2개월",
+    "variant": "타입 A",
+    "listPrice": 27900,
+    "monthPrice": 26900,
+    "onsiteSingle": 24900,
+    "onsiteBundle": 22900,
+    "promo": null,
+    "rerental": null,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "3-41"
+   },
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "월(소모품 자가관리)",
+    "variant": "타입 A",
+    "listPrice": 13900,
+    "monthPrice": 12900,
+    "onsiteSingle": 10900,
+    "onsiteBundle": 7900,
+    "promo": null,
+    "rerental": null,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "3-42"
+   },
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "2개월",
+    "variant": "타입 B",
+    "listPrice": 25900,
+    "monthPrice": 24900,
+    "onsiteSingle": 22900,
+    "onsiteBundle": 18900,
+    "promo": null,
+    "rerental": null,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "3-43"
+   },
+   {
+    "period": 36,
+    "periodLabel": "36개월",
+    "visit": "1개월",
+    "variant": "타입 B",
+    "listPrice": 38900,
+    "monthPrice": 36900,
+    "onsiteSingle": 34900,
+    "onsiteBundle": 32900,
+    "promo": null,
+    "rerental": null,
+    "rerentalPromo": null,
+    "note": "",
+    "src": "3-44"
+   }
+  ],
+  "priceSource": {
+   "name": "플래너 제공 가격표",
+   "checkedAt": "2026-10-01",
+   "table": 3
+  }
+ },
+ {
+  "id": "allcare-mattress",
+  "code": "allcare-mattress",
+  "name": "세스코 매트리스",
+  "category": "life",
+  "sections": [
+   "healing.hygiene"
+  ],
+  "description": "규격(K·Q·SS)과 등급(프리미엄·미디엄·베이직·폼·프레임)별 판매가표입니다. 최대 36개월 무이자 할부. 구성·사양은 상담 시 안내합니다.",
+  "features": [
+   "규격 × 등급 판매가표 (아래 표 참고)",
+   "최대 36개월 무이자 할부 (가격표 표기)"
+  ],
+  "spaces": "침실",
+  "spaceKeys": [],
+  "targets": [
+   "가정"
+  ],
+  "concerns": [
+   "sterilize"
+  ],
+  "places": [
+   "living"
+  ],
+  "env": [],
+  "keywords": [
+   "매트리스",
+   "침대",
+   "프레임",
+   "폼",
+   "프리미엄",
+   "미디엄",
+   "베이직",
+   "무이자 할부"
+  ],
+  "type": "product",
+  "audience": "both",
+  "bizFit": false,
+  "rentalInquire": false,
+  "bizOnlyRental": false,
+  "image": "assets/img/placeholder.svg",
+  "model": null,
+  "buyPrice": null,
+  "listPrice": null,
+  "buyOptions": [],
+  "buyLabel": "구매하기",
+  "nonMemberPrice": null,
+  "buyNote": "",
+  "buyUrl": "",
+  "rentalMonthly": null,
+  "rentalBase": null,
+  "rentalContractMonths": null,
+  "rentalYears": [],
+  "rentalTotal": null,
+  "visitCycles": [],
+  "rentalNote": null,
+  "careMethod": "상담 시 안내",
+  "filterInfo": "상담 시 안내",
+  "subscribable": false,
+  "subCycles": [],
+  "subMonths": [],
+  "subRecommend": null,
+  "consultRequired": true,
+  "popularity": null,
+  "soldOut": false,
+  "source": {
+   "name": "플래너 제공 가격표",
+   "url": "",
+   "checkedAt": "2026-10-01",
+   "table": 4
+  },
+  "priceMatrix": {
+   "title": "매트리스 판매가 (규격 × 등급)",
+   "unit": "원",
+   "rowHeader": "완성도 / 규격",
+   "cols": [
+    "프리미엄",
+    "미디엄",
+    "베이직",
+    "폼",
+    "프레임"
+   ],
+   "rows": [
+    {
+     "label": "K",
+     "values": [
+      1947000,
+      1694000,
+      1210000,
+      null,
+      878900
+     ]
+    },
+    {
+     "label": "Q",
+     "values": [
+      1584000,
+      1452000,
+      1023000,
+      null,
+      768900
+     ]
+    },
+    {
+     "label": "SS",
+     "values": [
+      1463000,
+      1210000,
+      858000,
+      532400,
+      658900
+     ]
+    }
+   ],
+   "note": "최대 무이자 할부 36개월 (가격표 표기). ‘-’는 가격표에 해당 가격이 없는 칸입니다."
+  },
+  "priceFrom": {
+   "price": 532400,
+   "basis": "규격·등급 중 최저 판매가 기준",
+   "unit": ""
+  },
+  "catLabel": "MATTRESS",
+  "priceSource": {
+   "name": "플래너 제공 가격표",
+   "checkedAt": "2026-10-01",
+   "table": 4
+  }
+ },
+ {
+  "id": "allcare-aircon-cleaning",
+  "code": "allcare-aircon-cleaning",
+  "name": "에어컨 크리닝 서비스",
+  "category": "service",
+  "sections": [
+   "healing.hygiene"
+  ],
+  "description": "벽걸이·스탠드·시스템·업소용 등 구분별 에어컨 크리닝 가격표입니다. 비수기(9월~3월) 판매가와 4분기 특판가(20~100대)를 함께 안내하며, 일정·견적은 상담 후 확정합니다.",
+  "features": [
+   "구분별 9월~3월 비수기 판매가 / 4분기 특판가(20~100대) 안내",
+   "높이·오염·심야·고난이도 작업은 옵션 추가 비용 표 참고",
+   "실외기 완전 분해, 기업 100대 이상 정기세척관리 가격 포함"
+  ],
+  "spaces": "가정 / 사업장 (벽걸이·스탠드·시스템·업소용)",
+  "spaceKeys": [
+   "biz"
+  ],
+  "targets": [
+   "가정",
+   "사업장"
+  ],
+  "concerns": [
+   "air",
+   "sterilize",
+   "biz"
+  ],
+  "places": [
+   "living",
+   "biz"
+  ],
+  "env": [],
+  "keywords": [
+   "에어컨",
+   "에어컨크리닝",
+   "에어컨청소",
+   "시스템에어컨",
+   "벽걸이",
+   "스탠드",
+   "실외기",
+   "업소용",
+   "FCU",
+   "환풍구",
+   "4분기 특판"
+  ],
+  "type": "service",
+  "audience": "both",
+  "bizFit": true,
+  "rentalInquire": false,
+  "bizOnlyRental": false,
+  "image": "assets/img/placeholder.svg",
+  "model": null,
+  "buyPrice": null,
+  "listPrice": null,
+  "buyOptions": [],
+  "buyLabel": "구매하기",
+  "nonMemberPrice": null,
+  "buyNote": "",
+  "buyUrl": "",
+  "rentalMonthly": null,
+  "rentalBase": null,
+  "rentalContractMonths": null,
+  "rentalYears": [],
+  "rentalTotal": null,
+  "visitCycles": [],
+  "rentalNote": null,
+  "careMethod": "상담 시 안내",
+  "filterInfo": "상담 시 안내",
+  "subscribable": false,
+  "subCycles": [],
+  "subMonths": [],
+  "subRecommend": null,
+  "consultRequired": true,
+  "popularity": null,
+  "soldOut": false,
+  "source": {
+   "name": "플래너 제공 가격표",
+   "url": "",
+   "checkedAt": "2026-10-01",
+   "table": 5
+  },
+  "servicePrices": {
+   "title": "에어컨 크리닝 가격표",
+   "colOffPeak": "9월~3월 비수기 판매가(V+)",
+   "colQ4": "4분기 특판가(20~100대) (V+)",
+   "rows": [
+    {
+     "g1": "공용",
+     "g2": "벽걸이",
+     "g3": "-",
+     "detail": "-",
+     "offPeak": 95000,
+     "q4Special": 88000,
+     "kind": "base",
+     "src": "5-1"
+    },
+    {
+     "g1": "공용",
+     "g2": "스탠드 (평수무관, 가정용)",
+     "g3": "-",
+     "detail": "-",
+     "offPeak": 150000,
+     "q4Special": 140000,
+     "kind": "base",
+     "src": "5-2"
+    },
+    {
+     "g1": "시스템",
+     "g2": "1, 2way",
+     "g3": "-",
+     "detail": "-",
+     "offPeak": 135000,
+     "q4Special": 126000,
+     "kind": "base",
+     "src": "5-3"
+    },
+    {
+     "g1": "시스템",
+     "g2": "4way",
+     "g3": "-",
+     "detail": "-",
+     "offPeak": 175000,
+     "q4Special": 163000,
+     "kind": "base",
+     "src": "5-4"
+    },
+    {
+     "g1": "시스템",
+     "g2": "원형",
+     "g3": "-",
+     "detail": "-",
+     "offPeak": 200000,
+     "q4Special": 176000,
+     "kind": "base",
+     "src": "5-5"
+    },
+    {
+     "g1": "기업",
+     "g2": "FCU",
+     "g3": "천정형",
+     "detail": "-",
+     "offPeak": 165000,
+     "q4Special": 145000,
+     "kind": "base",
+     "src": "5-6"
+    },
+    {
+     "g1": "기업",
+     "g2": "FCU",
+     "g3": "바닥상치형",
+     "detail": "-",
+     "offPeak": 185000,
+     "q4Special": 163000,
+     "kind": "base",
+     "src": "5-7"
+    },
+    {
+     "g1": "기업",
+     "g2": "환풍구 (디퓨저)",
+     "g3": "분해세척기준",
+     "detail": "-",
+     "offPeak": 37000,
+     "q4Special": 34000,
+     "kind": "base",
+     "src": "5-8"
+    },
+    {
+     "g1": "업소용",
+     "g2": "스탠드",
+     "g3": "60평 이하",
+     "detail": "기본클리닝 (내부팬미분리)",
+     "offPeak": 185000,
+     "q4Special": 157000,
+     "kind": "base",
+     "src": "5-9"
+    },
+    {
+     "g1": "업소용",
+     "g2": "스탠드",
+     "g3": "60평 이하",
+     "detail": "완전 분해 클리닝",
+     "offPeak": 240000,
+     "q4Special": 204000,
+     "kind": "base",
+     "src": "5-10"
+    },
+    {
+     "g1": "업소용",
+     "g2": "스탠드",
+     "g3": "60평 초과",
+     "detail": "기본클리닝 (내부팬미분리)",
+     "offPeak": 225000,
+     "q4Special": 191000,
+     "kind": "base",
+     "src": "5-11"
+    },
+    {
+     "g1": "업소용",
+     "g2": "스탠드",
+     "g3": "60평 초과",
+     "detail": "완전 분해 클리닝",
+     "offPeak": 350000,
+     "q4Special": 298000,
+     "kind": "base",
+     "src": "5-12"
+    },
+    {
+     "g1": "공용",
+     "g2": "실외기 (완전 분해)",
+     "g3": "일반 (1구)",
+     "detail": "-",
+     "offPeak": 90000,
+     "q4Special": null,
+     "kind": "outdoor",
+     "src": "5-13"
+    },
+    {
+     "g1": "공용",
+     "g2": "실외기 (완전 분해)",
+     "g3": "대형 (2구)",
+     "detail": "-",
+     "offPeak": 115000,
+     "q4Special": null,
+     "kind": "outdoor",
+     "src": "5-14"
+    },
+    {
+     "g1": "공용",
+     "g2": "실외기 (완전 분해)",
+     "g3": "초대형 (타워형)",
+     "detail": "-",
+     "offPeak": 300000,
+     "q4Special": null,
+     "kind": "outdoor",
+     "src": "5-15"
+    },
+    {
+     "g1": "기업 (100대 이상)",
+     "g2": "시스템 정기세척관리",
+     "g3": "필터 세척",
+     "detail": "-",
+     "offPeak": 16000,
+     "q4Special": null,
+     "kind": "bulk",
+     "src": "5-16"
+    },
+    {
+     "g1": "기업 (100대 이상)",
+     "g2": "시스템 정기세척관리",
+     "g3": "필터 + 그릴 세척",
+     "detail": "-",
+     "offPeak": 24000,
+     "q4Special": null,
+     "kind": "bulk",
+     "src": "5-17"
+    },
+    {
+     "g1": "공용",
+     "g2": "옵션 (대당가격)",
+     "g3": "높이 (3.5m~4.5m)",
+     "detail": "-",
+     "offPeak": 65000,
+     "q4Special": null,
+     "kind": "extra",
+     "src": "5-18"
+    },
+    {
+     "g1": "공용",
+     "g2": "옵션 (대당가격)",
+     "g3": "오염 (유분, 분진 과다)",
+     "detail": "-",
+     "offPeak": 40000,
+     "q4Special": null,
+     "kind": "extra",
+     "src": "5-19"
+    },
+    {
+     "g1": "공용",
+     "g2": "옵션 (대당가격)",
+     "g3": "심야 (24시~6시 작업)",
+     "detail": "-",
+     "offPeak": 30000,
+     "q4Special": null,
+     "kind": "extra",
+     "src": "5-20"
+    },
+    {
+     "g1": "공용",
+     "g2": "옵션 (대당가격)",
+     "g3": "고난이도작업",
+     "detail": "-",
+     "offPeak": 75000,
+     "q4Special": null,
+     "kind": "extra",
+     "src": "5-21"
+    }
+   ],
+   "note": "금액 단위는 원이며 ‘-’는 가격표에 해당 가격이 없는 칸입니다. ‘(V+)’ 표기는 가격표 원문 그대로입니다. 일정·현장 조건에 따라 견적이 달라질 수 있어 상담 후 확정합니다."
+  },
+  "priceFrom": {
+   "price": 95000,
+   "basis": "벽걸이 · 9월~3월 비수기 판매가 기준",
+   "unit": ""
+  },
+  "catLabel": "AIRCON CLEANING",
+  "priceSource": {
+   "name": "플래너 제공 가격표",
+   "checkedAt": "2026-10-01",
+   "table": 5
   }
  }
 ]
