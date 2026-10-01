@@ -2,7 +2,7 @@
    파일이 없거나 실패해도(예: file:// 로 열기, 네트워크 오류) 기본 데이터(data/products.js)로 그대로 동작합니다. */
 (function(){
 'use strict';
-var SCRIPTS = ['js/core.js', 'js/pages.js', 'js/app.js'];
+var SCRIPTS = ['js/core.js', 'js/pages.js', 'js/app.js', 'js/floating.js'];
 function boot(){
   SCRIPTS.forEach(function(src){ var s = document.createElement('script'); s.src = src; s.async = false; document.body.appendChild(s); });
 }

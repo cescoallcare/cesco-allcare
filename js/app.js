@@ -15,7 +15,6 @@ $('#btnSearch').innerHTML = ico('search'); $('#btnSearch').dataset.act = 'openSe
 $('#btnMenu').innerHTML = ico('menu'); $('#btnMenu').dataset.act = 'openDrawer';
 $('#btnDrawerX').innerHTML = ico('x'); $('#btnSearchX').innerHTML = ico('x'); $('#btnConsultX').innerHTML = ico('x');
 $('#searchIco').innerHTML = ico('search');
-$('#fab').innerHTML = ico('message') + ' 상담하기';
 $('#bottomNav').innerHTML = `
   <a href="#/" data-bn="home">${ico('home')}<span>홈</span></a>
   <a href="#/products" data-bn="products">${ico('box')}<span>제품</span></a>
@@ -29,7 +28,6 @@ function footerHtml(){
       <div><img class="flogo" src="assets/logo/logo-white.png" alt="CESCO Lifecare"><p style="max-width:340px;line-height:1.75">${esc(c.slogan)}<br>공기부터 물, 생활까지. 내 공간에 꼭 필요한 케어를 함께 찾아 드립니다.</p>
         <ul class="contact" style="margin-top:18px">
           <li>${ico('message')} ${esc(c.title)} <b style="color:#fff">${esc(c.name)}</b></li>
-          <li>${ico('pin')} ${esc(c.branch)}</li>
           <li>${ico('phone')} <a href="${c.phoneTel}" style="color:#fff;font-weight:700">${esc(c.phone)}</a></li>
           <li>${ico('mail')} <a href="mailto:${esc(c.email)}">${esc(c.email)}</a></li></ul></div>
       <div><h4>MENU</h4><ul class="menus">${NAV.map(n => `<li><a href="${n.href}">${esc(n.label)}</a></li>`).join('')}<li><a href="#/products">전체 제품</a></li><li><a href="#/planner">플래너 소개</a></li></ul></div>
@@ -39,7 +37,7 @@ function footerHtml(){
       <p><b>본 사이트는 세스코 라이프케어 플래너의 상품 안내 및 상담을 위한 페이지입니다.</b></p>
       <p>가격, 월 렌탈료, 계약 조건(의무사용기간·방문주기·약정·위약금 등)은 공식 판매/계약 기준에 따라 달라질 수 있으며, 최종 조건은 계약 시점의 공식 안내를 따릅니다. 표시된 정보는 세스코몰(${esc(C.mallUrl.replace('https://',''))}) 등에서 ${esc(C.priceCheckedAt)}에 확인한 내용과 플래너 제공 가격표(${esc(C.priceTableAt)} 반영)이며, 확인되지 않은 항목은 “상담 시 안내”로 표시했습니다.</p>
       <p>PARTNER PRODUCT(제휴·판매 상품)로 표시된 아롬비(AROMVI) 상품은 세스코 자체 제품이 아닙니다. 상품 이미지는 판매처 게시 이미지를 사용 허락을 받아 사용했으며, 분위기 사진은 Unsplash 무료 라이선스 이미지입니다.</p>
-      <p>© CESCO ALL CARE · ${esc(c.branch)} ${esc(c.title)} ${esc(c.name)}. 세스코(CESCO)는 해당 권리자의 상표입니다.</p>
+      <p>© CESCO ALL CARE · ${esc(c.title)} ${esc(c.name)}. 세스코(CESCO)는 해당 권리자의 상표입니다.</p>
     </div></div>`;
 }
 $('#footer').innerHTML = footerHtml();
@@ -77,7 +75,7 @@ function render(){
     }
   } catch (e) { console.error('render error', e); html = PG.notFound(); }
   app.innerHTML = html;
-  document.title = (TITLES[a] || title) && a ? `${TITLES[a] || title} | 세스코 올케어 CESCO ALL CARE` : '세스코 올케어 (CESCO ALL CARE) | 세스코 라이프케어 SOL 플래너 최영척';
+  document.title = (TITLES[a] || title) && a ? `${TITLES[a] || title} | 세스코 올케어 CESCO ALL CARE` : '세스코 올케어 (CESCO ALL CARE) | 세스코 라이프케어 SOL 플래너';
   if (a === 'product' && title) document.title = `${title} | 세스코 올케어`;
   // nav 하이라이트
   $$('#nav a, #drawerLinks a[data-key]').forEach(x => x.classList.toggle('active', x.dataset.key === navKey));
@@ -125,7 +123,7 @@ function openConsult(o = {}){
   $('#consultBody').innerHTML = `<div id="cmForm">
     <span class="eyebrow">CONSULTATION</span>
     <h2 id="cmTitle" class="h3" style="margin:10px 0 6px;font-size:26px">맞춤 상담 신청</h2>
-    <p class="muted" style="margin-bottom:20px;font-size:14.5px">${esc(C.planner.title)} ${esc(C.planner.name)}이 확인 후 연락드립니다.<br><b style="color:var(--navy)">“${esc(C.planner.slogan)}”</b></p>
+    <p class="muted" style="margin-bottom:20px;font-size:14.5px">${esc(C.planner.title)}가 확인 후 연락드립니다.<br><b style="color:var(--navy)">“${esc(C.planner.slogan)}”</b></p>
     ${p ? `<div class="pchip">${img(p.image, p.name)}<div><small class="muted">문의 제품</small><br><b>${esc(p.name)}</b></div></div>` : ''}
     <form id="cmF" novalidate>
       <div class="field"><label for="cmName">이름 <i>*</i></label><input class="input" id="cmName" name="name" autocomplete="name" placeholder="홍길동"><span class="err">이름을 입력해 주세요.</span></div>

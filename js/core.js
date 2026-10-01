@@ -179,7 +179,7 @@ function buildIndex(){
   [['렌탈 안내','부담은 줄이고 관리는 꾸준히 — 월 렌탈료·계약기간·방문주기를 한눈에','#/rental','렌탈 월렌탈료 계약 약정 방문관리 케어십 필터 교체'],
    ['정기배송','자주 쓰는 생활용품, 배송주기를 정해 두세요','#/subscribe','정기배송 생활용품 소모품 배송주기 구독'],
    ['CARE FINDER','네 가지 질문으로 나에게 맞는 케어 찾기','#/finder','케어 찾기 추천 진단 파인더'],
-   ['플래너 소개','세스코 라이프케어 SOL 플래너 최영척','#/planner','플래너 최영척 상담 양산 세스코']
+   ['플래너 소개','세스코 라이프케어 SOL 플래너','#/planner','플래너 최영척 상담 세스코']
   ].forEach(x => idx.push({ type:'케어', id:x[0], title:x[0], sub:x[1], href:x[2], icon:'compass', hay:norm(x[0]+' '+x[1]+' '+x[3]), nameHay:norm(x[0]+' '+x[3]) }));
   (window.INDUSTRIES||[]).forEach(i => idx.push({ type:'업종', id:i.id, title:i.name + ' 맞춤 케어', sub:i.summary, href:'#/business/'+i.id, icon:'store', img:i.img, hay:norm([i.name,i.en,i.id==='pcroom'?'pc방 피씨방 pc room':'',i.summary,i.worries.join(' '),i.care.join(' ')].join(' ')), nameHay:norm(i.name+' '+i.en+(i.id==='pcroom'?' pc방 피씨방':'')) }));
   (window.GUIDES||[]).forEach(g => idx.push({ type:'가이드', id:g.id, title:g.title, sub:g.excerpt, href:'#/guide/'+g.id, img:g.img, hay:norm([g.title,g.excerpt,g.keywords.join(' '),g.body.map(b=>b[0]+' '+b[1]).join(' ')].join(' ')), nameHay:norm(g.title+' '+g.keywords.join(' ')) }));

@@ -7,7 +7,6 @@ window.CONFIG = {
   planner: {
     name: '최영척',
     title: '세스코 라이프케어 SOL 플래너',
-    branch: '세스코 양산지국',
     phone: '010 7434 0548',
     phoneTel: 'tel:01074340548',
     email: 'rrrr33@nate.com',

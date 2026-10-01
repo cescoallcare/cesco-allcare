@@ -31,7 +31,7 @@ function home(){
       </div>
       <aside class="hero-card" aria-label="플래너 상담 안내">
         <span class="hc-badge">${ico('shield')} ${esc(c.title)}</span>
-        <div class="hc-name"><b>${esc(c.name)}</b><small>${esc(c.branch)}</small></div>
+        <div class="hc-name"><b>공간을 먼저 살펴보는 상담</b><small>공기 · 물 · 생활 케어 맞춤 안내</small></div>
         <p class="hc-quote">“${esc(c.slogan)}”</p>
         <div class="hc-actions"><a class="btn btn-white" href="${c.phoneTel}">${ico('phone')} ${esc(c.phone)}</a><button class="btn btn-primary" data-act="consult">상담하기</button></div>
       </aside>
@@ -118,7 +118,7 @@ function consultSection(){
       <h2 class="h2" style="margin-top:14px">무엇이 필요한지 모르겠다면,<br>제가 먼저 살펴보겠습니다.</h2>
       <p class="sig">“${esc(c.slogan)}”</p>
       <p style="margin-top:22px;color:rgba(255,255,255,.75);max-width:520px">공간과 함께 사는 분, 예산, 관리에 들일 수 있는 시간을 먼저 듣고 꼭 필요한 케어만 제안드립니다. 부담 없이 문의해 주세요.</p></div>
-    <div class="consult-card"><div class="who"><small>${esc(c.title)}</small><b>${esc(c.name)}</b><small>${esc(c.branch)}</small></div>
+    <div class="consult-card"><div class="who"><small>${esc(c.title)}</small><b>${esc(c.name)}</b></div>
       <a class="tel" href="${c.phoneTel}">${esc(c.phone)}</a>
       <div class="btns"><a class="btn btn-white btn-lg" href="${c.phoneTel}">${ico('phone')} 전화 상담</a>
         <a class="btn kakao btn-lg" href="${esc(C.kakaoUrl)}" target="_blank" rel="noopener" data-act="kakao">${ico('message')} 카카오톡 상담</a>
@@ -130,7 +130,7 @@ function plannerSection(){
   const c = C.planner;
   return `<section class="section" id="planner"><div class="container"><div class="planner">
     <div><span class="eyebrow">PLANNER</span><h2 class="h2" style="margin-top:14px">${esc(c.title)}<br>${esc(c.name)}</h2>
-      <p class="lead" style="margin-top:14px">${esc(c.branch)}에서 상담하고 있습니다. 제품을 먼저 권하기보다, 공간을 먼저 봅니다.</p>
+      <p class="lead" style="margin-top:14px">제품을 먼저 권하기보다, 공간을 먼저 봅니다.</p>
       <div class="p-list">
         <div class="p-item"><span class="pi">${ico('compass')}</span><div><h3>공간 진단</h3><p>평수, 생활 패턴, 함께 사는 분과 고민을 듣고 어디부터 손댈지 정리합니다.</p></div></div>
         <div class="p-item"><span class="pi">${ico('clipboard')}</span><div><h3>맞춤 추천</h3><p>필요한 것만 골라 렌탈·구매·정기배송 중 맞는 방식으로 제안합니다.</p></div></div>
@@ -140,7 +140,7 @@ function plannerSection(){
     <div class="card-img">${img('assets/logo/namecard.webp','최영척 플래너 명함 앞·뒷면')}</div>
   </div></div></section>`;
 }
-function plannerPage(){ return pageHero({eyebrow:'PLANNER', title:'세스코 라이프케어<br>SOL 플래너 최영척', lead:esc(C.planner.slogan), img:'assets/img/team-office.webp', crumbs:[{label:'플래너 소개'}]}) + plannerSection() + consultSection(); }
+function plannerPage(){ return pageHero({eyebrow:'PLANNER', title:'세스코 라이프케어<br>SOL 플래너', lead:esc(C.planner.slogan), img:'assets/img/team-office.webp', crumbs:[{label:'플래너 소개'}]}) + plannerSection() + consultSection(); }
 
 /* ────────── 제품 섹션 (air / water / life) ────────── */
 function sectionPage(key, qs){
@@ -501,7 +501,7 @@ function guidePage(id){
   return pageHero({eyebrow:'CARE GUIDE · ' + g.tag, title: esc(g.title), lead: esc(g.excerpt), img: g.img, crumbs:[{label:'CARE GUIDE', href:'#/guide'},{label:g.tag}]}) + `
   <section class="section" style="padding-top:56px"><div class="container">
     <article class="article">
-      <p class="muted" style="font-size:14px">읽는 시간 ${esc(g.read)} · 작성: ${esc(C.planner.title)} ${esc(C.planner.name)}</p>
+      <p class="muted" style="font-size:14px">읽는 시간 ${esc(g.read)} · 작성: ${esc(C.planner.title)}</p>
       ${g.body.map(b => `<h2>${esc(b[0])}</h2><p>${esc(b[1])}</p>`).join('')}
       <div class="notice" style="margin-top:36px">${ico('info')}<div>이 글은 일반적인 생활 정보이며, 제품 사양·가격·조건은 판매처 공식 기준을 따릅니다. 구체적인 선택은 상담으로 도와드립니다.</div></div>
     </article>
