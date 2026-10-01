@@ -326,8 +326,8 @@ function productPage(id){
           ${hasOpts(p) && minMonth(p) != null ? `<div class="row"><span class="k">월 렌탈료</span><span class="v blue">${won(minMonth(p))}<small>/월부터</small></span></div><div class="note">${esc(RENT_BASIS)} · 아래에서 의무사용기간·방문주기별 가격을 선택해 확인하세요.</div>` : ''}
           ${!hasOpts(p) && (p.rentalMonthly || p.rentalInquire) ? `<div class="row"><span class="k">월 렌탈료</span><span class="v blue ${p.rentalMonthly?'':'ask'}">${p.rentalMonthly ? won(p.rentalMonthly) + '<small>/월</small>' : '상담 시 안내'}</span></div>` : ''}
           ${!hasOpts(p) && p.rentalMonthly ? `<div class="row"><span class="k">계약기간 · 총 렌탈금액(참고)</span><span class="v" style="font-size:18px">${p.rentalContractMonths||36}개월 · ${won(total)}</span></div>` : ''}
-          ${p.nonMemberPrice && p.nonMemberPrice !== p.buyPrice ? `<div class="note">비회원가 ${won(p.nonMemberPrice)} (표시가는 회원 등급가 기준)</div>` : ''}
-          ${p.buyNote ? `<div class="note">${esc(p.buyNote)}</div>` : ''}
+          ${p.nonMemberPrice && p.nonMemberPrice !== p.buyPrice ? `<div class="note">비회원가 ${won(p.nonMemberPrice)}</div>` : ''}
+          ${p.buyNote && String(p.buyNote).trim() ? `<div class="note">${esc(String(p.buyNote).trim())}</div>` : ''}
           ${p.rentalNote ? `<div class="note">${esc(p.rentalNote)}</div>` : ''}
           ${p.buyPrice == null && !p.rentalMonthly && !fi ? `<div class="note">가격은 확인되지 않아 “상담 시 안내”로 표시합니다.</div>` : ''}
         </div>
