@@ -322,7 +322,7 @@ details.faq p{padding:0 4px 20px;color:var(--muted);font-size:15px}
 
 /* Planner */
 .planner{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,6vw,80px);align-items:center}
-.planner .card-img{border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh-3);background:#fff;border:1px solid var(--line)}
+.planner .pl-card{border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh-3);background:#fff;border:1px solid var(--line)}
 .p-list{display:grid;gap:22px;margin-top:26px}
 .p-item{display:grid;grid-template-columns:60px 1fr;gap:18px;align-items:start}
 .p-item .pi{width:60px;height:60px;border-radius:20px;background:var(--sky);color:var(--blue);display:grid;place-items:center}
@@ -798,8 +798,8 @@ details.faq[open] summary::after{transform:rotate(180deg)}
 .consult-card .btn-primary{background:linear-gradient(135deg,#1A73E8,#3B8BFF)}
 
 /* Planner */
-.planner .card-img{border:0;border-radius:var(--r-xl);box-shadow:var(--sh-3);transform:rotate(1.2deg);transition:transform .6s var(--ease)}
-.planner .card-img:hover{transform:rotate(0)}
+.planner .pl-card{border:0;border-radius:var(--r-xl);box-shadow:var(--sh-3);transform:rotate(1.2deg);transition:transform .6s var(--ease)}
+.planner .pl-card:hover{transform:rotate(0)}
 .p-item .pi{border-radius:20px;background:linear-gradient(135deg,var(--sky),#F4FAFF)}
 
 /* Footer */
@@ -850,7 +850,7 @@ details.faq[open] summary::after{transform:rotate(180deg)}
   .stats{grid-template-columns:repeat(2,1fr)}
   .stat-i:nth-child(3)::before{display:none}
   .stat-i:nth-child(n+3){border-top:1px solid var(--line)}
-  .planner .card-img{transform:none}
+  .planner .pl-card{transform:none}
 }
 @media (max-width:767px){
   :root{--header-h:64px}
@@ -885,7 +885,7 @@ details.faq[open] summary::after{transform:rotate(180deg)}
   .footer{padding-bottom:calc(36px + var(--bottom-h) + env(safe-area-inset-bottom))}
   .step-block{padding:28px 0}
   .article p{font-size:16.5px;line-height:1.9}
-  .planner .card-img{border-radius:24px}
+  .planner .pl-card{border-radius:24px}
 }
 
 /* ───── Floating UI (플로팅 칩 + 빠른 상담 FAB) ───── */
@@ -962,3 +962,17 @@ details.faq[open] summary::after{transform:rotate(180deg)}
   .fl-chip,.fl-fab,.fl-act,.fl-panel,.fl-menu,.fl-quick,.fl-fab .o,.fl-fab .c{transition:none}
 }
 @media print{#floatRoot{display:none!important}}
+
+/* Planner card (이름 없는 로고 카드) */
+.planner .pl-card{position:relative;overflow:hidden;color:#fff;padding:clamp(28px,4vw,44px);min-height:clamp(320px,34vw,420px);display:flex;flex-direction:column;justify-content:space-between;gap:28px;background:radial-gradient(120% 90% at 100% 0%,rgba(79,160,255,.45),transparent 55%),radial-gradient(90% 80% at 0% 100%,rgba(25,181,143,.28),transparent 60%),linear-gradient(160deg,#0A1F44,#123A7A)}
+.planner .pl-card::after{content:"";position:absolute;right:-70px;bottom:-70px;width:260px;height:260px;border-radius:50%;border:1px solid rgba(255,255,255,.15);box-shadow:0 0 0 38px rgba(255,255,255,.04),0 0 0 78px rgba(255,255,255,.03);pointer-events:none}
+.pl-card .pl-top img{height:34px;width:auto;display:block}
+.pl-card .pl-mid{display:grid;gap:8px;justify-items:start}
+.pl-card .pl-ico{width:64px;height:64px;border-radius:20px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);display:grid;place-items:center;margin-bottom:6px;backdrop-filter:blur(6px)}
+.pl-card .pl-ico .ico{width:32px;height:32px;color:#fff}
+.pl-card .pl-mid b{font-size:clamp(26px,3vw,34px);font-weight:800;letter-spacing:-.01em}
+.pl-card .pl-mid small{font-size:14.5px;color:rgba(255,255,255,.78)}
+.pl-card .pl-tags{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0;padding:0;position:relative;z-index:1}
+.pl-card .pl-tags li{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);font-size:13.5px;font-weight:600}
+.pl-card .pl-tags .ico{width:16px;height:16px}
+@media (max-width:767px){.planner .pl-card{min-height:280px}}

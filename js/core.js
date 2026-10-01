@@ -179,7 +179,7 @@ function buildIndex(){
   [['렌탈 안내','부담은 줄이고 관리는 꾸준히 — 월 렌탈료·계약기간·방문주기를 한눈에','#/rental','렌탈 월렌탈료 계약 약정 방문관리 케어십 필터 교체'],
    ['정기배송','자주 쓰는 생활용품, 배송주기를 정해 두세요','#/subscribe','정기배송 생활용품 소모품 배송주기 구독'],
    ['CARE FINDER','네 가지 질문으로 나에게 맞는 케어 찾기','#/finder','케어 찾기 추천 진단 파인더'],
-   ['플래너 소개','세스코 라이프케어 SOL 플래너','#/planner','플래너 최영척 상담 세스코']
+   ['플래너 소개','세스코 라이프케어 SOL 플래너','#/planner','플래너 SOL 라이프케어 상담 세스코']
   ].forEach(x => idx.push({ type:'케어', id:x[0], title:x[0], sub:x[1], href:x[2], icon:'compass', hay:norm(x[0]+' '+x[1]+' '+x[3]), nameHay:norm(x[0]+' '+x[3]) }));
   (window.INDUSTRIES||[]).forEach(i => idx.push({ type:'업종', id:i.id, title:i.name + ' 맞춤 케어', sub:i.summary, href:'#/business/'+i.id, icon:'store', img:i.img, hay:norm([i.name,i.en,i.id==='pcroom'?'pc방 피씨방 pc room':'',i.summary,i.worries.join(' '),i.care.join(' ')].join(' ')), nameHay:norm(i.name+' '+i.en+(i.id==='pcroom'?' pc방 피씨방':'')) }));
   (window.GUIDES||[]).forEach(g => idx.push({ type:'가이드', id:g.id, title:g.title, sub:g.excerpt, href:'#/guide/'+g.id, img:g.img, hay:norm([g.title,g.excerpt,g.keywords.join(' '),g.body.map(b=>b[0]+' '+b[1]).join(' ')].join(' ')), nameHay:norm(g.title+' '+g.keywords.join(' ')) }));
@@ -215,7 +215,7 @@ function pageHero({eyebrow, title, lead, img:im, crumbs=[], actions=''}){
     <span class="eyebrow">${esc(eyebrow)}</span><h1 class="h1">${title}</h1><p class="lead">${lead||''}</p>${actions?`<div class="hero-actions">${actions}</div>`:''}</div></section>`;
 }
 function consultStrip(title, text, topic){
-  return `<div class="cta-strip"><div><h3>${title||'무엇이 필요한지 모르겠다면, 제가 먼저 살펴보겠습니다.'}</h3><p>${text||'견적서보다 처방전을 먼저 씁니다. — 세스코 라이프케어 SOL 플래너 최영척'}</p></div>
+  return `<div class="cta-strip"><div><h3>${title||'무엇이 필요한지 모르겠다면, 제가 먼저 살펴보겠습니다.'}</h3><p>${text||'견적서보다 처방전을 먼저 씁니다. — 세스코 라이프케어 SOL 플래너'}</p></div>
   <div class="btn-stack" style="flex:0 0 auto"><button class="btn btn-white" data-act="consult" ${topic?`data-topic="${esc(topic)}"`:''}>${ico('message')} 상담하기</button><a class="btn btn-line-w" href="${C.planner.phoneTel}">${ico('phone')} ${esc(C.planner.phone)}</a></div></div>`;
 }
 function disclaimer(){ return `<div class="notice">${ico('info')}<div>표시된 가격·월 렌탈료·계약 조건은 세스코몰 등 공식 판매처 게시 정보(<b>${C.priceCheckedAt}</b> 확인)와 플래너 제공 가격표(<b>${C.priceTableAt}</b> 반영)를 기준으로 하며, 프로모션·제휴카드·약정기간·방문주기·옵션에 따라 달라질 수 있습니다. 확인되지 않은 항목은 “상담 시 안내”로 표시하며, 최종 가격과 계약 조건은 공식 판매/계약 기준을 따릅니다.</div></div>`; }

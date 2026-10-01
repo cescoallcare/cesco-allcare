@@ -1,5 +1,5 @@
 # 세스코 올케어 (CESCO ALL CARE)
-세스코 라이프케어 SOL 플래너 최영척 · 개인 상담/상품 안내 사이트 (정적 SPA, 빌드 불필요)
+세스코 라이프케어 SOL 플래너 · 개인 상담/상품 안내 사이트 (정적 SPA, 빌드 불필요)
 
 ## 실행
     cd cesco-allcare && python3 -m http.server 8123   # → http://localhost:8123/
@@ -24,7 +24,7 @@
 ## 이미지 출처
 - 상품 이미지: 세스코몰/아롬비 게시 이미지 (사용자가 사용 허락).
 - 분위기 이미지(`assets/img`, WebP 최적화본): Unsplash 무료 라이선스. 원본 JPG는 `tools/orig-img/`(배포 제외)에 보관.
-- 로고/명함: 사용자 제공 파일.
+- 로고: 사용자 제공 파일.
 
 ## 관리자 페이지 (/admin/)
 - 주소: `https://cescoallcare.github.io/cesco-allcare/admin/` (`admin/index.html`, noindex). 로그인은 정적 사이트의 **화면 잠금**일 뿐 진짜 보안이 아닙니다(비밀번호는 솔트+PBKDF2-SHA256 해시만 `admin/auth.js` 에 있음. 변경은 `python3 tools/make_admin_hash.py`).
@@ -40,7 +40,7 @@
 
 ## 디자인/문구 개선 (2026-10-01)
 - `css/style.css` 하단 "Premium refinement layer"에서 히어로(풀블리드+글래스 플래너 카드)·숫자 밴드·카드/버튼/폼·딥블루 상담영역·푸터를 정교화. 스크롤 리빌/헤더 전환/카운트업은 `js/app.js` 하단(prefers-reduced-motion 존중).
-- 이미지는 WebP(최대 1920px)로 변환(7.7MB→4.6MB). 명함 이미지는 `assets/logo/namecard.webp`.
+- 이미지는 WebP(최대 1920px)로 변환(7.7MB→4.6MB). 플래너 소개 섹션은 명함 이미지 없이 로고 카드 그래픽을 사용합니다.
 - 문구 교정은 `tools/copy_edit.py`, `tools/copy_edit_products.py`로 재현 가능. 점검: `tools/regress.py`(콘솔/깨진이미지/가로스크롤/기능), `tools/shoot.py`(전·후 스크린샷).
 
 ## 플로팅 UI (2026-10-01)
@@ -48,5 +48,4 @@
 - `data/curation.js` : 표시 개수·안내 문구·**월별 추천 규칙 테이블**(`seasonal.months` / `groups`)을 분리해 둔 설정 파일. 여기만 고치면 이맘때 추천이 바뀝니다.
 - 계산 기준: 베스트 인기 = BEST 페이지와 같은 세스코몰 리뷰 수 순위(제휴 상품 제외) / 베스트 핫딜 = 렌탈 가격표의 정상가 대비 ‘이달의 판매가’·‘현장 할인가(단품)’ 중 낮은 값의 할인율(상품별 최대 옵션 1개) / 이맘때 추천 = 브라우저 날짜의 월 규칙.
 - 상품은 `window.CESCO_PRODUCTS`(관리자 오버라이드 반영본)에서 패널을 열 때마다 계산하므로 숨김·삭제·품절 상품은 자동으로 빠집니다.
-- 상담 영역 외 상단(헤더·히어로)에는 플래너 이름을 표시하지 않습니다(`data/site.js`의 `planner.name` 은 상담/플래너 소개/푸터에서만 사용).
-- 명함 이미지(`assets/logo/namecard.webp`)는 지점명 줄을 지운 버전입니다. 원본은 `tools/orig-img/`(배포 제외)에 보관.
+- 사이트 전체에 플래너 개인 이름을 표기하지 않고 “세스코 라이프케어 SOL 플래너”로만 표기합니다(`data/site.js`에 `planner.name` 없음). 명함 이미지는 사이트에서 쓰지 않으며 원본은 `tools/orig-img/`(배포 제외)에만 보관합니다.

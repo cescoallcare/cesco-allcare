@@ -118,7 +118,7 @@ function consultSection(){
       <h2 class="h2" style="margin-top:14px">무엇이 필요한지 모르겠다면,<br>제가 먼저 살펴보겠습니다.</h2>
       <p class="sig">“${esc(c.slogan)}”</p>
       <p style="margin-top:22px;color:rgba(255,255,255,.75);max-width:520px">공간과 함께 사는 분, 예산, 관리에 들일 수 있는 시간을 먼저 듣고 꼭 필요한 케어만 제안드립니다. 부담 없이 문의해 주세요.</p></div>
-    <div class="consult-card"><div class="who"><small>${esc(c.title)}</small><b>${esc(c.name)}</b></div>
+    <div class="consult-card"><div class="who"><small>CESCO LIFECARE</small><b>${esc(c.title)}</b></div>
       <a class="tel" href="${c.phoneTel}">${esc(c.phone)}</a>
       <div class="btns"><a class="btn btn-white btn-lg" href="${c.phoneTel}">${ico('phone')} 전화 상담</a>
         <a class="btn kakao btn-lg" href="${esc(C.kakaoUrl)}" target="_blank" rel="noopener" data-act="kakao">${ico('message')} 카카오톡 상담</a>
@@ -129,7 +129,7 @@ function consultSection(){
 function plannerSection(){
   const c = C.planner;
   return `<section class="section" id="planner"><div class="container"><div class="planner">
-    <div><span class="eyebrow">PLANNER</span><h2 class="h2" style="margin-top:14px">${esc(c.title)}<br>${esc(c.name)}</h2>
+    <div><span class="eyebrow">PLANNER</span><h2 class="h2" style="margin-top:14px">${esc(c.title)}</h2>
       <p class="lead" style="margin-top:14px">제품을 먼저 권하기보다, 공간을 먼저 봅니다.</p>
       <div class="p-list">
         <div class="p-item"><span class="pi">${ico('compass')}</span><div><h3>공간 진단</h3><p>평수, 생활 패턴, 함께 사는 분과 고민을 듣고 어디부터 손댈지 정리합니다.</p></div></div>
@@ -137,7 +137,11 @@ function plannerSection(){
         <div class="p-item"><span class="pi">${ico('wrench')}</span><div><h3>관리 상담</h3><p>필터 교체, 방문 관리 주기, 소모품 배송까지 사용하는 동안 함께 살핍니다.</p></div></div>
       </div>
       <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:30px"><button class="btn btn-primary btn-lg" data-act="consult">상담하기</button><a class="btn btn-ghost btn-lg" href="${c.phoneTel}">${ico('phone')} ${esc(c.phone)}</a></div></div>
-    <div class="card-img">${img('assets/logo/namecard.webp','최영척 플래너 명함 앞·뒷면')}</div>
+    <div class="pl-card" role="img" aria-label="세스코 라이프케어 SOL 플래너 상담 안내">
+      <div class="pl-top"><img src="assets/logo/logo-white.png" alt="" loading="lazy"></div>
+      <div class="pl-mid"><span class="pl-ico">${ico('shield')}</span><b>SOL 플래너</b><small>공간을 먼저 살펴보는 맞춤 케어 상담</small></div>
+      <ul class="pl-tags"><li>${ico('compass')} 공간 진단</li><li>${ico('clipboard')} 맞춤 추천</li><li>${ico('wrench')} 관리 상담</li></ul>
+    </div>
   </div></div></section>`;
 }
 function plannerPage(){ return pageHero({eyebrow:'PLANNER', title:'세스코 라이프케어<br>SOL 플래너', lead:esc(C.planner.slogan), img:'assets/img/team-office.webp', crumbs:[{label:'플래너 소개'}]}) + plannerSection() + consultSection(); }

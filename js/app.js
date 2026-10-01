@@ -27,7 +27,6 @@ function footerHtml(){
     <div class="cols">
       <div><img class="flogo" src="assets/logo/logo-white.png" alt="CESCO Lifecare"><p style="max-width:340px;line-height:1.75">${esc(c.slogan)}<br>공기부터 물, 생활까지. 내 공간에 꼭 필요한 케어를 함께 찾아 드립니다.</p>
         <ul class="contact" style="margin-top:18px">
-          <li>${ico('message')} ${esc(c.title)} <b style="color:#fff">${esc(c.name)}</b></li>
           <li>${ico('phone')} <a href="${c.phoneTel}" style="color:#fff;font-weight:700">${esc(c.phone)}</a></li>
           <li>${ico('mail')} <a href="mailto:${esc(c.email)}">${esc(c.email)}</a></li></ul></div>
       <div><h4>MENU</h4><ul class="menus">${NAV.map(n => `<li><a href="${n.href}">${esc(n.label)}</a></li>`).join('')}<li><a href="#/products">전체 제품</a></li><li><a href="#/planner">플래너 소개</a></li></ul></div>
@@ -37,7 +36,7 @@ function footerHtml(){
       <p><b>본 사이트는 세스코 라이프케어 플래너의 상품 안내 및 상담을 위한 페이지입니다.</b></p>
       <p>가격, 월 렌탈료, 계약 조건(의무사용기간·방문주기·약정·위약금 등)은 공식 판매/계약 기준에 따라 달라질 수 있으며, 최종 조건은 계약 시점의 공식 안내를 따릅니다. 표시된 정보는 세스코몰(${esc(C.mallUrl.replace('https://',''))}) 등에서 ${esc(C.priceCheckedAt)}에 확인한 내용과 플래너 제공 가격표(${esc(C.priceTableAt)} 반영)이며, 확인되지 않은 항목은 “상담 시 안내”로 표시했습니다.</p>
       <p>PARTNER PRODUCT(제휴·판매 상품)로 표시된 아롬비(AROMVI) 상품은 세스코 자체 제품이 아닙니다. 상품 이미지는 판매처 게시 이미지를 사용 허락을 받아 사용했으며, 분위기 사진은 Unsplash 무료 라이선스 이미지입니다.</p>
-      <p>© CESCO ALL CARE · ${esc(c.title)} ${esc(c.name)}. 세스코(CESCO)는 해당 권리자의 상표입니다.</p>
+      <p>© CESCO ALL CARE · ${esc(c.title)}. 세스코(CESCO)는 해당 권리자의 상표입니다.</p>
     </div></div>`;
 }
 $('#footer').innerHTML = footerHtml();
@@ -234,7 +233,7 @@ let ticking = false;
 function onScroll(){ if (ticking) return; ticking = true; requestAnimationFrame(() => { header.classList.toggle('scrolled', window.scrollY > 12); ticking = false; }); }
 window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
 const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const RV = '.section-head, .tile, .concern-card, .pick-card, .pcard, .rcard, .gcard, .benefit, .step-block, .cta-strip, .p-item, .planner .card-img, .consult .inner > *, .stats .stat-i, .faq, .cmp, .notice, .result-hero, .rec-card, .worry-list li';
+const RV = '.section-head, .tile, .concern-card, .pick-card, .pcard, .rcard, .gcard, .benefit, .step-block, .cta-strip, .p-item, .planner .pl-card, .consult .inner > *, .stats .stat-i, .faq, .cmp, .notice, .result-hero, .rec-card, .worry-list li';
 let io = null;
 function countUp(el){
   const end = +el.dataset.count; if (!end || reduce) return;
