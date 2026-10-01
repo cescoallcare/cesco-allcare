@@ -78,7 +78,7 @@ function calcSeason(now){
 
 /* ───────── DOM ───────── */
 const CHIPS = [
-  { key: 'best', label: '베스트 인기', icon: 'star', title: '베스트 인기', sub: '세스코몰 리뷰 수가 많은 순서' },
+  { key: 'best', label: '베스트 인기', icon: 'star', title: '베스트 인기', sub: '리뷰 수가 많은 순서' },
   { key: 'hotdeal', label: '베스트 핫딜', icon: 'tag', title: '베스트 핫딜', sub: '정상가 대비 할인율이 큰 렌탈 옵션' },
   { key: 'seasonal', label: '이맘때 추천', icon: 'calendar', title: '이맘때 추천', sub: '' }
 ];
@@ -120,7 +120,7 @@ function itemHtml(it){
 }
 function panelHtml(key){
   let items = [], head = '', note = '';
-  if (key === 'best') { items = calcBest(); note = CUR.best.note; head = '세스코몰 리뷰 수가 많은 순서'; }
+  if (key === 'best') { items = calcBest(); note = CUR.best.note; head = '리뷰 수가 많은 순서'; }
   else if (key === 'hotdeal') { items = calcHot(); note = CUR.hotdeal.note; head = '정상가 대비 할인율이 큰 렌탈 옵션'; }
   else { const r = calcSeason(); items = r.items; note = CUR.seasonal.note; head = r.rule ? `${r.month}월 · ${r.rule.season} — 이 시기에 많이 찾는 케어` : ''; }
   const meta = CHIPS.filter(c => c.key === key)[0];

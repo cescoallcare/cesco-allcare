@@ -126,7 +126,7 @@ function productCard(p, opts={}){
   }
   rows.push(['관리방식', esc(careShort(p)), '']);
   const rank = opts.rank ? `<span class="badge rank">${opts.rank}위</span>` : '';
-  const rv = opts.showReview && p.popularity ? `<div class="review">${ico('star')} 평점 ${p.popularity.rating} · 리뷰 ${p.popularity.reviews.toLocaleString()}개 <span class="muted">(세스코몰)</span></div>` : '';
+  const rv = opts.showReview && p.popularity ? `<div class="review">${ico('star')} 평점 ${p.popularity.rating} · 리뷰 ${p.popularity.reviews.toLocaleString()}개</div>` : '';
   return `<article class="pcard">
     <a class="pcard-img" href="#/product/${esc(p.id)}" aria-label="${esc(p.name)} 자세히 보기">${img(p.image, p.name)}<span class="badges">${rank}${badgesFor(p)}</span></a>
     <div class="pcard-body">
@@ -218,7 +218,7 @@ function consultStrip(title, text, topic){
   return `<div class="cta-strip"><div><h3>${title||'무엇이 필요한지 모르겠다면, 제가 먼저 살펴보겠습니다.'}</h3><p>${text||'견적서보다 처방전을 먼저 씁니다. — 세스코 라이프케어 SOL 플래너'}</p></div>
   <div class="btn-stack" style="flex:0 0 auto"><button class="btn btn-white" data-act="consult" ${topic?`data-topic="${esc(topic)}"`:''}>${ico('message')} 상담하기</button><a class="btn btn-line-w" href="${C.planner.phoneTel}">${ico('phone')} ${esc(C.planner.phone)}</a></div></div>`;
 }
-function disclaimer(){ return `<div class="notice">${ico('info')}<div>표시된 가격·월 렌탈료·계약 조건은 세스코몰 등 공식 판매처 게시 정보(<b>${C.priceCheckedAt}</b> 확인)와 플래너 제공 가격표(<b>${C.priceTableAt}</b> 반영)를 기준으로 하며, 프로모션·제휴카드·약정기간·방문주기·옵션에 따라 달라질 수 있습니다. 확인되지 않은 항목은 “상담 시 안내”로 표시하며, 최종 가격과 계약 조건은 공식 판매/계약 기준을 따릅니다.</div></div>`; }
+function disclaimer(){ return `<div class="notice">${ico('info')}<div>표시된 가격·월 렌탈료·계약 조건은 공식 판매처 게시 정보와 플래너 제공 가격표를 기준으로 하며, 프로모션·제휴카드·약정기간·방문주기·옵션에 따라 달라질 수 있습니다. 확인되지 않은 항목은 “상담 시 안내”로 표시하며, 최종 가격과 계약 조건은 공식 판매/계약 기준을 따릅니다.</div></div>`; }
 function partnerNotice(){ return `<div class="notice partner">${ico('handshake')}<div><b>PARTNER PRODUCT · 제휴·판매 상품 안내</b><br>아롬비(AROMVI) 샤워필터·관련 부품은 세스코 자체 제품이 아닌 <b>제휴·판매 상품</b>입니다. 제품 사양·품질·배송·교환/환불은 판매처(아롬비) 기준이며, 이 사이트에서는 구매 방법을 상담으로 안내해 드립니다.</div></div>`; }
 
 window.U = { C, P, byId, $, $$, esc, won, ico, img, PH, CATNAME, catLabel, isRentalCat, hasBuy, hasRent, buyText, rentText, rentHtml, rOpts, hasOpts, minMonth, fromInfo, noteLines, RENT_BASIS, RENT_BASIS_SHORT, careShort, badgesFor, consultAttrs, productCard, pgrid, search, sectionHead, pageHero, consultStrip, disclaimer, partnerNotice, norm };

@@ -71,7 +71,7 @@ function home(){
   </div></section>
 
   <section class="section sky" id="best-home"><div class="container">
-    ${sectionHead('BEST', '지금 많이 찾는 제품', '세스코몰 리뷰 수를 기준으로 정리했습니다.', `<a class="link-more" href="#/best">BEST 전체 보기 ${ico('chevron')}</a>`)}
+    ${sectionHead('BEST', '지금 많이 찾는 제품', '리뷰 수를 기준으로 정리했습니다.', `<a class="link-more" href="#/best">BEST 전체 보기 ${ico('chevron')}</a>`)}
     ${pgrid(bestTop, (p,i) => ({ rank: i+1, showReview: true }))}
   </div></section>
 
@@ -184,7 +184,7 @@ function productsPage(qs){
   if (f === 'sub') list = list.filter(p => p.subscribable);
   if (f === 'buy') list = list.filter(hasBuy);
   if (f === 'partner') list = list.filter(p => p.partner);
-  return pageHero({eyebrow:'ALL PRODUCTS', title:'전체 제품', lead:'세스코몰에서 확인한 제품과 제휴·판매 상품을 한곳에 모았습니다.', img:'assets/img/living-plants.webp', crumbs:[{label:'제품'}]}) + `
+  return pageHero({eyebrow:'ALL PRODUCTS', title:'전체 제품', lead:'세스코 제품과 제휴·판매 상품을 한곳에 모았습니다.', img:'assets/img/living-plants.webp', crumbs:[{label:'제품'}]}) + `
   <section class="section" style="padding-top:48px"><div class="container">
     <div class="chipbar"><span class="label">분류</span>${cats.map(c => chip('#/products'+q2({cat:c[0],f}), c[1], cat===c[0])).join('')}</div>
     <div class="chipbar"><span class="label">조건</span>${fs.map(c => chip('#/products'+q2({cat,f:c[0]}), c[1], f===c[0], 'blue')).join('')}</div>
@@ -297,7 +297,7 @@ function productPage(id){
   if (hasOpts(p)) {
     const ps = Array.from(new Set(rOpts(p).map(o => o.periodLabel)));
     rows.push(['의무사용기간', ps.map(x => x === '-' ? '미표기(-)' : x).join(' / ') + ' (옵션별, 아래 선택)']);
-  } else if (p.rentalMonthly) { rows.push(['계약기간', `의무사용 ${p.rentalContractMonths||36}개월 (세스코몰 기준)` + ((p.rentalYears||[]).length ? ` · 약정 ${p.rentalYears.join('/')}년 선택 가능` : '')]); }
+  } else if (p.rentalMonthly) { rows.push(['계약기간', `의무사용 ${p.rentalContractMonths||36}개월` + ((p.rentalYears||[]).length ? ` · 약정 ${p.rentalYears.join('/')}년 선택 가능` : '')]); }
   if ((p.visitCycles||[]).length) rows.push(['방문주기', p.visitCycles.join(' / ')]);
   rows.push(['정기배송', p.subscribable ? '가능 · 주기 ' + p.subCycles.join(' / ') : (p.partner ? '해당 없음' : '해당 없음(상담 시 안내)')]);
   const total = hasOpts(p) ? null : (p.rentalTotal || (p.rentalMonthly ? p.rentalMonthly * (p.rentalContractMonths||36) : null));
@@ -326,7 +326,7 @@ function productPage(id){
           ${hasOpts(p) && minMonth(p) != null ? `<div class="row"><span class="k">월 렌탈료</span><span class="v blue">${won(minMonth(p))}<small>/월부터</small></span></div><div class="note">${esc(RENT_BASIS)} · 아래에서 의무사용기간·방문주기별 가격을 선택해 확인하세요.</div>` : ''}
           ${!hasOpts(p) && (p.rentalMonthly || p.rentalInquire) ? `<div class="row"><span class="k">월 렌탈료</span><span class="v blue ${p.rentalMonthly?'':'ask'}">${p.rentalMonthly ? won(p.rentalMonthly) + '<small>/월</small>' : '상담 시 안내'}</span></div>` : ''}
           ${!hasOpts(p) && p.rentalMonthly ? `<div class="row"><span class="k">계약기간 · 총 렌탈금액(참고)</span><span class="v" style="font-size:18px">${p.rentalContractMonths||36}개월 · ${won(total)}</span></div>` : ''}
-          ${p.nonMemberPrice && p.nonMemberPrice !== p.buyPrice ? `<div class="note">세스코몰 비회원가 ${won(p.nonMemberPrice)} (표시가는 회원 등급가 기준)</div>` : ''}
+          ${p.nonMemberPrice && p.nonMemberPrice !== p.buyPrice ? `<div class="note">비회원가 ${won(p.nonMemberPrice)} (표시가는 회원 등급가 기준)</div>` : ''}
           ${p.buyNote ? `<div class="note">${esc(p.buyNote)}</div>` : ''}
           ${p.rentalNote ? `<div class="note">${esc(p.rentalNote)}</div>` : ''}
           ${p.buyPrice == null && !p.rentalMonthly && !fi ? `<div class="note">가격은 확인되지 않아 “상담 시 안내”로 표시합니다.</div>` : ''}
@@ -334,13 +334,13 @@ function productPage(id){
         ${rentalBlockHtml(p)}
         <div class="btn-stack">${buyBtn}${rentBtn}${subBtn}${btnConsult('상담하기', consultAttrs(p), 'btn btn-primary btn-lg')}</div>
         ${p.partner ? partnerNotice() : ''}
-        ${p.soldOut ? `<div class="notice warn">${ico('info')}<div>판매처(${esc(p.source.name)})에서 품절로 표시된 상품입니다(확인일 ${esc(p.source.checkedAt)}). 재입고·대체 상품은 상담으로 안내해 드립니다.</div></div>` : ''}
-        ${p.rentalMonthly && p.bizOnlyRental ? `<div class="notice warn">${ico('info')}<div>세스코몰 안내 기준 사업자 대상 렌탈 상품입니다(가정용 렌탈 중단). 자세한 조건은 상담 시 안내해 드립니다.</div></div>` : ''}
+        ${p.soldOut ? `<div class="notice warn">${ico('info')}<div>현재 품절로 표시된 상품입니다. 재입고·대체 상품은 상담으로 안내해 드립니다.</div></div>` : ''}
+        ${p.rentalMonthly && p.bizOnlyRental ? `<div class="notice warn">${ico('info')}<div>사업자 대상 렌탈 상품입니다(가정용 렌탈 중단). 자세한 조건은 상담 시 안내해 드립니다.</div></div>` : ''}
         <div><h3 class="h3" style="font-size:20px;margin-bottom:12px">핵심 특징</h3><ul class="feat-list">${(p.features||[]).map(f => `<li>${ico('check')}<span>${esc(f)}</span></li>`).join('')}</ul></div>
         <div><h3 class="h3" style="font-size:20px;margin-bottom:8px">상세 정보</h3><table class="spec-table"><tbody>${rows.map(r => `<tr><th>${esc(r[0])}</th><td>${esc(r[1])}</td></tr>`).join('')}</tbody></table></div>
-        ${(p.buyOptions||[]).length > 1 || (p.buyOptions||[]).length === 1 && p.buyOptions[0].price !== p.buyPrice ? `<div><h3 class="h3" style="font-size:20px;margin-bottom:8px">구매 옵션 (세스코몰 표기)</h3><table class="opt-table"><tbody>${p.buyOptions.map(o => `<tr><td>${esc(o.label)}</td><td>${won(o.price)}</td></tr>`).join('')}</tbody></table></div>` : ''}
+        ${(p.buyOptions||[]).length > 1 || (p.buyOptions||[]).length === 1 && p.buyOptions[0].price !== p.buyPrice ? `<div><h3 class="h3" style="font-size:20px;margin-bottom:8px">구매 옵션</h3><table class="opt-table"><tbody>${p.buyOptions.map(o => `<tr><td>${esc(o.label)}</td><td>${won(o.price)}</td></tr>`).join('')}</tbody></table></div>` : ''}
         ${p.detailNote ? `<div class="notice">${ico('info')}<div>${esc(p.detailNote)}</div></div>` : ''}
-        <div class="muted" style="font-size:13px;line-height:1.7">${p.source.url ? `출처: <a class="link-more" style="font-size:13px" href="${esc(p.source.url)}" target="_blank" rel="noopener">${esc(p.source.name)} 상품 페이지 ${ico('external')}</a> · 정보 확인일 ${esc(p.source.checkedAt)}<br>` : `출처: ${esc(p.source.name)} · 반영일 ${esc(p.source.checkedAt)}<br>`}${p.priceSource ? `가격 출처: ${esc(p.priceSource.name)} (${esc(p.priceSource.checkedAt)} 반영 · 가격표 ${esc(p.priceSource.table)}번)<br>` : ''}이미지: ${/placeholder/.test(p.image||'') ? '준비 중(대체 이미지)' : '판매처 게시 이미지를 사용 허락을 받아 사용했습니다'}. 가격·조건은 변동될 수 있습니다.</div>
+        <div class="muted" style="font-size:13px;line-height:1.7">가격·조건은 변동될 수 있습니다.</div>
       </div>
     </div>
     <div style="margin-top:72px">${sectionHead('RELATED', '함께 살펴보면 좋은 제품', '')}${pgrid(relList)}</div>
@@ -361,10 +361,10 @@ function bestPage(qs){
   let list = P.filter(p => live(p) && p.popularity && !p.partner);
   if (cat !== 'all') list = list.filter(test[cat]);
   list = sortPop(list).slice(0, 12);
-  return pageHero({eyebrow:'BEST', title:'지금 많이 찾는 제품', lead:'세스코몰 리뷰 수가 많은 순서로 정리했어요. (리뷰 수 집계 2026-09-24)', img:'assets/img/living-warm.webp', crumbs:[{label:'BEST'}]}) + `
+  return pageHero({eyebrow:'BEST', title:'지금 많이 찾는 제품', lead:'리뷰 수가 많은 순서로 정리했어요.', img:'assets/img/living-warm.webp', crumbs:[{label:'BEST'}]}) + `
   <section class="section" style="padding-top:48px"><div class="container">
     <div class="chipbar"><span class="label">카테고리</span>${cats.map(c => chip('#/best'+q2({cat:c[0]}), c[1], cat===c[0])).join('')}</div>
-    <p class="muted" style="margin-bottom:18px;font-size:14px">순위는 판매량이 아닌 <b>세스코몰 리뷰 수</b> 기준의 참고 자료입니다.</p>
+    <p class="muted" style="margin-bottom:18px;font-size:14px">순위는 판매량이 아닌 <b>리뷰 수</b> 기준의 참고 자료입니다.</p>
     ${pgrid(list, (p,i) => ({rank:i+1, showReview:true}))}
     <div style="margin-top:36px">${disc()}</div>
   </div></section>`;
@@ -417,7 +417,7 @@ function rentalPage(qs){
       <div class="benefit"><span class="bi">${ico('calendar')}</span><h3>월 단위 부담</h3><p>초기 비용을 월 단위로 나누어 부담할 수 있습니다. 의무사용기간과 계약 조건은 꼭 확인해 주세요.</p></div>
       <div class="benefit"><span class="bi">${ico('shield')}</span><h3>솔직한 비교</h3><p>구매가와 총 렌탈금액을 나란히 놓고 비교하실 수 있도록 안내해 드립니다.</p></div></div>
     <div class="chipbar"><span class="label">분류</span>${cats.map(c => chip('#/rental'+q2({cat:c[0]}), c[1], cat===c[0])).join('')}</div>
-    <div class="muted" style="margin:6px 0 20px;font-size:14px"><b style="color:var(--navy)">${list.length}</b>개 렌탈 상품 · 가격표 상품은 ‘이달의 판매가(온라인 노출가) 최저 옵션’ 기준 월 렌탈료이며, 의무사용기간·방문주기별 가격과 방문 상담 시 적용 가격은 상세 페이지에서 확인하실 수 있습니다. (그 외 상품은 세스코몰 표기 기준)</div>
+    <div class="muted" style="margin:6px 0 20px;font-size:14px"><b style="color:var(--navy)">${list.length}</b>개 렌탈 상품 · 가격표 상품은 ‘이달의 판매가(온라인 노출가) 최저 옵션’ 기준 월 렌탈료이며, 의무사용기간·방문주기별 가격과 방문 상담 시 적용 가격은 상세 페이지에서 확인하실 수 있습니다.</div>
     <div class="grid g2">${list.map(card).join('')}</div>
     <div style="margin-top:72px">${sectionHead('COMPARE', '렌탈 vs 구매, 한눈에 비교', '')}
       <div style="overflow:auto"><table class="cmp"><thead><tr><th></th><th>렌탈</th><th>구매</th></tr></thead><tbody>
@@ -427,10 +427,10 @@ function rentalPage(qs){
         <tr><th>총비용</th><td>월 렌탈료 × 기간 + 조건에 따른 추가 비용 가능</td><td>구매가 + 관리 비용(선택)</td></tr>
         <tr><th>이런 분께</th><td>관리를 맡기고 싶은 분, 초기 비용을 줄이고 싶은 분</td><td>오래 쓰고 직접 관리할 수 있는 분</td></tr></tbody></table></div></div>
     <div style="margin-top:72px;max-width:860px">${sectionHead('FAQ', '자주 묻는 질문', '')}
-      <details class="faq"><summary>렌탈료는 항상 같은가요?</summary><p>세스코몰에 표기된 월 렌탈료는 프로모션·제휴카드·약정기간·방문주기에 따라 달라질 수 있습니다. 이 사이트의 금액은 ${C.priceCheckedAt} 확인값이며, 계약 시점의 공식 조건이 우선합니다.</p></details>
+      <details class="faq"><summary>렌탈료는 항상 같은가요?</summary><p>월 렌탈료는 프로모션·제휴카드·약정기간·방문주기에 따라 달라질 수 있습니다. 계약 시점의 공식 조건이 우선합니다.</p></details>
       <details class="faq"><summary>중도 해지나 이전 설치는 어떻게 되나요?</summary><p>계약 조건에 따라 다릅니다. 정확한 위약금·이전 설치 조건은 계약서 기준으로 확인이 필요하며, 상담 시 함께 짚어 드립니다.</p></details>
       <details class="faq"><summary>필터 교체는 누가 하나요?</summary><p>렌탈은 방문 관리 시 교체·점검이 함께 안내됩니다. 일부 필터는 자가교체이므로 제품 상세의 필터교체 항목을 확인해 주세요.</p></details>
-      <details class="faq"><summary>가정에서도 사업장용 렌탈을 쓸 수 있나요?</summary><p>일부 제품(예: 에어제닉 Max)은 세스코몰 안내 기준 사업자 대상입니다. 조건은 상담으로 확인해 드립니다.</p></details>
+      <details class="faq"><summary>가정에서도 사업장용 렌탈을 쓸 수 있나요?</summary><p>일부 제품(예: 에어제닉 Max)은 사업자 대상입니다. 조건은 상담으로 확인해 드립니다.</p></details>
     </div>
     <div style="margin-top:44px">${disc()}</div>
     ${consultStrip('나에게 맞는 렌탈, 함께 찾아볼까요?', '견적서보다 처방전을 먼저 씁니다.', '렌탈 문의')}
