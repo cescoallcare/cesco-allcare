@@ -26,7 +26,7 @@ function footerHtml(){
   const c = C.planner;
   return `<div class="container">
     <div class="cols">
-      <div><img class="flogo" src="assets/logo/logo-white.png" alt="CESCO Lifecare"><p style="max-width:340px;line-height:1.75">${esc(c.slogan)}<br>공기부터 물, 생활까지 — 내 공간에 필요한 케어를 찾아드립니다.</p>
+      <div><img class="flogo" src="assets/logo/logo-white.png" alt="CESCO Lifecare"><p style="max-width:340px;line-height:1.75">${esc(c.slogan)}<br>공기부터 물, 생활까지. 내 공간에 꼭 필요한 케어를 함께 찾아 드립니다.</p>
         <ul class="contact" style="margin-top:18px">
           <li>${ico('message')} ${esc(c.title)} <b style="color:#fff">${esc(c.name)}</b></li>
           <li>${ico('pin')} ${esc(c.branch)}</li>
@@ -125,16 +125,16 @@ function openConsult(o = {}){
   $('#consultBody').innerHTML = `<div id="cmForm">
     <span class="eyebrow">CONSULTATION</span>
     <h2 id="cmTitle" class="h3" style="margin:10px 0 6px;font-size:26px">맞춤 상담 신청</h2>
-    <p class="muted" style="margin-bottom:20px;font-size:14.5px">${esc(C.planner.title)} ${esc(C.planner.name)}가 확인 후 연락드립니다.<br><b style="color:var(--navy)">“${esc(C.planner.slogan)}”</b></p>
+    <p class="muted" style="margin-bottom:20px;font-size:14.5px">${esc(C.planner.title)} ${esc(C.planner.name)}이 확인 후 연락드립니다.<br><b style="color:var(--navy)">“${esc(C.planner.slogan)}”</b></p>
     ${p ? `<div class="pchip">${img(p.image, p.name)}<div><small class="muted">문의 제품</small><br><b>${esc(p.name)}</b></div></div>` : ''}
     <form id="cmF" novalidate>
       <div class="field"><label for="cmName">이름 <i>*</i></label><input class="input" id="cmName" name="name" autocomplete="name" placeholder="홍길동"><span class="err">이름을 입력해 주세요.</span></div>
       <div class="field"><label for="cmPhone">연락처 <i>*</i></label><input class="input" id="cmPhone" name="phone" inputmode="tel" autocomplete="tel" placeholder="010-0000-0000"><span class="err">올바른 연락처를 입력해 주세요.</span></div>
       <div class="field"><label>장소</label><div class="seg"><label><input type="radio" name="kind" value="가정" checked><span>가정</span></label><label><input type="radio" name="kind" value="사업장"><span>사업장</span></label></div></div>
       <div class="field"><label for="cmTopic">상담 주제</label><select class="input" id="cmTopic" name="topic">${topics.map(t => `<option ${t === topic ? 'selected' : ''}>${esc(t)}</option>`).join('')}${topic && !topics.includes(topic) ? `<option selected>${esc(topic)}</option>` : ''}</select></div>
-      <div class="field"><label for="cmTime">연락 가능 시간</label><select class="input" id="cmTime" name="time"><option>언제든 괜찮아요</option><option>오전 (9~12시)</option><option>오후 (12~18시)</option><option>저녁 (18시 이후)</option></select></div>
-      <div class="field"><label for="cmMsg">문의 내용</label><textarea class="input" id="cmMsg" name="message" placeholder="공간 크기, 함께 사는 분, 가장 신경 쓰이는 점 등을 적어 주세요.">${esc(o.msg || '')}</textarea></div>
-      <label class="check"><input type="checkbox" id="cmAgree"><span>상담을 위해 이름·연락처를 수집·이용하는 것에 동의합니다. (상담 목적 외 사용하지 않음) <i style="color:var(--red);font-style:normal">*</i></span></label>
+      <div class="field"><label for="cmTime">연락 가능 시간</label><select class="input" id="cmTime" name="time"><option>언제든 괜찮습니다</option><option>오전 (9~12시)</option><option>오후 (12~18시)</option><option>저녁 (18시 이후)</option></select></div>
+      <div class="field"><label for="cmMsg">문의 내용</label><textarea class="input" id="cmMsg" name="message" placeholder="공간 크기, 함께 사는 분, 마음 쓰이는 점 등을 편하게 적어 주세요.">${esc(o.msg || '')}</textarea></div>
+      <label class="check"><input type="checkbox" id="cmAgree"><span>상담을 위해 이름·연락처를 수집·이용하는 것에 동의합니다. (상담 목적 외에는 사용하지 않습니다) <i style="color:var(--red);font-style:normal">*</i></span></label>
       <div class="field" id="agreeField" style="margin:6px 0 0"><span class="err">개인정보 수집·이용에 동의해 주세요.</span></div>
       <button class="btn btn-primary btn-lg btn-block" type="submit" style="margin-top:14px">상담 신청하기</button>
     </form></div>`;
@@ -169,17 +169,17 @@ async function submitForm(e){
   const rec = { id: 'INQ-' + Date.now(), createdAt: new Date().toISOString(), name, phone, kind: f.kind.value, topic: f.topic.value, time: f.time.value, message: f.message.value.trim(),
                 product: p ? { id: p.id, name: p.name } : null, page: location.hash || '#/' };
   await submitInquiry(rec);
-  $('#consultBody').innerHTML = `<div class="done-view"><span class="okc">${ico('check')}</span><h2 class="h3" style="font-size:26px">상담 신청이 접수되었어요</h2>
-    <p class="muted">${esc(name)}님, 확인 후 입력하신 연락처로 연락드리겠습니다.<br>급하시면 바로 전화 주세요.</p>
+  $('#consultBody').innerHTML = `<div class="done-view"><span class="okc">${ico('check')}</span><h2 class="h3" style="font-size:26px">상담 신청이 접수되었습니다</h2>
+    <p class="muted">${esc(name)}님, 확인 후 입력하신 연락처로 연락드리겠습니다.<br>급하신 경우에는 바로 전화 주세요.</p>
     <div style="background:var(--gray);border-radius:16px;padding:14px;font-size:14px;text-align:left">접수번호 <b>${esc(rec.id)}</b><br>주제 ${esc(rec.topic)}${p ? '<br>제품 ' + esc(p.name) : ''}</div>
-    <p style="font-size:12.5px;color:var(--muted)">※ 현재 버전은 이 브라우저에 접수 내용이 저장됩니다. 서버로 전송되도록 하려면 관리자 설정(formEndpoint)이 필요합니다.</p>
+    <p style="font-size:12.5px;color:var(--muted)">※ 접수 내용은 현재 이 기기의 브라우저에만 저장됩니다. 빠른 상담이 필요하시면 전화나 카카오톡으로 문의해 주세요.</p>
     <a class="btn btn-navy btn-lg btn-block" href="${C.planner.phoneTel}">${ico('phone')} ${esc(C.planner.phone)} 전화하기</a>
     <button class="btn btn-ghost btn-lg btn-block" data-act="closeConsult">닫기</button></div>`;
 }
 function openInbox(){
   const list = JSON.parse(localStorage.getItem(LS_KEY) || '[]').slice().reverse();
   $('#consultBody').innerHTML = `<span class="eyebrow">INBOX</span><h2 class="h3" style="margin:10px 0 14px">이 브라우저의 상담 접수 내역</h2>
-   ${list.length ? `<div style="overflow:auto"><table class="inbox-table"><thead><tr><th>접수</th><th>이름</th><th>주제</th></tr></thead><tbody>${list.map(r => `<tr><td>${esc(r.createdAt.slice(0,16).replace('T',' '))}</td><td>${esc(r.name)}<br><small class="muted">${esc(r.phone)}</small></td><td>${esc(r.topic)}${r.product ? '<br><small class="muted">'+esc(r.product.name)+'</small>' : ''}</td></tr>`).join('')}</tbody></table></div>` : '<div class="empty">접수된 내역이 없어요.</div>'}
+   ${list.length ? `<div style="overflow:auto"><table class="inbox-table"><thead><tr><th>접수</th><th>이름</th><th>주제</th></tr></thead><tbody>${list.map(r => `<tr><td>${esc(r.createdAt.slice(0,16).replace('T',' '))}</td><td>${esc(r.name)}<br><small class="muted">${esc(r.phone)}</small></td><td>${esc(r.topic)}${r.product ? '<br><small class="muted">'+esc(r.product.name)+'</small>' : ''}</td></tr>`).join('')}</tbody></table></div>` : '<div class="empty">접수된 내역이 없습니다.</div>'}
    <button class="btn btn-ghost btn-lg btn-block" style="margin-top:16px" data-act="closeConsult">닫기</button>`;
   $('#consultModal').classList.add('open'); document.body.style.overflow = 'hidden';
 }
@@ -208,7 +208,7 @@ document.addEventListener('click', e => {
     case 'rOpt': { PG.optPick(d.id, d.k, d.v); const el = document.getElementById('rentOpt'); if (el) { const y = window.scrollY; el.outerHTML = PG.rentalOptBlock(byId[d.id]); window.scrollTo(0, y); } break; }
     case 'rOptRow': { PG.optRowPick(d.id, +d.i); const el = document.getElementById('rentOpt'); if (el) { const y = window.scrollY; el.outerHTML = PG.rentalOptBlock(byId[d.id]); const nel = document.getElementById('rentOpt'); const det = nel && nel.querySelector('.opt-all'); if (det) det.open = true; window.scrollTo(0, y); } break; }
     case 'sq': $('#searchInput').value = d.q; renderSearch(); break;
-    case 'kakao': if (/REPLACE_ME/.test(C.kakaoUrl)) { e.preventDefault(); toast('카카오톡 상담 채널을 준비 중이에요. 전화 또는 상담 신청을 이용해 주세요.'); } break;
+    case 'kakao': if (/REPLACE_ME/.test(C.kakaoUrl)) { e.preventDefault(); toast('카카오톡 상담 채널을 준비 중입니다. 전화 또는 상담 신청을 이용해 주세요.'); } break;
     case 'subCycle': PG.SUB.cycle = +d.m; refreshSub(); break;
     case 'subToggle': { const p = byId[d.id]; if (PG.SUB.picked[d.id] != null) delete PG.SUB.picked[d.id]; else PG.SUB.picked[d.id] = ((p.subMonths||[]).includes(PG.SUB.cycle) ? PG.SUB.cycle : (p.subRecommend || p.subMonths[0])); refreshSub(); break; }
     case 'subClear': PG.SUB.picked = {}; refreshSub(); break;
@@ -229,4 +229,46 @@ document.addEventListener('keydown', e => {
 });
 
 render();
+
+/* ── 헤더 스크롤 전환 / 스크롤 리빌 / 숫자 카운트 ── */
+const header = $('#header');
+let ticking = false;
+function onScroll(){ if (ticking) return; ticking = true; requestAnimationFrame(() => { header.classList.toggle('scrolled', window.scrollY > 12); ticking = false; }); }
+window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const RV = '.section-head, .tile, .concern-card, .pick-card, .pcard, .rcard, .gcard, .benefit, .step-block, .cta-strip, .p-item, .planner .card-img, .consult .inner > *, .stats .stat-i, .faq, .cmp, .notice, .result-hero, .rec-card, .worry-list li';
+let io = null;
+function countUp(el){
+  const end = +el.dataset.count; if (!end || reduce) return;
+  const t0 = performance.now(), dur = 1100;
+  const tick = now => { const k = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - k, 3); el.textContent = Math.round(end * e); if (k < 1) requestAnimationFrame(tick); else el.textContent = end; };
+  el.textContent = '0'; requestAnimationFrame(tick);
+}
+function setupReveal(){
+  if (io) io.disconnect();
+  const nodes = $$(RV, app);
+  if (reduce || !('IntersectionObserver' in window)) { nodes.forEach(n => n.classList.add('in')); return; }
+  io = new IntersectionObserver(entries => entries.forEach(en => {
+    if (!en.isIntersecting) return;
+    en.target.classList.add('in'); io.unobserve(en.target);
+    $$('[data-count]', en.target).forEach(countUp);
+  }), { rootMargin: '0px 0px -8% 0px', threshold: 0.06 });
+  let lastTop = -1, idx = 0;
+  nodes.forEach(n => {
+    if (n.closest('.rv-skip')) return;
+    const top = Math.round(n.getBoundingClientRect().top + window.scrollY);
+    idx = Math.abs(top - lastTop) < 40 ? idx + 1 : 0; lastTop = top;
+    n.style.setProperty('--d', Math.min(idx, 6) * 70 + 'ms');
+    n.classList.add('rv'); io.observe(n);
+  });
+  $$('.stat-i [data-count]', app).forEach(el => { el.textContent = el.dataset.count; });
+}
+const _render = render;
+window.removeEventListener('hashchange', render);
+window.addEventListener('hashchange', () => { _render(); setupReveal(); });
+setupReveal();
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-act="scrollTo"]'); if (!el) return;
+  const tg = document.getElementById(el.dataset.target); if (tg) tg.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+});
 })();

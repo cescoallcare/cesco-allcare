@@ -21,66 +21,79 @@ function home(){
   const guides = GUIDES.slice(0, 3);
   return `
   <section class="hero">
-    <div class="bg">${img('assets/img/hero-living.jpg','밝은 거실', 'loading="eager" fetchpriority="high"')}</div>
-    <div class="container"><div class="hero-copy">
-      <span class="eyebrow">CESCO ALL CARE</span>
-      <h1 class="h1">깨끗함을 선택하는 방법은 달라도<br><em>필요한 케어는 하나씩 다릅니다.</em></h1>
-      <p class="sub">공기부터 물, 생활까지.<br>내 공간에 필요한 세스코 케어를 찾아보세요.</p>
-      <div class="cta"><a class="btn btn-primary btn-lg" href="#/finder">내게 맞는 케어 찾기 ${ico('arrow')}</a><a class="btn btn-ghost btn-lg" href="#/products">전체 제품 보기</a></div>
-      <div class="planner-line"><span class="dot"></span>${esc(c.title)} <b style="color:var(--navy)">${esc(c.name)}</b>
-        <button class="btn btn-navy btn-sm" data-act="consult">상담하기</button></div>
-    </div></div>
-    <div class="hero-note"><b>“${esc(c.slogan)}”</b><span>${esc(c.branch)} · ${esc(c.phone)}</span></div>
+    <div class="bg">${img('assets/img/hero-living.webp','밝고 정돈된 거실', 'loading="eager" fetchpriority="high"')}</div>
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow on-dark">CESCO ALL CARE</span>
+        <h1 class="h1">깨끗함을 선택하는 방법은 달라도<br><em>필요한 케어는 하나씩 다릅니다.</em></h1>
+        <p class="sub">공기부터 물, 생활까지. 우리에게 필요한 케어를 한곳에서.</p>
+        <div class="cta"><a class="btn btn-primary btn-lg" href="#/finder">내게 맞는 케어 찾기 ${ico('arrow')}</a><a class="btn btn-glass btn-lg" href="#/products">전체 제품 보기</a></div>
+      </div>
+      <aside class="hero-card" aria-label="플래너 상담 안내">
+        <span class="hc-badge">${ico('shield')} ${esc(c.title)}</span>
+        <div class="hc-name"><b>${esc(c.name)}</b><small>${esc(c.branch)}</small></div>
+        <p class="hc-quote">“${esc(c.slogan)}”</p>
+        <div class="hc-actions"><a class="btn btn-white" href="${c.phoneTel}">${ico('phone')} ${esc(c.phone)}</a><button class="btn btn-primary" data-act="consult">상담하기</button></div>
+      </aside>
+    </div>
+    <button class="scroll-cue" data-act="scrollTo" data-target="concerns" aria-label="아래로 스크롤"><span></span></button>
   </section>
 
+  <section class="stats-band" aria-label="사이트 구성 한눈에 보기"><div class="container"><div class="stats">
+    <div class="stat-i"><span class="si">${ico('box')}</span><b data-count="${P.length}">${P.length}</b><span class="sl">제품·서비스</span></div>
+    <div class="stat-i"><span class="si">${ico('wind')}</span><b data-count="3">3</b><span class="sl">케어 라인<br><small>공기 · 물 · 생활</small></span></div>
+    <div class="stat-i"><span class="si">${ico('store')}</span><b data-count="${INDUSTRIES.length}">${INDUSTRIES.length}</b><span class="sl">업종별 맞춤 케어</span></div>
+    <div class="stat-i"><span class="si">${ico('home')}</span><b data-count="${HOMECARES.length}">${HOMECARES.length}</b><span class="sl">가정 유형별 케어</span></div>
+  </div></div></section>
+
   <section class="section" id="concerns"><div class="container">
-    ${sectionHead('WHAT MATTERS', '지금 가장 신경 쓰이는 것은?', '고민을 하나 골라 보세요. 관련 제품과 서비스를 모아 보여드립니다.')}
+    ${sectionHead('WHAT MATTERS', '지금 가장 신경 쓰이는 것은?', '가장 마음에 걸리는 고민을 하나 골라 보세요. 관련 제품과 서비스를 모아 안내해 드립니다.')}
     <div class="grid g4 concern-grid">${CONCERNS.map(k => `
-      <a class="concern-card" href="#/concern/${k.id}">${img(k.img, k.name)}<div class="txt"><span class="chip-ico">${ico(k.icon)}</span><h3>${esc(k.name)}</h3><p>${esc(k.sub)}</p></div></a>`).join('')}</div>
+      <a class="concern-card" href="#/concern/${k.id}">${img(k.img, k.name)}<div class="txt"><span class="chip-ico">${ico(k.icon)}</span><h3>${esc(k.name)}</h3><p>${esc(k.sub)}</p></div><span class="go" aria-hidden="true">${ico('arrow')}</span></a>`).join('')}</div>
   </div></section>
 
   <section class="section gray" id="spaces"><div class="container">
-    ${sectionHead('HOME & BUSINESS', '우리 집도, 우리 가게도 — 공간에 맞게', '가정은 함께 사는 사람에 따라, 사업장은 업종에 따라 필요한 케어가 달라집니다.')}
+    ${sectionHead('HOME & BUSINESS', '우리 집도, 우리 가게도, 공간에 맞게', '가정은 함께 사는 사람에 따라, 사업장은 업종에 따라 필요한 케어가 달라집니다.')}
     <div class="grid g2">
-      <a class="tile" href="#/home-care">${img('assets/img/home-family.jpg','가족이 있는 집')}<div class="bd"><span class="en">HOME CARE</span><h3>함께 사는 사람에 따라<br>필요한 케어가 달라요</h3><p>BABY · PET · SENIOR · FAMILY · SINGLE &amp; COUPLE</p><span class="link-more" style="color:#fff">홈케어 보기 ${ico('arrow')}</span></div></a>
-      <a class="tile" href="#/business">${img('assets/img/biz-cafe.jpg','카페')}<div class="bd"><span class="en">BUSINESS CARE</span><h3>업종마다 위생 포인트가<br>다릅니다</h3><p>요식업 · 카페 · PC방 · 숙박업 · 병원 · 학원 · 사무실 · 공장 · 매장</p><span class="link-more" style="color:#fff">업종별 케어 보기 ${ico('arrow')}</span></div></a>
+      <a class="tile" href="#/home-care">${img('assets/img/home-family.webp','가족이 있는 집')}<div class="bd"><span class="en">HOME CARE</span><h3>함께 사는 사람에 따라<br>필요한 케어가 달라집니다</h3><p>BABY · PET · SENIOR · FAMILY · SINGLE &amp; COUPLE</p><span class="link-more" style="color:#fff">홈케어 보기 ${ico('arrow')}</span></div></a>
+      <a class="tile" href="#/business">${img('assets/img/biz-cafe.webp','카페')}<div class="bd"><span class="en">BUSINESS CARE</span><h3>업종마다 챙겨야 할<br>위생 포인트가 다릅니다</h3><p>요식업 · 카페 · PC방 · 숙박업 · 병원 · 학원 · 사무실 · 공장 · 매장</p><span class="link-more" style="color:#fff">업종별 케어 보기 ${ico('arrow')}</span></div></a>
     </div>
     <div class="grid g5" style="margin-top:24px">${HOMECARES.map(h => `<a class="pick-card" href="#/home-care/${h.id}"><div class="im">${img(h.img,h.ko)}</div><div class="bd"><span class="en">${esc(h.name)}</span><h3>${esc(h.ko)}</h3></div></a>`).join('')}</div>
   </div></section>
 
   <section class="section" id="lines"><div class="container">
-    ${sectionHead('PURE AIR · PURE WATER · HEALING LIFE', '공기부터 물, 생활까지', '세 가지 라인으로 나누어 필요한 것만 골라 보세요.')}
+    ${sectionHead('PURE AIR · PURE WATER · HEALING LIFE', '공기부터 물, 생활까지', '세 가지 라인에서 꼭 필요한 케어만 골라 보세요.')}
     <div class="grid g3">
       <a class="tile" href="#/air">${img(SECTIONS.air.img,'PURE AIR')}<div class="bd"><span class="en">PURE AIR</span><h3>매일 마시는 공기</h3><p>공기청정 · 공기살균 · 스페이스 케어</p><div class="chips"><span>AIR CLEAN</span><span>AIR STERILIZATION</span><span>SPACE CARE</span></div></div></a>
-      <a class="tile" href="#/water">${img(SECTIONS.water.img,'PURE WATER')}<div class="bd"><span class="en">PURE WATER</span><h3>매일 쓰는 물</h3><p>정수기 · 샤워필터 · 비데</p><div class="chips"><span>DRINK</span><span>SHOWER</span><span>BATH</span></div></div></a>
-      <a class="tile" href="#/life">${img(SECTIONS.life.img,'HEALING LIFE')}<div class="bd"><span class="en">HEALING LIFE</span><h3>매일 쓰는 생활</h3><p>살균 · 청소 · 위생 · 탈취 · 해충</p><div class="chips"><span>STERILIZE</span><span>CLEAN</span><span>HYGIENE</span><span>FRESH</span><span>BUG CARE</span></div></div></a>
+      <a class="tile" href="#/water">${img(SECTIONS.water.img,'PURE WATER')}<div class="bd"><span class="en">PURE WATER</span><h3>매일 마시고 쓰는 물</h3><p>정수기 · 샤워필터 · 비데</p><div class="chips"><span>DRINK</span><span>SHOWER</span><span>BATH</span></div></div></a>
+      <a class="tile" href="#/life">${img(SECTIONS.life.img,'HEALING LIFE')}<div class="bd"><span class="en">HEALING LIFE</span><h3>일상의 위생과 청결</h3><p>살균 · 청소 · 위생 · 탈취 · 해충</p><div class="chips"><span>STERILIZE</span><span>CLEAN</span><span>HYGIENE</span><span>FRESH</span><span>BUG CARE</span></div></div></a>
     </div>
   </div></section>
 
   <section class="section sky" id="best-home"><div class="container">
-    ${sectionHead('BEST', '지금 많이 찾는 제품', '세스코몰 리뷰 수를 기준으로 정리했어요.', `<a class="link-more" href="#/best">BEST 전체 보기 ${ico('chevron')}</a>`)}
+    ${sectionHead('BEST', '지금 많이 찾는 제품', '세스코몰 리뷰 수를 기준으로 정리했습니다.', `<a class="link-more" href="#/best">BEST 전체 보기 ${ico('chevron')}</a>`)}
     ${pgrid(bestTop, (p,i) => ({ rank: i+1, showReview: true }))}
   </div></section>
 
   <section class="section" id="rental-home"><div class="container">
-    ${sectionHead('RENTAL', '구매보다 부담을 줄이고<br>꾸준한 관리까지 받고 싶다면', '월 렌탈료와 방문 관리를 함께 살펴보세요.', `<a class="link-more" href="#/rental">렌탈 전체 보기 ${ico('chevron')}</a>`)}
+    ${sectionHead('RENTAL', '부담은 줄이고<br>관리는 꾸준히 받고 싶다면', '월 렌탈료와 방문 관리를 함께 살펴보세요.', `<a class="link-more" href="#/rental">렌탈 전체 보기 ${ico('chevron')}</a>`)}
     <div class="grid g3">${rentals.map(rentalCardMini).join('')}</div>
-    <div style="margin-top:44px;padding:clamp(28px,4vw,48px);border-radius:var(--r-lg);background:var(--gray);display:flex;gap:24px;justify-content:space-between;align-items:center;flex-wrap:wrap">
-      <div><span class="eyebrow">정기배송</span><h3 class="h3" style="margin-top:10px">자주 쓰는 생활용품, 필요할 때마다 다시 주문하지 마세요.</h3><p class="muted" style="margin-top:6px">세정제·소독제·탈취제 등 소모품은 배송주기를 정해 두면 편합니다.</p></div>
+    <div class="banner-soft">
+      <div><span class="eyebrow">정기배송</span><h3 class="h3">자주 쓰는 생활용품, 매번 다시 주문하지 않아도 됩니다.</h3><p class="muted" style="margin-top:6px">세정제·소독제·탈취제 같은 소모품은 배송주기를 정해 두면 떨어질 걱정이 없습니다.</p></div>
       <a class="btn btn-navy btn-lg" href="#/subscribe">정기배송 주기 정하기 ${ico('arrow')}</a></div>
   </div></section>
 
   <section class="section gray" id="finder-home"><div class="container">
     <div class="two-col" style="align-items:center">
-      <div style="display:grid;gap:18px"><span class="eyebrow">CARE FINDER</span><h2 class="h2">4단계 질문으로<br>당신에게 필요한 케어를</h2>
-        <p class="lead">장소 → 환경 → 고민 → 구매방식. 네 가지만 고르면 추천 제품과 이유를 알려드려요.</p>
+      <div style="display:grid;gap:18px"><span class="eyebrow">CARE FINDER</span><h2 class="h2">네 가지 질문으로<br>나에게 필요한 케어를</h2>
+        <p class="lead">장소, 환경, 고민, 구매 방식. 네 가지만 고르시면 추천 제품과 그 이유를 안내해 드립니다.</p>
         <div><a class="btn btn-primary btn-lg" href="#/finder">케어 찾기 시작 ${ico('arrow')}</a></div></div>
-      <div class="grid g2" style="gap:14px">${['장소','환경','고민','구매방식'].map((s,i) => `<div class="benefit"><div class="bi"><b style="font-size:20px">${i+1}</b></div><h3>${s}</h3><p>${['어디에 필요하세요?','누가·어떻게 쓰나요?','가장 신경 쓰이는 건?','렌탈·구매·배송 중?'][i]}</p></div>`).join('')}</div>
+      <div class="grid g2" style="gap:14px">${['장소','환경','고민','구매방식'].map((s,i) => `<div class="benefit"><div class="bi"><b style="font-size:20px">${i+1}</b></div><h3>${s}</h3><p>${['어디에 필요하신가요?','누가, 어떻게 사용하시나요?','가장 마음 쓰이는 점은?','어떤 방식이 편하신가요?'][i]}</p></div>`).join('')}</div>
     </div>
   </div></section>
 
   <section class="section" id="guide-home"><div class="container">
-    ${sectionHead('CARE GUIDE', '알고 고르면 후회가 줄어요', '제품을 고르기 전에 알아두면 좋은 이야기를 모았어요.', `<a class="link-more" href="#/guide">가이드 전체 보기 ${ico('chevron')}</a>`)}
+    ${sectionHead('CARE GUIDE', '알고 고르면 선택이 한결 쉬워집니다', '제품을 고르기 전에 알아 두면 좋은 이야기를 모았습니다.', `<a class="link-more" href="#/guide">가이드 전체 보기 ${ico('chevron')}</a>`)}
     <div class="grid g3">${guides.map(guideCard).join('')}</div>
   </div></section>
 
@@ -104,7 +117,7 @@ function consultSection(){
     <div><span class="eyebrow" style="color:#8FD2FF">CONSULTATION</span>
       <h2 class="h2" style="margin-top:14px">무엇이 필요한지 모르겠다면,<br>제가 먼저 살펴보겠습니다.</h2>
       <p class="sig">“${esc(c.slogan)}”</p>
-      <p style="margin-top:22px;color:rgba(255,255,255,.75);max-width:520px">공간, 함께 사는 분, 예산과 관리 여력을 먼저 듣고 꼭 필요한 케어만 제안드립니다. 부담 없이 문의하세요.</p></div>
+      <p style="margin-top:22px;color:rgba(255,255,255,.75);max-width:520px">공간과 함께 사는 분, 예산, 관리에 들일 수 있는 시간을 먼저 듣고 꼭 필요한 케어만 제안드립니다. 부담 없이 문의해 주세요.</p></div>
     <div class="consult-card"><div class="who"><small>${esc(c.title)}</small><b>${esc(c.name)}</b><small>${esc(c.branch)}</small></div>
       <a class="tel" href="${c.phoneTel}">${esc(c.phone)}</a>
       <div class="btns"><a class="btn btn-white btn-lg" href="${c.phoneTel}">${ico('phone')} 전화 상담</a>
@@ -124,10 +137,10 @@ function plannerSection(){
         <div class="p-item"><span class="pi">${ico('wrench')}</span><div><h3>관리 상담</h3><p>필터 교체, 방문 관리 주기, 소모품 배송까지 사용하는 동안 함께 살핍니다.</p></div></div>
       </div>
       <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:30px"><button class="btn btn-primary btn-lg" data-act="consult">상담하기</button><a class="btn btn-ghost btn-lg" href="${c.phoneTel}">${ico('phone')} ${esc(c.phone)}</a></div></div>
-    <div class="card-img">${img('assets/logo/namecard.png','최영척 플래너 명함 앞·뒷면')}</div>
+    <div class="card-img">${img('assets/logo/namecard.webp','최영척 플래너 명함 앞·뒷면')}</div>
   </div></div></section>`;
 }
-function plannerPage(){ return pageHero({eyebrow:'PLANNER', title:'세스코 라이프케어<br>SOL 플래너 최영척', lead:esc(C.planner.slogan), img:'assets/img/team-office.jpg', crumbs:[{label:'플래너 소개'}]}) + plannerSection() + consultSection(); }
+function plannerPage(){ return pageHero({eyebrow:'PLANNER', title:'세스코 라이프케어<br>SOL 플래너 최영척', lead:esc(C.planner.slogan), img:'assets/img/team-office.webp', crumbs:[{label:'플래너 소개'}]}) + plannerSection() + consultSection(); }
 
 /* ────────── 제품 섹션 (air / water / life) ────────── */
 function sectionPage(key, qs){
@@ -167,7 +180,7 @@ function productsPage(qs){
   if (f === 'sub') list = list.filter(p => p.subscribable);
   if (f === 'buy') list = list.filter(hasBuy);
   if (f === 'partner') list = list.filter(p => p.partner);
-  return pageHero({eyebrow:'ALL PRODUCTS', title:'전체 제품', lead:'세스코몰에서 확인한 제품과 제휴·판매 상품을 한곳에 모았습니다.', img:'assets/img/living-plants.jpg', crumbs:[{label:'제품'}]}) + `
+  return pageHero({eyebrow:'ALL PRODUCTS', title:'전체 제품', lead:'세스코몰에서 확인한 제품과 제휴·판매 상품을 한곳에 모았습니다.', img:'assets/img/living-plants.webp', crumbs:[{label:'제품'}]}) + `
   <section class="section" style="padding-top:48px"><div class="container">
     <div class="chipbar"><span class="label">분류</span>${cats.map(c => chip('#/products'+q2({cat:c[0],f}), c[1], cat===c[0])).join('')}</div>
     <div class="chipbar"><span class="label">조건</span>${fs.map(c => chip('#/products'+q2({cat,f:c[0]}), c[1], f===c[0], 'blue')).join('')}</div>
@@ -323,7 +336,7 @@ function productPage(id){
         <div><h3 class="h3" style="font-size:20px;margin-bottom:8px">상세 정보</h3><table class="spec-table"><tbody>${rows.map(r => `<tr><th>${esc(r[0])}</th><td>${esc(r[1])}</td></tr>`).join('')}</tbody></table></div>
         ${(p.buyOptions||[]).length > 1 || (p.buyOptions||[]).length === 1 && p.buyOptions[0].price !== p.buyPrice ? `<div><h3 class="h3" style="font-size:20px;margin-bottom:8px">구매 옵션 (세스코몰 표기)</h3><table class="opt-table"><tbody>${p.buyOptions.map(o => `<tr><td>${esc(o.label)}</td><td>${won(o.price)}</td></tr>`).join('')}</tbody></table></div>` : ''}
         ${p.detailNote ? `<div class="notice">${ico('info')}<div>${esc(p.detailNote)}</div></div>` : ''}
-        <div class="muted" style="font-size:13px;line-height:1.7">${p.source.url ? `출처: <a class="link-more" style="font-size:13px" href="${esc(p.source.url)}" target="_blank" rel="noopener">${esc(p.source.name)} 상품 페이지 ${ico('external')}</a> · 정보 확인일 ${esc(p.source.checkedAt)}<br>` : `출처: ${esc(p.source.name)} · 반영일 ${esc(p.source.checkedAt)}<br>`}${p.priceSource ? `가격 출처: ${esc(p.priceSource.name)} (${esc(p.priceSource.checkedAt)} 반영 · 가격표 ${esc(p.priceSource.table)}번)<br>` : ''}이미지: ${/placeholder/.test(p.image||'') ? '준비 중(대체 이미지)' : '판매처 게시 이미지를 사용(사용 허락 받음)'}. 가격·조건은 변동될 수 있습니다.</div>
+        <div class="muted" style="font-size:13px;line-height:1.7">${p.source.url ? `출처: <a class="link-more" style="font-size:13px" href="${esc(p.source.url)}" target="_blank" rel="noopener">${esc(p.source.name)} 상품 페이지 ${ico('external')}</a> · 정보 확인일 ${esc(p.source.checkedAt)}<br>` : `출처: ${esc(p.source.name)} · 반영일 ${esc(p.source.checkedAt)}<br>`}${p.priceSource ? `가격 출처: ${esc(p.priceSource.name)} (${esc(p.priceSource.checkedAt)} 반영 · 가격표 ${esc(p.priceSource.table)}번)<br>` : ''}이미지: ${/placeholder/.test(p.image||'') ? '준비 중(대체 이미지)' : '판매처 게시 이미지를 사용 허락을 받아 사용했습니다'}. 가격·조건은 변동될 수 있습니다.</div>
       </div>
     </div>
     <div style="margin-top:72px">${sectionHead('RELATED', '함께 살펴보면 좋은 제품', '')}${pgrid(relList)}</div>
@@ -344,7 +357,7 @@ function bestPage(qs){
   let list = P.filter(p => live(p) && p.popularity && !p.partner);
   if (cat !== 'all') list = list.filter(test[cat]);
   list = sortPop(list).slice(0, 12);
-  return pageHero({eyebrow:'BEST', title:'지금 많이 찾는 제품', lead:'세스코몰 리뷰 수가 많은 순서로 정리했어요. (리뷰 수 집계 2026-09-24)', img:'assets/img/living-warm.jpg', crumbs:[{label:'BEST'}]}) + `
+  return pageHero({eyebrow:'BEST', title:'지금 많이 찾는 제품', lead:'세스코몰 리뷰 수가 많은 순서로 정리했어요. (리뷰 수 집계 2026-09-24)', img:'assets/img/living-warm.webp', crumbs:[{label:'BEST'}]}) + `
   <section class="section" style="padding-top:48px"><div class="container">
     <div class="chipbar"><span class="label">카테고리</span>${cats.map(c => chip('#/best'+q2({cat:c[0]}), c[1], cat===c[0])).join('')}</div>
     <p class="muted" style="margin-bottom:18px;font-size:14px">순위는 판매량이 아닌 <b>세스코몰 리뷰 수</b> 기준의 참고 자료입니다.</p>
@@ -392,21 +405,21 @@ function rentalPage(qs){
       <dt>총 비용/조건</dt><dd>약 ${won(total)} (월 렌탈료×${p.rentalContractMonths||36}개월, 참고) · ${p.buyPrice != null ? '구매가 ' + won(p.buyPrice) : '구매 불가(월 서비스 전용)'}</dd></dl>
       <div class="actions"><a class="btn btn-ghost" href="#/product/${esc(p.id)}">렌탈 자세히 보기</a>${btnConsult('렌탈 상담하기', consultAttrs(p,'렌탈 문의'))}</div></div></article>`;
   };
-  return pageHero({eyebrow:'RENTAL', title:'구매보다 부담을 줄이고<br>꾸준한 관리까지 받고 싶다면', lead:'월 렌탈료 · 의무사용기간 · 방문주기 · 방문 관리를 한눈에 비교하세요.', img:'assets/img/modern-house.jpg', crumbs:[{label:'RENTAL'}],
+  return pageHero({eyebrow:'RENTAL', title:'부담은 줄이고<br>관리는 꾸준히 받고 싶다면', lead:'월 렌탈료 · 의무사용기간 · 방문주기 · 방문 관리를 한눈에 비교하세요.', img:'assets/img/modern-house.webp', crumbs:[{label:'RENTAL'}],
       actions:`<a class="btn btn-white" href="#/finder?mode=rental">나에게 맞는 렌탈 찾기</a><button class="btn btn-line-w" data-act="consult" data-topic="렌탈 문의">렌탈 상담하기</button>`}) + `
   <section class="section" style="padding-top:56px"><div class="container">
     <div class="grid g3" style="margin-bottom:56px">
-      <div class="benefit"><span class="bi">${ico('wrench')}</span><h3>방문 관리</h3><p>선택한 방문주기에 맞춰 점검과 필터 교체가 이뤄집니다(제품·주기별 상이).</p></div>
-      <div class="benefit"><span class="bi">${ico('calendar')}</span><h3>월 단위 부담</h3><p>초기 비용 부담을 나눠 낼 수 있어요. 의무사용 기간과 조건은 꼭 확인하세요.</p></div>
-      <div class="benefit"><span class="bi">${ico('shield')}</span><h3>솔직한 비교</h3><p>구매가와 총 렌탈금액을 나란히 보고 결정하실 수 있도록 안내합니다.</p></div></div>
+      <div class="benefit"><span class="bi">${ico('wrench')}</span><h3>방문 관리</h3><p>선택한 방문주기에 맞춰 점검과 필터 교체가 진행됩니다. 내용은 제품과 주기에 따라 다를 수 있습니다.</p></div>
+      <div class="benefit"><span class="bi">${ico('calendar')}</span><h3>월 단위 부담</h3><p>초기 비용을 월 단위로 나누어 부담할 수 있습니다. 의무사용기간과 계약 조건은 꼭 확인해 주세요.</p></div>
+      <div class="benefit"><span class="bi">${ico('shield')}</span><h3>솔직한 비교</h3><p>구매가와 총 렌탈금액을 나란히 놓고 비교하실 수 있도록 안내해 드립니다.</p></div></div>
     <div class="chipbar"><span class="label">분류</span>${cats.map(c => chip('#/rental'+q2({cat:c[0]}), c[1], cat===c[0])).join('')}</div>
-    <div class="muted" style="margin:6px 0 20px;font-size:14px"><b style="color:var(--navy)">${list.length}</b>개 렌탈 상품 · 가격표 상품은 ‘이달의 판매가(온라인 노출가) 최저 옵션’ 기준 월 렌탈료이며, 의무사용기간·방문주기별 가격과 방문 상담 시 적용 가격은 상세 페이지에서 확인할 수 있어요. (그 외 상품은 세스코몰 표기 기준)</div>
+    <div class="muted" style="margin:6px 0 20px;font-size:14px"><b style="color:var(--navy)">${list.length}</b>개 렌탈 상품 · 가격표 상품은 ‘이달의 판매가(온라인 노출가) 최저 옵션’ 기준 월 렌탈료이며, 의무사용기간·방문주기별 가격과 방문 상담 시 적용 가격은 상세 페이지에서 확인하실 수 있습니다. (그 외 상품은 세스코몰 표기 기준)</div>
     <div class="grid g2">${list.map(card).join('')}</div>
     <div style="margin-top:72px">${sectionHead('COMPARE', '렌탈 vs 구매, 한눈에 비교', '')}
       <div style="overflow:auto"><table class="cmp"><thead><tr><th></th><th>렌탈</th><th>구매</th></tr></thead><tbody>
-        <tr><th>초기 비용</th><td>월 렌탈료로 나누어 부담</td><td>구매가 일시 부담(할부 여부는 판매처 기준)</td></tr>
+        <tr><th>초기 비용</th><td>월 렌탈료로 나누어 부담</td><td>구매가를 한 번에 부담(할부 여부는 판매처 기준)</td></tr>
         <tr><th>관리</th><td>선택한 방문주기에 맞춘 방문 관리</td><td>케어십 포함/미포함 옵션에 따라 다름(미포함은 셀프 관리)</td></tr>
-        <tr><th>계약</th><td>의무사용 기간이 있음(상품별로 36·60·72개월 등 — 상세 페이지의 옵션표 참고)</td><td>별도 의무사용 없음</td></tr>
+        <tr><th>계약</th><td>의무사용기간이 있습니다(상품별로 36·60·72개월 등, 상세 페이지의 옵션표 참고)</td><td>별도 의무사용 없음</td></tr>
         <tr><th>총비용</th><td>월 렌탈료 × 기간 + 조건에 따른 추가 비용 가능</td><td>구매가 + 관리 비용(선택)</td></tr>
         <tr><th>이런 분께</th><td>관리를 맡기고 싶은 분, 초기 비용을 줄이고 싶은 분</td><td>오래 쓰고 직접 관리할 수 있는 분</td></tr></tbody></table></div></div>
     <div style="margin-top:72px;max-width:860px">${sectionHead('FAQ', '자주 묻는 질문', '')}
@@ -439,13 +452,13 @@ function careDetail(x, kind){
     <div class="step-block" style="grid-template-columns:1fr"><div class="step-label"><span class="no">STEP 03</span><h3>추천 제품</h3></div>${pgrid(picks)}</div>
     <div class="step-block"><div class="step-label"><span class="no">STEP 04</span><h3>렌탈 / 구매</h3></div><div><p class="lead" style="color:var(--text)">${esc(x.buy)}</p>${careTable(x.picks)}<div style="margin-top:14px"><a class="link-more" href="#/rental">렌탈 상품 전체 보기 ${ico('chevron')}</a></div></div></div>
     <div class="step-block" style="grid-template-columns:1fr"><div class="step-label"><span class="no">STEP 05</span><h3>상담하기</h3></div>
-      ${consultStrip(esc(x.cta) + ' — 먼저 살펴보겠습니다.', '견적서보다 처방전을 먼저 씁니다. 공간과 상황을 알려주시면 필요한 것만 제안드려요.', isBiz ? '사업장 맞춤 상담' : '잘 모르겠어요 (먼저 진단받고 싶어요)').replace('data-act="consult"', `data-act="consult" data-msg="${esc(x.cta)}"`)}</div>
+      ${consultStrip((isBiz ? esc(x.name) : esc(x.ko)) + ' 맞춤 케어, 먼저 살펴보겠습니다.', '견적서보다 처방전을 먼저 씁니다. 공간과 상황을 알려 주시면 꼭 필요한 것만 제안드립니다.', isBiz ? '사업장 맞춤 상담' : '잘 모르겠어요 (먼저 진단받고 싶어요)').replace('data-act="consult"', `data-act="consult" data-msg="${esc(x.cta)}"`)}</div>
     <div style="margin-top:30px">${disc()}</div>
   </div></section>`;
 }
 function businessPage(id){
   if (id) { const x = INDUSTRIES.find(i => i.id === id); return x ? careDetail(x, 'biz') : notFound(); }
-  return pageHero({eyebrow:'BUSINESS CARE', title:'업종마다 위생 포인트가 다릅니다', lead:'업종을 고르면 주요 고민 → 추천 케어 → 추천 제품 → 렌탈/구매 순서로 안내해 드려요.', img:'assets/img/biz-restaurant.jpg', crumbs:[{label:'BUSINESS CARE'}]}) + `
+  return pageHero({eyebrow:'BUSINESS CARE', title:'업종마다 챙겨야 할 위생 포인트가 다릅니다', lead:'업종을 고르면 주요 고민, 추천 케어, 추천 제품, 렌탈·구매 순서로 안내해 드립니다.', img:'assets/img/biz-restaurant.webp', crumbs:[{label:'BUSINESS CARE'}]}) + `
   <section class="section" style="padding-top:56px"><div class="container">
     <div class="grid g5" style="grid-template-columns:repeat(auto-fill,minmax(230px,1fr))">${INDUSTRIES.map(i => `<a class="pick-card" href="#/business/${i.id}"><div class="im">${img(i.img,i.name)}</div><div class="bd"><span class="en">${esc(i.en)}</span><h3>${esc(i.name)}</h3><p>${esc(i.summary)}</p></div></a>`).join('')}</div>
     <div style="margin-top:44px">${disc()}</div>${consultStrip('', '', '사업장 맞춤 상담')}
@@ -453,7 +466,7 @@ function businessPage(id){
 }
 function homeCarePage(id){
   if (id) { const x = HOMECARES.find(i => i.id === id); return x ? careDetail(x, 'home') : notFound(); }
-  return pageHero({eyebrow:'HOME CARE', title:'함께 사는 사람에 따라<br>필요한 케어가 달라요', lead:'우리 집 상황에 가까운 카드를 골라 보세요.', img:'assets/img/home-family.jpg', crumbs:[{label:'HOME CARE'}]}) + `
+  return pageHero({eyebrow:'HOME CARE', title:'함께 사는 사람에 따라<br>필요한 케어가 달라집니다', lead:'우리 집 상황과 가장 가까운 유형을 골라 보세요.', img:'assets/img/home-family.webp', crumbs:[{label:'HOME CARE'}]}) + `
   <section class="section" style="padding-top:56px"><div class="container">
     <div class="grid g3">${HOMECARES.map(h => `<a class="tile" href="#/home-care/${h.id}">${img(h.img,h.ko)}<div class="bd"><span class="en">${esc(h.name)}</span><h3>${esc(h.ko)}</h3><p>${esc(h.summary)}</p><div class="chips">${h.care.slice(0,4).map(c => `<span>${esc(c)}</span>`).join('')}</div></div></a>`).join('')}</div>
     <div style="margin-top:44px">${disc()}</div>${consultStrip()}
@@ -472,7 +485,7 @@ function concernPage(id){
   <section class="section" style="padding-top:48px"><div class="container">
     <div class="two-col" style="margin-bottom:48px">
       <div><h3 class="h3" style="margin-bottom:14px">이런 고민이라면</h3><ul class="worry-list" style="grid-template-columns:1fr">${k.checks.map(c => `<li>${esc(c)}</li>`).join('')}</ul></div>
-      <div class="benefit" style="align-content:start"><span class="bi">${ico(k.icon)}</span><h3>이렇게 접근해요</h3><p style="font-size:16px;color:var(--text)">${esc(k.approach)}</p></div></div>
+      <div class="benefit" style="align-content:start"><span class="bi">${ico(k.icon)}</span><h3>이렇게 도와드립니다</h3><p style="font-size:16px;color:var(--text)">${esc(k.approach)}</p></div></div>
     ${sectionHead('RECOMMENDED', esc(k.name) + ' 관련 제품·서비스', `${list.length}개`)}
     ${pgrid(list)}
     <div style="margin-top:36px">${disc()}</div>${consultStrip('', '', topic)}
@@ -481,7 +494,7 @@ function concernPage(id){
 
 /* ────────── GUIDE ────────── */
 function guidePage(id){
-  if (!id) return pageHero({eyebrow:'CARE GUIDE', title:'알고 고르면<br>후회가 줄어요', lead:'제품 고르기 전에 알아두면 좋은 이야기 9가지.', img:'assets/img/living-plants.jpg', crumbs:[{label:'CARE GUIDE'}]}) + `
+  if (!id) return pageHero({eyebrow:'CARE GUIDE', title:'알고 고르면<br>선택이 쉬워집니다', lead:'제품을 고르기 전에 알아 두면 좋은 이야기 ' + GUIDES.length + '가지를 모았습니다.', img:'assets/img/living-plants.webp', crumbs:[{label:'CARE GUIDE'}]}) + `
     <section class="section" style="padding-top:56px"><div class="container"><div class="grid g3">${GUIDES.map(guideCard).join('')}</div>${consultStrip()}</div></section>`;
   const g = GUIDES.find(x => x.id === id); if (!g) return notFound();
   const others = GUIDES.filter(x => x.id !== id).slice(0,3);
@@ -493,7 +506,7 @@ function guidePage(id){
       <div class="notice" style="margin-top:36px">${ico('info')}<div>이 글은 일반적인 생활 정보이며, 제품 사양·가격·조건은 판매처 공식 기준을 따릅니다. 구체적인 선택은 상담으로 도와드립니다.</div></div>
     </article>
     <div style="margin-top:64px">${sectionHead('RELATED', '글에서 소개한 제품', '')}${pgrid(g.products.map(id => byId[id]).filter(Boolean))}</div>
-    <div style="margin-top:44px">${consultStrip('이 글, 우리 집에 어떻게 적용될까요?', '', '잘 모르겠어요 (먼저 진단받고 싶어요)')}</div>
+    <div style="margin-top:44px">${consultStrip('이 글의 내용, 우리 집에는 어떻게 적용될까요?', '', '잘 모르겠어요 (먼저 진단받고 싶어요)')}</div>
     <div style="margin-top:64px">${sectionHead('MORE', '다른 가이드', '')}<div class="grid g3">${others.map(guideCard).join('')}</div></div>
   </div></section>`;
 }
@@ -503,7 +516,7 @@ const SUB = { cycle: 1, picked: {} };
 function subMonthsLabel(m){ return m === 0.46 ? '2주' : m === 0.69 ? '3주' : m === 0.92 ? '4주' : m + '개월'; }
 function subscribePage(qs){
   if (qs.add && byId[qs.add] && byId[qs.add].subscribable && !SUB.picked[qs.add]) SUB.picked[qs.add] = byId[qs.add].subRecommend || 1;
-  return pageHero({eyebrow:'정기배송', title:'자주 쓰는 생활용품,<br>필요할 때마다 다시 주문하지 마세요.', lead:'배송주기를 정해 두면 떨어지기 전에 도착합니다.', img:'assets/img/couple-kitchen.jpg', crumbs:[{label:'정기배송'}]}) + `
+  return pageHero({eyebrow:'정기배송', title:'자주 쓰는 생활용품,<br>매번 다시 주문하지 않아도 됩니다.', lead:'배송주기를 정해 두면 필요한 때에 맞춰 받아보실 수 있습니다.', img:'assets/img/couple-kitchen.webp', crumbs:[{label:'정기배송'}]}) + `
   <section class="section" style="padding-top:56px"><div class="container" id="subRoot">${subscribeBody()}</div></section>
   <div class="sub-bar" id="subBar"></div>`;
 }
@@ -539,7 +552,7 @@ function subBarHtml(){
 const FS = { step: 0, place: null, env: [], concern: [], mode: null };
 function finderPage(qs){
   if (qs.mode && FINDER.modes.some(m => m.id === qs.mode) && FS.mode !== qs.mode) { FS.step = 0; FS.place = null; FS.env = []; FS.concern = []; FS.mode = qs.mode; }
-  return pageHero({eyebrow:'CARE FINDER', title:'4단계로 찾는<br>내게 맞는 케어', lead:'장소 → 환경 → 고민 → 구매방식', img:'assets/img/living-soft.jpg', crumbs:[{label:'CARE FINDER'}]}) + `
+  return pageHero({eyebrow:'CARE FINDER', title:'4단계로 찾는<br>내게 맞는 케어', lead:'장소 → 환경 → 고민 → 구매방식', img:'assets/img/living-soft.webp', crumbs:[{label:'CARE FINDER'}]}) + `
   <section class="section" style="padding-top:56px"><div class="container"><div class="finder-wrap" id="finderRoot">${finderBody()}</div></div></section>`;
 }
 function finderBody(){
@@ -547,10 +560,10 @@ function finderBody(){
   if (s >= 4) return finderResult();
   const bar = `<div class="progress" aria-label="진행 ${s+1}/4">${[0,1,2,3].map(i => `<i class="${i<s?'done':i===s?'cur':''}"></i>`).join('')}</div>`;
   const cfg = [
-    { t:'어디에 필요하세요?', d:'케어가 필요한 장소를 골라 주세요.', k:'place', multi:false, opts: FINDER.places.map(o => [o.id, o.label, o.sub]) },
-    { t:'어떤 환경인가요?', d:'해당되는 것을 모두 골라 주세요. (없으면 건너뛰기)', k:'env', multi:true, opts: FINDER.envs.map(o => [o.id, o.label, '']) },
+    { t:'어디에 필요하신가요?', d:'케어가 필요한 장소를 골라 주세요.', k:'place', multi:false, opts: FINDER.places.map(o => [o.id, o.label, o.sub]) },
+    { t:'어떤 환경인가요?', d:'해당하는 항목을 모두 골라 주세요. 없으면 건너뛰셔도 됩니다.', k:'env', multi:true, opts: FINDER.envs.map(o => [o.id, o.label, '']) },
     { t:'가장 신경 쓰이는 것은?', d:'하나 이상 골라 주세요.', k:'concern', multi:true, opts: FINDER.concerns.map(o => [o.id, o.label, '']) },
-    { t:'어떤 방식이 좋으세요?', d:'구매 방식을 골라 주세요.', k:'mode', multi:false, opts: FINDER.modes.map(o => [o.id, o.label, o.sub]) }
+    { t:'어떤 방식이 편하신가요?', d:'구매 방식을 골라 주세요.', k:'mode', multi:false, opts: FINDER.modes.map(o => [o.id, o.label, o.sub]) }
   ][s];
   const cur = FS[cfg.k];
   const isOn = id => cfg.multi ? cur.includes(id) : cur === id;
@@ -612,13 +625,13 @@ function finderResult(){
     return `<article class="rec-card"><a class="im" href="#/product/${esc(p.id)}">${img(p.image,p.name)}</a><div class="bd">
       <div style="display:flex;gap:6px;flex-wrap:wrap">${badgesFor(p)}</div>
       <h3 style="font-size:20px;color:var(--navy);font-weight:800;line-height:1.35"><span class="rec-no">${i+1}</span>${esc(p.name)}</h3>
-      <div class="why">${ico('sparkle')} 추천 이유 — ${esc(r.why.length ? r.why.join(' / ') : '선택하신 조건과 가장 가까운 제품이에요.')}</div>
+      <div class="why">${ico('sparkle')} 추천 이유 — ${esc(r.why.length ? r.why.join(' / ') : '선택하신 조건과 가장 가까운 제품입니다.')}</div>
       <div style="display:flex;gap:22px;flex-wrap:wrap;font-size:15px"><span>구매가격 <b style="color:var(--navy)">${esc(buyText(p))}</b></span><span>${fromInfo(p) && fromInfo(p).kind === 'from' ? esc(fromInfo(p).label) + ' <b style="color:var(--blue)">' + esc(fromInfo(p).text) + '</b></span><span>' : ''}렌탈 <b style="color:var(--blue)">${p.rentalMonthly ? '가능 · ' + esc(rentText(p)) : (p.rentalInquire ? '문의' : '해당 없음')}</b></span></div>
       <div class="btn-stack" style="max-width:420px"><a class="btn btn-ghost" href="#/product/${esc(p.id)}">제품 보기</a>${btnConsult('상담하기', consultAttrs(p, 'finder'), 'btn btn-primary').replace('data-topic="finder"','')}</div></div></article>`;
   }).join('');
-  return `<div class="result-hero"><span class="eyebrow" style="color:#8FD2FF">RESULT</span><h2 style="margin-top:10px">당신에게 필요한 케어</h2>
+  return `<div class="result-hero"><span class="eyebrow" style="color:#8FD2FF">RESULT</span><h2 style="margin-top:10px">나에게 필요한 케어</h2>
     <div class="tags"><span>${esc(place.label)} · ${esc(place.sub)}</span><span>${esc(lb(FS.env, FINDER.envs))}</span><span>${esc(lb(FS.concern, FINDER.concerns))}</span><span>${esc(mode ? mode.label : '')}</span></div></div>
-    ${pick.length ? `<div style="display:grid;gap:20px">${recs}</div>` : `<div class="empty"><b>딱 맞는 제품을 찾지 못했어요</b>조건을 조금 바꾸시거나 상담으로 문의해 주세요.</div>`}
+    ${pick.length ? `<div style="display:grid;gap:20px">${recs}</div>` : `<div class="empty"><span class="ico-wrap">${ico('compass')}</span><b>꼭 맞는 제품을 찾지 못했습니다</b>조건을 조금 바꾸시거나 상담으로 문의해 주세요.</div>`}
     <div class="f-nav" style="margin-top:34px"><button class="btn btn-ghost btn-lg" data-act="fReset">다시 하기</button><button class="btn btn-primary btn-lg" data-act="consult" data-topic="잘 모르겠어요 (먼저 진단받고 싶어요)" data-msg="CARE FINDER 결과 — 장소: ${esc(place.label)} ${esc(place.sub)} / 환경: ${esc(lb(FS.env, FINDER.envs))} / 고민: ${esc(lb(FS.concern, FINDER.concerns))} / 방식: ${esc(mode?mode.label:'')} / 추천: ${esc(pick.map(r=>r.p.name).join(', '))}">이 결과로 상담하기</button></div>
     <div style="margin-top:28px">${disc()}</div>`;
 }
@@ -628,7 +641,7 @@ function searchGroups(q, limit){
   const res = window.U.search(q);
   const order = ['제품','케어','업종','가이드'];
   if (!q.trim()) return '';
-  if (!res.length) return `<div class="empty"><b>“${esc(q)}”에 대한 결과가 없어요</b>다른 검색어를 입력하시거나 <button class="link-more" data-act="consult">상담하기 ${ico('arrow')}</button>로 문의해 주세요.</div>`;
+  if (!res.length) return `<div class="empty"><span class="ico-wrap">${ico('search')}</span><b>“${esc(q)}”에 대한 검색 결과가 없습니다</b>다른 검색어를 입력하시거나 <button class="link-more" data-act="consult">상담하기 ${ico('arrow')}</button>로 문의해 주세요.</div>`;
   return order.map(t => {
     const items = res.filter(r => r.type === t);
     if (!items.length) return '';
@@ -646,7 +659,7 @@ function searchPage(qs){
     ${searchGroups(q, 0) || ''}</div></section>`;
 }
 
-function notFound(){ return `<section class="section" style="padding-top:calc(var(--header-h) + 60px)"><div class="container"><div class="empty"><b>페이지를 찾을 수 없어요</b><a class="btn btn-primary" href="#/">홈으로</a></div></div></section>`; }
+function notFound(){ return `<section class="section" style="padding-top:calc(var(--header-h) + 60px)"><div class="container"><div class="empty"><span class="ico-wrap">${ico('info')}</span><b>페이지를 찾을 수 없습니다</b><a class="btn btn-primary" href="#/">홈으로</a></div></div></section>`; }
 
 window.PAGES = { optPick, optRowPick, rentalOptBlock, home, sectionPage, productsPage, productPage, bestPage, rentalPage, businessPage, homeCarePage, concernPage, guidePage, subscribePage, subscribeBody, subBarHtml, SUB, subMonthsLabel,
   finderPage, finderBody, FS, searchGroups, searchPage, plannerPage, notFound, consultSection };

@@ -141,7 +141,7 @@ function productCard(p, opts={}){
       </div>
     </div></article>`;
 }
-function pgrid(list, opts){ return list.length ? `<div class="pgrid">${list.map((p,i) => productCard(p, typeof opts==='function'? opts(p,i): opts)).join('')}</div>` : `<div class="empty"><b>조건에 맞는 제품이 없어요</b>필터를 바꾸시거나 <a class="link-more" href="javascript:void(0)" data-act="consult">상담하기 ${ico('arrow')}</a>로 문의해 주세요.</div>`; }
+function pgrid(list, opts){ return list.length ? `<div class="pgrid">${list.map((p,i) => productCard(p, typeof opts==='function'? opts(p,i): opts)).join('')}</div>` : `<div class="empty"><span class="ico-wrap">${ico('search')}</span><b>조건에 맞는 제품이 없습니다</b>필터를 바꿔 보시거나 <a class="link-more" href="javascript:void(0)" data-act="consult">상담하기 ${ico('arrow')}</a>로 문의해 주세요.</div>`; }
 
 /* ── 검색 ── */
 const SYN = {
@@ -176,9 +176,9 @@ function buildIndex(){
   });
   (window.CONCERNS||[]).forEach(c => idx.push({ type:'케어', id:c.id, title:c.name + ' 케어', sub:c.sub, href:'#/concern/'+c.id, icon:c.icon, hay:norm([c.name,c.sub,c.lead,c.checks.join(' '),c.approach].join(' ')), nameHay:norm(c.name+' '+c.sub) }));
   (window.HOMECARES||[]).forEach(h => idx.push({ type:'케어', id:h.id, title:h.name + ' CARE · ' + h.ko, sub:h.summary, href:'#/home-care/'+h.id, icon:'home', hay:norm([h.name,h.ko,h.summary,h.worries.join(' '),h.care.join(' '),h.buy].join(' ')+(h.id==='pet'?' 반려동물 펫':'')+(h.id==='baby'?' 아기 영유아':'')), nameHay:norm(h.name+' '+h.ko+(h.id==='pet'?' 반려동물 펫':'')+(h.id==='baby'?' 아기 영유아':'')) }));
-  [['렌탈 안내','구매보다 부담을 줄이고 꾸준한 관리까지 — 월 렌탈료·계약기간·방문주기 한눈에','#/rental','렌탈 월렌탈료 계약 약정 방문관리 케어십 필터 교체'],
+  [['렌탈 안내','부담은 줄이고 관리는 꾸준히 — 월 렌탈료·계약기간·방문주기를 한눈에','#/rental','렌탈 월렌탈료 계약 약정 방문관리 케어십 필터 교체'],
    ['정기배송','자주 쓰는 생활용품, 배송주기를 정해 두세요','#/subscribe','정기배송 생활용품 소모품 배송주기 구독'],
-   ['CARE FINDER','4단계 질문으로 나에게 맞는 케어 찾기','#/finder','케어 찾기 추천 진단 파인더'],
+   ['CARE FINDER','네 가지 질문으로 나에게 맞는 케어 찾기','#/finder','케어 찾기 추천 진단 파인더'],
    ['플래너 소개','세스코 라이프케어 SOL 플래너 최영척','#/planner','플래너 최영척 상담 양산 세스코']
   ].forEach(x => idx.push({ type:'케어', id:x[0], title:x[0], sub:x[1], href:x[2], icon:'compass', hay:norm(x[0]+' '+x[1]+' '+x[3]), nameHay:norm(x[0]+' '+x[3]) }));
   (window.INDUSTRIES||[]).forEach(i => idx.push({ type:'업종', id:i.id, title:i.name + ' 맞춤 케어', sub:i.summary, href:'#/business/'+i.id, icon:'store', img:i.img, hay:norm([i.name,i.en,i.id==='pcroom'?'pc방 피씨방 pc room':'',i.summary,i.worries.join(' '),i.care.join(' ')].join(' ')), nameHay:norm(i.name+' '+i.en+(i.id==='pcroom'?' pc방 피씨방':'')) }));
@@ -215,7 +215,7 @@ function pageHero({eyebrow, title, lead, img:im, crumbs=[], actions=''}){
     <span class="eyebrow">${esc(eyebrow)}</span><h1 class="h1">${title}</h1><p class="lead">${lead||''}</p>${actions?`<div class="hero-actions">${actions}</div>`:''}</div></section>`;
 }
 function consultStrip(title, text, topic){
-  return `<div class="cta-strip"><div><h3>${title||'무엇이 필요한지 모르겠다면, 먼저 살펴보겠습니다.'}</h3><p>${text||'견적서보다 처방전을 먼저 씁니다. — 세스코 라이프케어 SOL 플래너 최영척'}</p></div>
+  return `<div class="cta-strip"><div><h3>${title||'무엇이 필요한지 모르겠다면, 제가 먼저 살펴보겠습니다.'}</h3><p>${text||'견적서보다 처방전을 먼저 씁니다. — 세스코 라이프케어 SOL 플래너 최영척'}</p></div>
   <div class="btn-stack" style="flex:0 0 auto"><button class="btn btn-white" data-act="consult" ${topic?`data-topic="${esc(topic)}"`:''}>${ico('message')} 상담하기</button><a class="btn btn-line-w" href="${C.planner.phoneTel}">${ico('phone')} ${esc(C.planner.phone)}</a></div></div>`;
 }
 function disclaimer(){ return `<div class="notice">${ico('info')}<div>표시된 가격·월 렌탈료·계약 조건은 세스코몰 등 공식 판매처 게시 정보(<b>${C.priceCheckedAt}</b> 확인)와 플래너 제공 가격표(<b>${C.priceTableAt}</b> 반영)를 기준으로 하며, 프로모션·제휴카드·약정기간·방문주기·옵션에 따라 달라질 수 있습니다. 확인되지 않은 항목은 “상담 시 안내”로 표시하며, 최종 가격과 계약 조건은 공식 판매/계약 기준을 따릅니다.</div></div>`; }

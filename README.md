@@ -23,7 +23,7 @@
 
 ## 이미지 출처
 - 상품 이미지: 세스코몰/아롬비 게시 이미지 (사용자가 사용 허락).
-- 분위기 이미지(`assets/img`): Unsplash 무료 라이선스.
+- 분위기 이미지(`assets/img`, WebP 최적화본): Unsplash 무료 라이선스. 원본 JPG는 `tools/orig-img/`(배포 제외)에 보관.
 - 로고/명함: 사용자 제공 파일.
 
 ## 관리자 페이지 (/admin/)
@@ -37,3 +37,8 @@
 - 새 데이터 필드: `rentalOptions[]`(타입·의무사용기간·방문주기·정상가·이달의 판매가·현장 할인가(단품/결합)·프로모션·재렌탈가·재렌탈 프로모션·비고·표 행번호), `priceMatrix`(매트리스 규격×등급), `servicePrices`(에어컨 크리닝), `priceFrom`(목록 “○○원부터” 기준), `catLabel`.
 - `rentalOptions` 가 있으면 `rentalMonthly`(최저 이달의 판매가) 등은 옵션에서 파생된 값입니다. 목록/카드의 “월 ○○원부터”는 **이달의 판매가(온라인 노출가) 옵션 중 최저가** 기준입니다.
 - 관리자(/admin): 상품 “상세·옵션표”에서 옵션 행/매트리스/서비스 가격표를 인라인 편집(JSON 직접 편집 포함), “렌탈 옵션표 CSV”로 행 단위 라운드트립. `price-overrides.json` 형식(version 1)은 그대로이며 `patches` 에 `rentalOptions` 등이 필드로 들어갑니다.
+
+## 디자인/문구 개선 (2026-10-01)
+- `css/style.css` 하단 "Premium refinement layer"에서 히어로(풀블리드+글래스 플래너 카드)·숫자 밴드·카드/버튼/폼·딥블루 상담영역·푸터를 정교화. 스크롤 리빌/헤더 전환/카운트업은 `js/app.js` 하단(prefers-reduced-motion 존중).
+- 이미지는 WebP(최대 1920px)로 변환(7.7MB→4.6MB). 명함 이미지는 `assets/logo/namecard.webp`.
+- 문구 교정은 `tools/copy_edit.py`, `tools/copy_edit_products.py`로 재현 가능. 점검: `tools/regress.py`(콘솔/깨진이미지/가로스크롤/기능), `tools/shoot.py`(전·후 스크린샷).
