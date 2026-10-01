@@ -61,7 +61,7 @@ function calcSeason(now){
     if (g.category && g.sections === undefined && p.category === g.category) return true;
     if (g.keywords) { const hay = (p.name + ' ' + (p.keywords || []).join(' ')); if (g.keywords.some(k => hay.includes(k))) return true; }
     return false;
-  }).sort((a, b) => pop(b) - pop(a));
+  }).sort((a, b) => g.pin && g.ids ? g.ids.indexOf(a.id) - g.ids.indexOf(b.id) : pop(b) - pop(a));
   const lists = rule.picks.map(k => ({ k, g: S.groups[k], list: S.groups[k] ? matchGroup(S.groups[k]) : [] }));
   const seen = {}, items = [];
   for (let round = 0; items.length < S.limit && round < 6; round++) {

@@ -530,8 +530,8 @@ function subscribeBody(){
   const supports = (p, m) => (p.subMonths||[]).includes(m);
   return `
     <div style="margin-bottom:12px"><span class="eyebrow">STEP 1</span><h3 class="h3" style="margin-top:8px">배송주기를 선택하세요</h3></div>
-    <div class="cycle-box" role="radiogroup" aria-label="배송주기">${cycles.map(m => `<button class="cycle ${SUB.cycle===m?'on':''}" data-act="subCycle" data-m="${m}" role="radio" aria-checked="${SUB.cycle===m}">${m}개월<small>${m===6?'세스코몰 미제공(상담 확인)':'마다 배송'}</small></button>`).join('')}</div>
-    <p class="muted" style="margin:14px 0 40px;font-size:14px">상품별로 지원하는 주기가 다릅니다. 세스코몰 정기배송 옵션은 2주·3주·4주·1~4개월 등이며, <b>6개월 주기는 확인되지 않아</b> 선택 시 상담으로 가능 여부를 확인합니다.</p>
+    <div class="cycle-box" role="radiogroup" aria-label="배송주기">${cycles.map(m => `<button class="cycle ${SUB.cycle===m?'on':''}" data-act="subCycle" data-m="${m}" role="radio" aria-checked="${SUB.cycle===m}">${m}개월<small>${m===6?'상담 시 확인':'마다 배송'}</small></button>`).join('')}</div>
+    <p class="muted" style="margin:14px 0 40px;font-size:14px">상품별로 지원하는 주기가 다릅니다. 정기배송 옵션은 2주·3주·4주·1~4개월 등이며, <b>6개월 주기는 확인되지 않아</b> 선택 시 상담으로 가능 여부를 확인합니다.</p>
     <div style="margin-bottom:12px"><span class="eyebrow">STEP 2</span><h3 class="h3" style="margin-top:8px">상품별 추천 주기 · ${list.length}개</h3></div>
     <div class="pgrid">${list.map(p => {
       const rec = p.subRecommend, sel = SUB.picked[p.id];

@@ -4,7 +4,7 @@
    ▸ 여기서는 "몇 개 보여줄지 / 문구 / 월별 규칙" 만 관리합니다. (계산 로직: js/floating.js)
    ========================================================================== */
 window.CURATION = {
-  /* 베스트 인기 — 기존 BEST 페이지와 같은 기준(세스코몰 리뷰 수 순위, 제휴(PARTNER) 상품 제외) */
+  /* 베스트 인기 — 기존 BEST 페이지와 같은 기준(리뷰 수 순위, 제휴(PARTNER) 상품 제외) */
   best: {
     limit: 4,
     note: '순위는 판매량이 아닌 리뷰 수 기준의 참고 자료입니다.'
@@ -29,9 +29,13 @@ window.CURATION = {
          sections : 상품 sections 중 하나라도 포함
          keywords : 상품명·keywords 에 포함된 단어 (하나라도)
          exclude  : 이 ID 는 제외
-       한 묶음 안에서는 세스코몰 리뷰 수가 많은 순 → 데이터 순서로 정렬합니다. */
+         pin      : true 면 ids 에 적은 순서를 그대로 우선순위로 사용(리뷰 수 정렬 안 함)
+       한 묶음 안에서는 리뷰 수가 많은 순 → 데이터 순서로 정렬합니다. */
     groups: {
       aircon:   { label: '에어컨 크리닝', ids: ['allcare-aircon-cleaning'] },
+      /* 가을·겨울(9~3월) 공기 케어 고정 추천 — 트루살균 판테온 25평/20평 + UV파워 공기살균기 센스미.
+         숨김·품절 상품은 자동 제외되고, 그 자리는 아래 순서의 다음 상품(트루에어 판테온)이 채웁니다. */
+      airPick:  { label: '공기 케어',     pin: true, ids: ['G2000001210', 'G2000000429', 'G2000001211', 'G2000001212', 'G2000001213'] },
       air:      { label: '공기 케어',     category: 'air', sections: ['air.clean', 'air.sterilize'] },
       deodor:   { label: '탈취·냄새',     keywords: ['탈취', '섬유탈취제', '탈취제습제'] },
       bug:      { label: '해충·방충',     sections: ['healing.bug'], exclude: ['G2000001274', 'G2000000981'] },
@@ -43,18 +47,18 @@ window.CURATION = {
     /* 월별 규칙 테이블: picks 는 위 groups 의 키(앞에 있을수록 우선). 같은 묶음에서 1개씩 번갈아 채웁니다.
        reason 은 과장 없이 "이 시기에 많이 찾는 케어" 수준으로, groupNote 는 가격표/데이터에 실제 있는 사실만 적습니다. */
     months: {
-      1:  { season: '겨울', picks: ['aircon', 'air', 'hygiene', 'water'] },
-      2:  { season: '겨울', picks: ['aircon', 'air', 'hygiene', 'water'] },
-      3:  { season: '봄',   picks: ['aircon', 'air', 'water', 'hygiene'] },
+      1:  { season: '겨울', picks: ['airPick', 'airPick', 'airPick', 'aircon'] },
+      2:  { season: '겨울', picks: ['airPick', 'airPick', 'airPick', 'aircon'] },
+      3:  { season: '봄',   picks: ['airPick', 'airPick', 'airPick', 'aircon'] },
       4:  { season: '봄',   picks: ['air', 'water', 'hygiene', 'deodor'] },
       5:  { season: '봄',   picks: ['air', 'bug', 'water', 'deodor'] },
       6:  { season: '여름', picks: ['aircon', 'bug', 'deodor', 'drain'] },
       7:  { season: '여름', picks: ['aircon', 'bug', 'deodor', 'drain'] },
       8:  { season: '여름', picks: ['aircon', 'bug', 'deodor', 'drain'] },
-      9:  { season: '가을', picks: ['aircon', 'water', 'air', 'hygiene'] },
-      10: { season: '가을', picks: ['aircon', 'water', 'air', 'hygiene'] },
-      11: { season: '가을', picks: ['aircon', 'air', 'hygiene', 'water'] },
-      12: { season: '겨울', picks: ['aircon', 'air', 'hygiene', 'water'] }
+      9:  { season: '가을', picks: ['airPick', 'airPick', 'airPick', 'aircon'] },
+      10: { season: '가을', picks: ['airPick', 'airPick', 'airPick', 'aircon'] },
+      11: { season: '가을', picks: ['airPick', 'airPick', 'airPick', 'aircon'] },
+      12: { season: '겨울', picks: ['airPick', 'airPick', 'airPick', 'aircon'] }
     },
 
     /* 묶음별 사실 안내(가격표에 근거). 해당 묶음 상품 옆에 작게 표시됩니다. 월 제한(months)이 있으면 그 달에만. */
