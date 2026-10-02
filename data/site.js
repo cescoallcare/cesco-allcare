@@ -182,6 +182,49 @@ window.HOMECARES = [
     cta: '1~2인 가구 맞춤 케어 상담하기' }
 ];
 
+/* ──────────────────────────────────────────────────────────────────────────
+   제품 소제목 그룹(GROUPING) — 전체 제품 / 카테고리(공기·물·생활) / 고민 / 홈케어 목록의 소제목·필터 칩이 이 규칙을 씁니다.
+   ▸ 상품 데이터(이름·keywords·sections·category·type)만 보고 자동 분류하므로, 관리자에서 새 상품을 추가해도 규칙에 맞으면 알아서 들어갑니다.
+   ▸ groups 배열 순서 = 화면 표시 순서. 첫 번째로 맞는 그룹에 들어갑니다(family 를 지정해 부르면 그 family 그룹만 검사).
+       family : 'air' | 'water' | 'life'    label : 소제목    etc : true 면 해당 family 의 '나머지' 그룹(family 지정 호출 시 무조건 포함)
+       match / not : { cat:[category], names:[이름에 포함], keywords:[keywords 에 포함], section0:[sections 첫 값], sections:[sections 중 하나], types:[type], ids:[id] }
+         - cat 은 AND 조건, 나머지(names/keywords/…)는 OR. 조건이 cat 뿐이면 그 카테고리 전부.  anySection: 1차(section0)에서 못 찾았을 때만 쓰는 보조 sections
+       first : 이 그룹에서 맨 위에 둘 상품 조건(예: 정수기 그룹의 '슬림' 계열)
+   ▸ 그룹 안 정렬: first → 렌탈 기기 → 구매형 기기 → 서비스 → 소모품(consumableNames). 같은 단계에서는 원래 순서 유지.
+   ────────────────────────────────────────────────────────────────────────── */
+window.GROUPING = {
+  consumableNames: ['마이랩', '통합라벨'],
+  serviceTypes: ['service'],
+  serviceNames: ['매트리스', '에어컨 크리닝'],
+  groups: [
+    /* 에어케어 */
+    { id: 'air-purifier',  family: 'air', label: '공기청정기',  match: { cat: ['air'], names: ['공기청정기'] }, not: { names: ['공기살균기'] },
+      desc: '공기 속 미세먼지와 냄새를 걸러내는 공기청정기' },
+    { id: 'air-sterilizer', family: 'air', label: '공기살균기', match: { cat: ['air'], names: ['공기살균기'], sections: ['air.sterilize'] },
+      desc: 'UV 등으로 공기 중 세균·바이러스를 케어하는 공기살균' },
+    { id: 'air-scent',     family: 'air', label: '향기 제품',   match: { cat: ['air'], names: ['에어제닉', '에어퍼퓸', '퍼퓸', '디퓨저', '방향', '탈취'], sections: ['air.space'] },
+      desc: '에어제닉·에어퍼퓸 등 향기·탈취 제품' },
+    { id: 'air-handdryer', family: 'air', label: '핸드드라이어', match: { names: ['핸드 드라이어', '핸드드라이어'], keywords: ['핸드드라이어'] } },
+    { id: 'air-bodydryer', family: 'air', label: '바디드라이어', match: { names: ['바디 드라이어', '바디드라이어'], keywords: ['바디드라이어'] } },
+    { id: 'air-etc',       family: 'air', label: '기타 공기 케어', etc: true, match: { cat: ['air'] } },
+    /* 워터케어 */
+    { id: 'water-purifier', family: 'water', label: '정수기', match: { cat: ['water'], names: ['정수기'], sections: ['water.drink'] }, first: { names: ['슬림'] },
+      desc: '냉·온·정수 정수기 — 가정과 사업장 (주력 슬림 계열이 먼저)' },
+    { id: 'water-shower',   family: 'water', label: '샤워기', match: { cat: ['water'], names: ['샤워'], sections: ['water.shower'] },
+      desc: '샤워 물 관리를 위한 샤워기 (제휴·판매 상품)' },
+    { id: 'water-bidet',    family: 'water', label: '비데', match: { names: ['비데'] }, desc: '비데 등 욕실 위생 케어' },
+    { id: 'water-etc',      family: 'water', label: '기타 물 관련', etc: true, match: { cat: ['water'] } },
+    /* 생활·위생 (살균·위생, 해충 등) */
+    { id: 'life-bug',       family: 'life', label: '해충·방충', match: { section0: ['healing.bug'], sections: ['healing.bug'] }, desc: '해충 케어 제품과 서비스' },
+    { id: 'life-hygiene',   family: 'life', label: '손·화장실 위생', match: { section0: ['healing.hygiene'] }, not: { names: ['매트리스', '라벨', '컨설팅', '에어컨'] }, desc: '손·화장실·사업장 위생' },
+    { id: 'life-sterilize', family: 'life', label: '살균·소독', match: { section0: ['healing.sterilize'] }, anySection: ['healing.sterilize'], desc: '살균·소독' },
+    { id: 'life-clean',     family: 'life', label: '청소·세정', match: { section0: ['healing.clean'] }, anySection: ['healing.clean'], desc: '주방·욕실·세탁 청소' },
+    { id: 'life-fresh',     family: 'life', label: '탈취·향기', match: { section0: ['healing.fresh'] }, anySection: ['healing.fresh'], desc: '탈취·향기' },
+    { id: 'life-everyday',  family: 'life', label: '세탁·생활용품', match: { section0: ['healing.everyday'] }, anySection: ['healing.everyday'], desc: '세탁·생활용품' },
+    { id: 'life-etc',       family: 'life', label: '위생 서비스·기타', etc: true, match: {} }
+  ]
+};
+
 /* 제품 섹션(서브탭) 메타 */
 window.SECTIONS = {
   air: {
@@ -251,7 +294,7 @@ window.GUIDES = [
     ] },
   { id: 'shower-water', title: '샤워·욕실 물 관리, 어디부터 시작할까', tag: 'BATH', img: 'assets/img/bathroom.webp', read: '3분',
     excerpt: '샤워필터, 잔수 밸브, 비데까지 욕실 물 관리 포인트.',
-    related: ['water'], products: ['aromvi-31', 'aromvi-25', PID(1366)], keywords: ['샤워필터', '샤워기', '욕실', '비데', '아롬비', '잔수'],
+    related: ['water'], products: ['aromvi-17', 'aromvi-14', PID(1366)], keywords: ['샤워필터', '샤워기', '욕실', '비데', '아롬비', '잔수'],
     body: [
       ['샤워기 필터', '샤워기 필터는 필터 교체 주기를 지키는 것이 핵심입니다. 이 사이트에서 소개하는 아롬비 샤워필터는 세스코 자체 제품이 아닌 제휴·판매 상품이며, 사양과 구매 조건은 판매처(아롬비) 기준입니다.'],
       ['잔수(고인 물) 관리', '샤워기 호스와 헤드 안에 남는 물이 신경 쓰인다면 잔수 밸브 같은 부품을 검토할 수 있습니다.'],

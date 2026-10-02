@@ -1,7 +1,7 @@
 /* pages.js — 각 화면(라우트) 렌더러 */
 (function(){
 'use strict';
-const { C, P, byId, esc, won, ico, img, catLabel, hasBuy, hasRent, isRent, buyText, rentText, rentHtml, rOpts, hasOpts, minMonth, fromInfo, noteLines, RENT_BASIS, RENT_BASIS_SHORT, careShort, badgesFor, productCard, pgrid,
+const { C, P, byId, esc, won, ico, img, catLabel, hasBuy, hasRent, isRent, buyText, rentText, rentHtml, rOpts, hasOpts, minMonth, groupOf, groupProducts, groupedGrid, lowOpt, optLow, rentBasisOf, isLegacyRent, fromInfo, noteLines, RENT_BASIS, RENT_BASIS_SHORT, careShort, badgesFor, productCard, pgrid,
         sectionHead, pageHero, consultStrip, disclaimer, partnerNotice, consultAttrs } = window.U;
 const NAVL = window.NAV, CONCERNS = window.CONCERNS, INDUSTRIES = window.INDUSTRIES, HOMECARES = window.HOMECARES, SECTIONS = window.SECTIONS, GUIDES = window.GUIDES, FINDER = window.FINDER;
 
@@ -17,7 +17,7 @@ const disc = disclaimer;
 function home(){
   const c = C.planner;
   const bestTop = sortPop(P.filter(p => live(p) && p.popularity && !p.partner)).slice(0, 4);
-  const rentals = P.filter(p => p.rentalMonthly && p.category !== 'biz' && !p.bizOnlyRental).slice(0,3);
+  const rentals = P.filter(p => hasOpts(p) && p.category !== 'biz' && !p.bizOnlyRental).slice(0,3);
   const guides = GUIDES.slice(0, 3);
   return `
   <section class="hero">
@@ -104,7 +104,7 @@ function home(){
 function rentalCardMini(p){
   return `<article class="pcard"><a class="pcard-img" href="#/product/${esc(p.id)}">${img(p.image,p.name)}<span class="badges">${badgesFor(p)}</span></a>
    <div class="pcard-body"><div class="pcard-cat">${esc(catLabel(p))}</div><h3><a href="#/product/${esc(p.id)}">${esc(p.name)}</a></h3>
-   <div class="rcard"><div class="bd" style="padding:6px 0 0;grid-column:1/-1;display:grid;gap:4px">${hasOpts(p) ? `<div class="monthly" style="font-size:26px">월 ${won(minMonth(p))}<small>부터</small></div><span class="muted" style="font-size:12.5px">${esc(RENT_BASIS)}</span>` : `<div class="monthly" style="font-size:26px">월 ${won(p.rentalMonthly)}</div><span class="muted" style="font-size:12.5px">의무사용 ${p.rentalContractMonths||36}개월 기준</span>`}</div></div>
+   <div class="rcard"><div class="bd" style="padding:6px 0 0;grid-column:1/-1;display:grid;gap:4px">${hasOpts(p) ? `<div class="monthly" style="font-size:26px">월 ${won(minMonth(p))}<small>부터</small></div><span class="muted" style="font-size:12.5px">${esc(rentBasisOf(p))}</span>` : `<div class="monthly" style="font-size:20px">상담 시 안내</div>`}</div></div>
    <div class="pcard-actions"><a class="btn btn-ghost" href="#/product/${esc(p.id)}">렌탈 자세히</a>${btnConsult('렌탈 상담', consultAttrs(p,'렌탈 문의'))}</div></div></article>`;
 }
 function guideCard(g){
@@ -151,20 +151,25 @@ function sectionPage(key, qs){
   const S = SECTIONS[key];
   const sub = qs.sub || 'all', space = qs.space || 'all';
   let list = P.filter(p => key === 'life' ? (p.sections||[]).some(s => s.startsWith('healing.')) : (p.sections||[]).some(s => s.startsWith(key + '.')));
-  if (sub !== 'all') list = list.filter(p => p.sections.includes(sub));
+  if (key === 'air') list = list.concat(P.filter(p => !list.includes(p) && (groupOf(p) || {}).family === 'air'));   // 핸드·바디 드라이어 등 에어케어 그룹 상품
+  const secGroups = groupProducts(list, key).map(x => x.g);
+  const gsub = sub.startsWith('g-') ? sub.slice(2) : null;
+  if (gsub) list = list.filter(p => (groupOf(p, key) || {}).id === gsub);
+  else if (sub !== 'all') list = list.filter(p => p.sections.includes(sub));
   if (key === 'air' && space !== 'all') list = list.filter(p => (p.spaceKeys||[]).includes(space));
   const base = '#/' + key;
-  const subChips = S.sub.map(s => chip(base + q2({sub:s[0], space: key==='air'?space:null}), s[1], sub===s[0])).join('');
+  const subChips = [['all', '전체']].concat(secGroups.map(g => ['g-' + g.id, g.label])).map(s => chip(base + q2({sub:s[0], space: key==='air'?space:null}), s[1], sub===s[0])).join('');
   const spaceChips = key === 'air' ? `<div class="chipbar"><span class="label">공간</span>${S.space.map(s => chip(base + q2({sub, space:s[0]}), s[1], space===s[0], 'blue')).join('')}</div>` : '';
-  const desc = S.subDesc[sub] ? `<p class="muted" style="margin:0 0 18px">${esc(S.subDesc[sub])}</p>` : '';
+  const gd = secGroups.find(g => 'g-' + g.id === sub);
+  const desc = gd && gd.desc ? `<p class="muted" style="margin:0 0 18px">${esc(gd.desc)}</p>` : S.subDesc[sub] ? `<p class="muted" style="margin:0 0 18px">${esc(S.subDesc[sub])}</p>` : '';
   return pageHero({eyebrow:S.title, title:S.headline, lead:'', img:S.img, crumbs:[{label:S.title}],
       actions:`<a class="btn btn-white" href="#/finder">내게 맞는 케어 찾기</a><button class="btn btn-line-w" data-act="consult">상담하기</button>`}) + `
   <section class="section" style="padding-top:48px"><div class="container">
     <div class="chipbar"><span class="label">카테고리</span>${subChips}</div>
     ${spaceChips}${desc}
     <div class="muted" style="margin-bottom:18px;font-size:14px" id="cnt"><b style="color:var(--navy)">${list.length}</b>개 제품</div>
-    ${key === 'water' && (sub === 'all' || sub === 'water.shower') ? `<div style="margin-bottom:22px">${partnerNotice()}</div>` : ''}
-    ${pgrid(list)}
+    ${key === 'water' && (sub === 'all' || sub === 'water.shower' || sub === 'g-water-shower') ? `<div style="margin-bottom:22px">${partnerNotice()}</div>` : ''}
+    ${groupedGrid(list, key)}
     <div style="margin-top:36px">${disc()}</div>
     ${consultStrip('', '', key === 'air' ? '공기 케어' : key === 'water' ? '물 케어 (정수기·샤워·비데)' : '생활·위생용품')}
   </div></section>`;
@@ -172,7 +177,7 @@ function sectionPage(key, qs){
 
 /* ────────── 전체 제품 ────────── */
 function productsPage(qs){
-  const cat = qs.cat || 'all', f = qs.f || 'all';
+  const cat = qs.cat || 'all', f = qs.f || 'all', gsel = qs.g || 'all';
   const cats = [['all','전체'],['air','PURE AIR'],['water','PURE WATER'],['life','HEALING LIFE'],['service','서비스·진단'],['biz','사업장']];
   const fs = [['all','전체'],['rent','렌탈 가능'],['sub','정기배송 가능'],['buy','구매 가능'],['partner','제휴·판매']];
   let list = P.slice();
@@ -180,16 +185,22 @@ function productsPage(qs){
   else if (cat === 'service') list = list.filter(p => p.type === 'service');
   else if (cat === 'biz') list = list.filter(p => p.audience === 'biz' || p.bizFit || p.category === 'biz');
   else if (cat !== 'all') list = list.filter(p => p.category === cat);
+  if (cat === 'air') list = list.concat(P.filter(p => !list.includes(p) && (groupOf(p) || {}).family === 'air'));   // 핸드·바디 드라이어 등 에어케어 그룹 상품
   if (f === 'rent') list = list.filter(p => p.rentalMonthly);
   if (f === 'sub') list = list.filter(p => p.subscribable);
   if (f === 'buy') list = list.filter(hasBuy);
   if (f === 'partner') list = list.filter(p => p.partner);
+  const fam = cat === 'air' || cat === 'water' ? cat : cat === 'life' ? 'life' : null;
+  const gList = fam ? groupProducts(list, fam).map(x => x.g) : [];
+  if (fam && gsel !== 'all') list = list.filter(p => (groupOf(p, fam) || {}).id === gsel);
+  const gChips = fam ? `<div class="chipbar"><span class="label">세부 분류</span>${[['all','전체']].concat(gList.map(g => [g.id, g.label])).map(c => chip('#/products'+q2({cat,f,g:c[0]}), c[1], gsel===c[0], 'blue')).join('')}</div>` : '';
   return pageHero({eyebrow:'ALL PRODUCTS', title:'전체 제품', lead:'세스코 제품과 제휴·판매 상품을 한곳에 모았습니다.', img:'assets/img/living-plants.webp', crumbs:[{label:'제품'}]}) + `
   <section class="section" style="padding-top:48px"><div class="container">
     <div class="chipbar"><span class="label">분류</span>${cats.map(c => chip('#/products'+q2({cat:c[0],f}), c[1], cat===c[0])).join('')}</div>
-    <div class="chipbar"><span class="label">조건</span>${fs.map(c => chip('#/products'+q2({cat,f:c[0]}), c[1], f===c[0], 'blue')).join('')}</div>
+    ${gChips}
+    <div class="chipbar"><span class="label">조건</span>${fs.map(c => chip('#/products'+q2({cat,f:c[0],g:fam?gsel:null}), c[1], f===c[0], 'blue')).join('')}</div>
     <div class="muted" style="margin:6px 0 18px;font-size:14px"><b style="color:var(--navy)">${list.length}</b>개 제품</div>
-    ${pgrid(list)}
+    ${groupedGrid(list, fam)}
     <div style="margin-top:36px">${disc()}</div>
   </div></section>`;
 }
@@ -203,7 +214,7 @@ function optSel(p){
   let s = OS[p.id];
   const hit = s && o.find(x => (x.variant||'') === s.v && x.periodLabel === s.p && x.visit === s.c);
   if (hit) return { s, cur: hit };
-  const best = o.filter(x => x.monthPrice != null).sort((a,b) => a.monthPrice - b.monthPrice)[0] || o[0];
+  const lo = lowOpt(p), best = (lo && lo.o) || o[0];
   s = { v: best.variant || '', p: best.periodLabel, c: best.visit }; OS[p.id] = s;
   return { s, cur: best };
 }
@@ -230,7 +241,7 @@ function rentalOptBlock(p){
   const visits = uniq(o.filter(x => (x.variant||'') === s.v && x.periodLabel === s.p).map(x => x.visit));
   const col = f => o.some(x => x[f] != null);
   const step = (k, sub, v, cls='') => v == null ? '' : `<div class="lad ${cls}"><div class="k">${k}${sub ? `<small>${sub}</small>` : ''}</div><div class="v">${won(v)}</div></div>`;
-  const cur_ = cur;
+  const cur_ = cur, curLow = optLow(cur_), gLow = lowOpt(p), isLowest = !!(gLow && gLow.o === cur_);
   const notes = [];
   o.forEach(x => { if (x.note) notes.push({ lines: noteLines(x.note), where: [x.variant, x.periodLabel === '-' ? '' : x.periodLabel, x.visit].filter(Boolean).join(' · ') }); });
   const head = ['의무사용기간', '방문주기'].concat(hasVar ? ['타입'] : []).concat(['월 렌탈료']).concat(notes.length ? ['비고'] : []);
@@ -241,16 +252,16 @@ function rentalOptBlock(p){
     <div class="opt-group"><span class="lbl">의무사용기간</span><div class="chips-row">${periods.map(v => btn('p', v, pLabel(v), v === s.p)).join('')}</div></div>
     <div class="opt-group"><span class="lbl">방문주기</span><div class="chips-row">${visits.map(v => btn('c', v, v, v === s.c)).join('')}</div></div>
     <div class="opt-card" aria-live="polite">
-      <div class="sel">선택한 옵션 · ${esc([cur_.variant, pLabel(cur_.periodLabel), '방문 ' + cur_.visit].filter(Boolean).join(' · '))}</div>
+      <div class="sel">선택한 옵션 · ${esc([cur_.variant, pLabel(cur_.periodLabel), '방문 ' + cur_.visit].filter(Boolean).join(' · '))}${isLowest ? ' <span class="low-tag">최저가 옵션</span>' : ''}</div>
       <div class="ladder">
-        ${cur_.monthPrice != null ? step('월 렌탈료', '', cur_.monthPrice, 'mid') : '<div class="lad mid"><div class="k">월 렌탈료</div><div class="v">상담 시 안내</div></div>'}
+        ${curLow ? step('월 렌탈료' + (curLow.label ? '' : ''), curLow.label, curLow.price, 'mid') : '<div class="lad mid"><div class="k">월 렌탈료</div><div class="v">상담 시 안내</div></div>'}
       </div>
       ${cur_.note ? `<ul class="opt-notes">${noteLines(cur_.note).map(n => `<li>${esc(n)}</li>`).join('')}</ul>` : ''}
     </div>
     ${notes.length ? `<div class="notice opt-note-all">${ico('info')}<div><b>비고 (가격표 표기)</b>${notes.map(n => `<div>${n.where ? `<small class="muted">[${esc(n.where)}]</small> ` : ''}${n.lines.map(esc).join(' · ')}</div>`).join('')}</div></div>` : ''}
     <details class="opt-all" ${o.length <= 8 ? 'open' : ''}><summary>전체 옵션 가격표 보기 (${o.length}행)</summary>
-      <div class="opt-scroll"><table class="ptbl"><thead><tr>${head.map(h => `<th>${esc(h)}</th>`).join('')}</tr></thead><tbody>${o.map((x, i) => `<tr class="${x === cur_ ? 'on' : ''}" data-act="rOptRow" data-id="${esc(p.id)}" data-i="${i}" tabindex="0" title="이 옵션 선택">
-        <td>${esc(pLabel(x.periodLabel))}</td><td>${esc(x.visit)}</td>${hasVar ? `<td>${esc(x.variant || '-')}</td>` : ''}<td class="n hl">${x.monthPrice != null ? won(x.monthPrice) : '상담 시 안내'}</td>${notes.length ? `<td class="nt">${x.note ? noteLines(x.note).map(esc).join('<br>') : ''}</td>` : ''}</tr>`).join('')}</tbody></table></div>
+      <div class="opt-scroll"><table class="ptbl"><thead><tr>${head.map(h => `<th>${esc(h)}</th>`).join('')}</tr></thead><tbody>${o.map((x, i) => `<tr class="${x === cur_ ? 'on' : ''}${gLow && gLow.o === x ? ' low' : ''}" data-act="rOptRow" data-id="${esc(p.id)}" data-i="${i}" tabindex="0" title="이 옵션 선택">
+        <td>${esc(pLabel(x.periodLabel))}</td><td>${esc(x.visit)}</td>${hasVar ? `<td>${esc(x.variant || '-')}</td>` : ''}<td class="n hl">${(() => { const l = optLow(x); return l ? won(l.price) + (l.label ? `<small class="kl">${esc(l.label)}</small>` : '') + (gLow && gLow.o === x ? '<span class="low-tag">최저</span>' : '') : '상담 시 안내'; })()}</td>${notes.length ? `<td class="nt">${x.note ? noteLines(x.note).map(esc).join('<br>') : ''}</td>` : ''}</tr>`).join('')}</tbody></table></div>
       <p class="muted" style="font-size:12.5px;margin-top:8px">월 렌탈료는 프로모션·제휴카드 등 적용 조건에 따라 달라질 수 있습니다. 적용 조건은 상담 시 확인해 주세요.</p></details>
   </div>`;
 }
@@ -285,10 +296,9 @@ function productPage(id){
   if (hasOpts(p)) {
     const ps = Array.from(new Set(rOpts(p).map(o => o.periodLabel)));
     rows.push(['의무사용기간', ps.map(x => x === '-' ? '미표기(-)' : x).join(' / ') + ' (옵션별, 아래 선택)']);
-  } else if (p.rentalMonthly) { rows.push(['계약기간', `의무사용 ${p.rentalContractMonths||36}개월` + ((p.rentalYears||[]).length ? ` · 약정 ${p.rentalYears.join('/')}년 선택 가능` : '')]); }
+  } else if (p.rentalMonthly && !isLegacyRent(p)) { rows.push(['계약기간', `의무사용 ${p.rentalContractMonths||36}개월` + ((p.rentalYears||[]).length ? ` · 약정 ${p.rentalYears.join('/')}년 선택 가능` : '')]); }
   if ((p.visitCycles||[]).length) rows.push(['방문주기', p.visitCycles.join(' / ')]);
   rows.push(['정기배송', p.subscribable ? '가능 · 주기 ' + p.subCycles.join(' / ') : (p.partner ? '해당 없음' : '해당 없음(상담 시 안내)')]);
-  const total = hasOpts(p) ? null : (p.rentalTotal || (p.rentalMonthly ? p.rentalMonthly * (p.rentalContractMonths||36) : null));
   const fi = fromInfo(p);
   const showBuyRow = !isRent(p) && !(fi && fi.kind === 'from');
   const buyBtn = hasBuy(p) ? `<a class="btn btn-navy btn-lg" href="${esc(p.buyUrl)}" target="_blank" rel="noopener">${esc(p.buyLabel || '구매하기')} ${ico('external')}</a>` : '';
@@ -311,11 +321,10 @@ function productPage(id){
         <div class="pricebox">
           ${fi && fi.kind === 'from' ? `<div class="row"><span class="k">${esc(fi.label)}</span><span class="v">${won(fi.price)}<small>부터</small></span></div><div class="note">${esc(fi.basis)}</div>` : ''}
           ${showBuyRow ? `<div class="row"><span class="k">구매가격</span><span class="v ${p.buyPrice==null?'ask':''}">${p.buyPrice != null ? won(p.buyPrice) + (p.pricePrefix ? `<small>${esc(p.pricePrefix)}</small>` : '') : '상담 시 안내'}</span></div>` : ''}
-          ${hasOpts(p) && minMonth(p) != null ? `<div class="row"><span class="k">월 렌탈료</span><span class="v blue">${won(minMonth(p))}<small>/월부터</small></span></div><div class="note">${esc(RENT_BASIS)} · 아래에서 의무사용기간·방문주기별 월 렌탈료를 선택해 확인하세요.</div>` : ''}
-          ${!hasOpts(p) && (p.rentalMonthly || p.rentalInquire) ? `<div class="row"><span class="k">월 렌탈료</span><span class="v blue ${p.rentalMonthly?'':'ask'}">${p.rentalMonthly ? won(p.rentalMonthly) + '<small>/월</small>' : '상담 시 안내'}</span></div>` : ''}
-          ${!hasOpts(p) && p.rentalMonthly ? `<div class="row"><span class="k">계약기간 · 총 렌탈금액(참고)</span><span class="v" style="font-size:18px">${p.rentalContractMonths||36}개월 · ${won(total)}</span></div>` : ''}
+          ${hasOpts(p) && minMonth(p) != null ? `<div class="row"><span class="k">월 렌탈료</span><span class="v blue">${won(minMonth(p))}<small>/월부터</small></span></div><div class="note">${esc(rentBasisOf(p))} · 아래에서 의무사용기간·방문주기별 월 렌탈료를 선택해 확인하세요.</div>` : ''}
+          ${!hasOpts(p) && (p.rentalMonthly != null || p.rentalInquire) ? `<div class="row"><span class="k">월 렌탈료</span><span class="v ask">상담 시 안내</span></div>` : ''}
           ${!isRent(p) && p.nonMemberPrice && p.nonMemberPrice !== p.buyPrice ? `<div class="note">비회원가 ${won(p.nonMemberPrice)}</div>` : ''}
-          ${p.rentalNote ? `<div class="note">${esc(p.rentalNote)}</div>` : ''}
+          ${p.rentalNote && !isLegacyRent(p) ? `<div class="note">${esc(p.rentalNote)}</div>` : ''}
         </div>
         ${rentalBlockHtml(p)}
         <div class="btn-stack">${buyBtn}${rentBtn}${subBtn}${btnConsult('상담하기', consultAttrs(p), 'btn btn-primary btn-lg')}</div>
@@ -365,17 +374,16 @@ function rentalPage(qs){
   else if (cat === 'water') list = list.filter(p => p.category === 'water');
   else if (cat === 'biz') list = list.filter(p => p.category !== 'air' && p.category !== 'water');
   const card = p => {
-    const total = p.rentalTotal || p.rentalMonthly * (p.rentalContractMonths||36);
     if (hasOpts(p)) {
-      const o = rOpts(p), best = o.filter(x => x.monthPrice != null).sort((a,b) => a.monthPrice - b.monthPrice)[0] || o[0];
+      const o = rOpts(p), lo = lowOpt(p), best = (lo && lo.o) || o[0];
       const periods = Array.from(new Set(o.map(x => x.periodLabel))).filter(x => x !== '-').join(' / ') || '미표기';
       const vars = Array.from(new Set(o.map(x => x.variant).filter(Boolean)));
       const nt = Array.from(new Set(o.filter(x => x.note).map(x => x.note)));
       return `<article class="rcard"><a class="im" href="#/product/${esc(p.id)}">${img(p.image,p.name)}</a><div class="bd">
       <div class="pcard-cat" style="color:var(--blue);font-weight:800;font-size:11.5px;letter-spacing:.12em">${esc(catLabel(p))}${p.bizOnlyRental ? ' · 사업자용' : ''}</div>
       <h3><a href="#/product/${esc(p.id)}">${esc(p.name)}</a></h3>
-      <div class="monthly">${won(best.monthPrice)}<small>/ 월부터</small></div>
-      <div class="muted" style="font-size:12.5px;margin-top:-6px">${esc(RENT_BASIS)}</div>
+      <div class="monthly">${lo ? won(lo.price) + '<small>/ 월부터</small>' : '상담 시 안내'}</div>
+      <div class="muted" style="font-size:12.5px;margin-top:-6px">${esc(rentBasisOf(p))}</div>
       <dl><dt>의무사용기간</dt><dd>${esc(periods)}</dd>
       <dt>방문주기</dt><dd>${esc((p.visitCycles||[]).join(' / ') || '상담 시 안내')}</dd>
       ${vars.length ? `<dt>타입</dt><dd>${esc(vars.join(' / '))} (가격표 세트 구분)</dd>` : ''}
@@ -386,12 +394,12 @@ function rentalPage(qs){
     return `<article class="rcard"><a class="im" href="#/product/${esc(p.id)}">${img(p.image,p.name)}</a><div class="bd">
       <div class="pcard-cat" style="color:var(--blue);font-weight:800;font-size:11.5px;letter-spacing:.12em">${esc(catLabel(p))}${p.bizOnlyRental ? ' · 사업자용' : ''}</div>
       <h3><a href="#/product/${esc(p.id)}">${esc(p.name)}</a></h3>
-      <div class="monthly">${won(p.rentalMonthly)}<small>/ 월</small></div>
-      <dl><dt>계약기간</dt><dd>의무사용 ${p.rentalContractMonths||36}개월</dd>
+      <div class="monthly" style="font-size:22px">상담 시 안내</div>
+      <dl>
       <dt>관리방식</dt><dd>${esc(p.careMethod || careShort(p))}</dd>
       <dt>필터교체</dt><dd>${esc(p.filterInfo || (p.category==='air'||p.category==='water' ? '방문 관리 시 안내' : '해당 시 상담 안내'))}</dd>
       <dt>방문주기</dt><dd>${esc((p.visitCycles||[]).join(' / ') || '상담 시 안내')}</dd>
-      <dt>총 렌탈금액</dt><dd>약 ${won(total)} (월 렌탈료×${p.rentalContractMonths||36}개월, 참고)</dd></dl>
+      </dl>
       <div class="actions"><a class="btn btn-ghost" href="#/product/${esc(p.id)}">렌탈 자세히 보기</a>${btnConsult('렌탈 상담하기', consultAttrs(p,'렌탈 문의'))}</div></div></article>`;
   };
   return pageHero({eyebrow:'RENTAL', title:'부담은 줄이고<br>관리는 꾸준히 받고 싶다면', lead:'월 렌탈료 · 의무사용기간 · 방문주기 · 방문 관리를 한눈에 비교하세요.', img:'assets/img/modern-house.webp', crumbs:[{label:'RENTAL'}],
@@ -424,11 +432,11 @@ function rentalPage(qs){
 
 /* ────────── BUSINESS / HOME CARE ────────── */
 function careTable(picks){
-  const items = picks.map(id => byId[id]).filter(Boolean).filter(p => p.rentalMonthly || p.priceMatrix || p.servicePrices || p.buyPrice != null);
+  const items = picks.map(id => byId[id]).filter(Boolean).filter(p => p.rentalMonthly != null || p.priceMatrix || p.servicePrices || p.buyPrice != null);
   if (!items.length) return '';
   const cell = p => {
-    if (hasOpts(p) && minMonth(p) != null) return won(minMonth(p)) + '<small class="muted"> 부터 · ' + esc(RENT_BASIS_SHORT) + '</small>';
-    if (p.rentalMonthly) return won(p.rentalMonthly);
+    if (hasOpts(p) && minMonth(p) != null) return won(minMonth(p)) + '<small class="muted"> 부터 · ' + esc(rentBasisOf(p)) + '</small>';
+    if (p.rentalMonthly != null) return '<span class="muted">상담 시 안내</span>';
     return '<span class="muted">-</span>'; };
   const buyCell = p => { const f = fromInfo(p);
     if (isRent(p)) return '<span class="muted">-</span>';
@@ -447,7 +455,7 @@ function careDetail(x, kind){
   <section class="section" style="padding-top:40px"><div class="container">
     <div class="step-block"><div class="step-label"><span class="no">STEP 01</span><h3>주요 고민</h3></div><ul class="worry-list">${x.worries.map(w => `<li>${esc(w)}</li>`).join('')}</ul></div>
     <div class="step-block"><div class="step-label"><span class="no">STEP 02</span><h3>추천 케어</h3></div><div class="care-chips">${x.care.map(w => `<span>${esc(w)}</span>`).join('')}</div></div>
-    <div class="step-block" style="grid-template-columns:1fr"><div class="step-label"><span class="no">STEP 03</span><h3>추천 제품</h3></div>${pgrid(picks)}</div>
+    <div class="step-block" style="grid-template-columns:1fr"><div class="step-label"><span class="no">STEP 03</span><h3>추천 제품</h3></div>${isBiz ? pgrid(picks) : groupedGrid(picks, null)}</div>
     <div class="step-block"><div class="step-label"><span class="no">STEP 04</span><h3>렌탈 / 구매</h3></div><div><p class="lead" style="color:var(--text)">${esc(x.buy)}</p>${careTable(x.picks)}<div style="margin-top:14px"><a class="link-more" href="#/rental">렌탈 상품 전체 보기 ${ico('chevron')}</a></div></div></div>
     <div class="step-block" style="grid-template-columns:1fr"><div class="step-label"><span class="no">STEP 05</span><h3>상담하기</h3></div>
       ${consultStrip((isBiz ? esc(x.name) : esc(x.ko)) + ' 맞춤 케어, 먼저 살펴보겠습니다.', '견적서보다 처방전을 먼저 씁니다. 공간과 상황을 알려 주시면 꼭 필요한 것만 제안드립니다.', isBiz ? '사업장 맞춤 상담' : '잘 모르겠어요 (먼저 진단받고 싶어요)').replace('data-act="consult"', `data-act="consult" data-msg="${esc(x.cta)}"`)}</div>
@@ -492,7 +500,7 @@ function concernPage(id){
       <div><h3 class="h3" style="margin-bottom:14px">이런 고민이라면</h3><ul class="worry-list" style="grid-template-columns:1fr">${k.checks.map(c => `<li>${esc(c)}</li>`).join('')}</ul></div>
       <div class="benefit" style="align-content:start"><span class="bi">${ico(k.icon)}</span><h3>이렇게 도와드립니다</h3><p style="font-size:16px;color:var(--text)">${esc(k.approach)}</p></div></div>
     ${sectionHead('RECOMMENDED', k.id === 'water' ? '퓨어케어 서비스' : esc(k.name) + ' 관련 제품·서비스', `${list.length}개`)}
-    ${pgrid(list)}
+    ${k.order ? pgrid(list) : groupedGrid(list, null)}
     <div style="margin-top:36px">${disc()}</div>${consultStrip('', '', topic)}
   </div></section>`;
 }
@@ -609,7 +617,7 @@ function scoreProducts(){
     const em = (p.env||[]).filter(e => envSet.has(e) && !['large','small'].includes(e));
     if (em.length) { sc += em.length * 1.5; why.push('“' + em.map(e => (FINDER.envs.find(x => x.id === e) || {label:e}).label.replace('있어요','').replace('계세요','').trim()).join('·') + '” 환경에 적합(제품 설명 기준)'); }
     const pl = (p.places||[]).includes(isBiz ? 'biz' : 'living'); if (pl) sc += 1;
-    if (FS.mode === 'rental') { if (p.rentalMonthly) { sc += 4; why.push(hasOpts(p) ? `월 ${won(minMonth(p))}부터(${RENT_BASIS_SHORT}) 렌탈로 방문 관리 가능` : `월 ${won(p.rentalMonthly)} 렌탈로 방문 관리 가능`); } else sc -= 1; }
+    if (FS.mode === 'rental') { if (p.rentalMonthly) { sc += 4; why.push(hasOpts(p) ? `월 ${won(minMonth(p))}부터(${rentBasisOf(p)}) 렌탈로 방문 관리 가능` : '렌탈 가능(월 렌탈료는 상담 시 안내)'); } else sc -= 1; }
     else if (FS.mode === 'buy') { if (p.buyPrice != null && !p.partner) { sc += 3; why.push(isRent(p) ? '구매해서 셀프 관리 가능' : `구매가 ${won(p.buyPrice)}${p.pricePrefix?' '+p.pricePrefix:''}`); } else if (p.partner && p.buyPrice != null) { sc += 2; } else sc -= 2; }
     else if (FS.mode === 'sub') { if (p.subscribable) { sc += 6; why.push('정기배송 가능' + (p.subRecommend ? ` · 추천 주기 ${subMonthsLabel(p.subRecommend)}` : '')); } else sc -= 3; }
     if (p.popularity) sc += Math.min(1.5, p.popularity.reviews / 40);

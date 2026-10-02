@@ -976,3 +976,15 @@ details.faq[open] summary::after{transform:rotate(180deg)}
 .pl-card .pl-tags li{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);font-size:13.5px;font-weight:600}
 .pl-card .pl-tags .ico{width:16px;height:16px}
 @media (max-width:767px){.planner .pl-card{min-height:280px}}
+
+/* 렌탈 옵션: 최저가 표시 / 현장 할인·결합 보조 문구 */
+.low-tag{display:inline-block;margin-left:6px;padding:1px 8px;border-radius:99px;background:var(--blue);color:#fff;font-size:11px;font-weight:800;vertical-align:middle;letter-spacing:0}
+.ptbl td .kl{display:block;font-size:11px;font-weight:600;color:var(--muted)}
+.ptbl tbody tr.low{box-shadow:inset 3px 0 0 var(--blue)}
+
+/* 소제목 그룹 */
+.grp{margin-bottom:40px}
+.grp-h{font-size:20px;font-weight:800;color:var(--navy);letter-spacing:-.02em;margin:0 0 6px;padding-bottom:10px;border-bottom:2px solid var(--navy);display:flex;align-items:baseline;gap:10px}
+.grp-h small{font-size:13px;font-weight:600;color:var(--muted)}
+.grp-d{margin:8px 0 16px;font-size:13.5px;color:var(--muted)}
+.grp .pgrid{margin-top:16px}

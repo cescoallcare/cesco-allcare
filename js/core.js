@@ -69,12 +69,31 @@ const rOpts = p => Array.isArray(p.rentalOptions) ? p.rentalOptions : [];
 const hasOpts = p => rOpts(p).length > 0;
 /* 렌탈 상품 = 렌탈 가격표 옵션 또는 월 렌탈료가 있는 상품 → 구매·판매가는 화면에 표시하지 않고 월 렌탈료만 보여 줍니다. 그 외(렌탈 없음)는 구매가를 표시. */
 const isRent = p => hasOpts(p) || !!p.rentalMonthly;
+/* ── 월 렌탈료 표시 규칙 ──
+   가격표(rentalOptions)가 있는 상품만 월 렌탈료를 표시합니다. 옵션(의무사용기간×방문주기)별 표시 월 렌탈료 = 이달의 판매가·현장 할인가(단품)·현장 할인가(결합) 중 가장 낮은 값
+   (재렌탈가는 56개월 이후 별도 조건이라 제외). 모든 화면(목록·상세·BEST·비교표·핫딜·FINDER·렌탈 페이지)이 아래 같은 함수를 씁니다.
+   가격표가 없는 상품(세스코몰 유래 rentalMonthly)은 월 렌탈료·구매가를 표시하지 않고 '상담 시 안내'. */
+const KIND_LABEL = { online: '', single: '현장 할인 적용 시', bundle: '결합 시' };
 const RENT_BASIS = '최저 월 렌탈료 기준';
 const RENT_BASIS_SHORT = '최저 월 렌탈료 기준';
-function minMonth(p){ const v = rOpts(p).map(o => o.monthPrice).filter(x => x != null); return v.length ? Math.min.apply(null, v) : null; }
+function optLow(o){
+  const c = [['online', o.monthPrice], ['single', o.onsiteSingle], ['bundle', o.onsiteBundle]].filter(x => x[1] != null && x[1] > 0);
+  if (!c.length) return null;
+  const m = c.reduce((a, b) => b[1] < a[1] ? b : a);
+  return { kind: m[0], price: m[1], label: KIND_LABEL[m[0]] };
+}
+function lowOpt(p){
+  let best = null;
+  rOpts(p).forEach(o => { const l = optLow(o); if (l && (!best || l.price < best.price)) best = { o, kind: l.kind, price: l.price, label: l.label }; });
+  return best;
+}
+function minMonth(p){ const l = lowOpt(p); return l ? l.price : null; }
+function rentBasisOf(p){ const l = lowOpt(p); return !l || l.kind === 'online' ? RENT_BASIS : (l.kind === 'single' ? '현장 할인 적용 시 최저가 기준' : '결합 시 최저가 기준'); }
+/* 가격표 없이 세스코몰 유래 월 렌탈료만 있는 상품 → 가격 비노출 */
+const isLegacyRent = p => !hasOpts(p) && p.rentalMonthly != null;
 /* 목록/카드용 "OO원부터" 정보 */
 function fromInfo(p){
-  if (hasOpts(p)) { const m = minMonth(p); if (m != null) return { price: m, label: '월 렌탈료', text: '월 ' + won(m) + '부터', basis: RENT_BASIS, short: RENT_BASIS_SHORT, kind: 'rent' }; }
+  if (hasOpts(p)) { const m = minMonth(p); if (m != null) return { price: m, label: '월 렌탈료', text: '월 ' + won(m) + '부터', basis: rentBasisOf(p), short: rentBasisOf(p), kind: 'rent' }; }
   if (p.priceFrom && p.priceFrom.price != null) return { price: p.priceFrom.price, label: p.priceFrom.label || '가격', text: won(p.priceFrom.price) + '부터', basis: p.priceFrom.basis || '', short: p.priceFrom.basis || '', kind: 'from' };
   return null;
 }
@@ -85,13 +104,13 @@ function buyText(p){
   return '상담 시 안내';
 }
 function rentText(p){
-  if (hasOpts(p) && minMonth(p) != null) return '월 ' + won(minMonth(p)) + '부터 (' + RENT_BASIS_SHORT + ')';
-  if (p.rentalMonthly != null) return '월 ' + won(p.rentalMonthly);
+  if (hasOpts(p) && minMonth(p) != null) return '월 ' + won(minMonth(p)) + '부터 (' + rentBasisOf(p) + ')';
+  if (p.rentalMonthly != null) return '상담 시 안내';
   if (p.rentalInquire) return '렌탈 가능 여부 상담 시 안내';
   return '상담 시 안내';
 }
 function rentHtml(p){
-  if (hasOpts(p) && minMonth(p) != null) return esc('월 ' + won(minMonth(p)) + '부터') + `<small class="basis">${esc(RENT_BASIS_SHORT)}</small>`;
+  if (hasOpts(p) && minMonth(p) != null) return esc('월 ' + won(minMonth(p)) + '부터') + `<small class="basis">${esc(rentBasisOf(p))}</small>`;
   return esc(rentText(p));
 }
 /* 비고 셀: '* A * B * C' → ['A','B','C'] (원문은 데이터에 한 줄로 보존) */
@@ -123,7 +142,7 @@ function productCard(p, opts={}){
   const fi = fromInfo(p);
   if (fi && fi.kind === 'from') rows.push([fi.label, esc(fi.text) + `<small class="basis">${esc(fi.short)}</small>`, 'price']);
   else {
-    if (isRentalCat(p) && !p.partner) rows.push(['월 렌탈료', rentHtml(p), p.rentalMonthly ? 'rent' : 'ask']);
+    if (isRentalCat(p) && !p.partner) rows.push(['월 렌탈료', rentHtml(p), hasOpts(p) ? 'rent' : 'ask']);
     if (!isRent(p)) rows.push(['구매가격', esc(buyText(p)), p.buyPrice != null ? 'price' : 'ask']);
   }
   rows.push(['관리방식', esc(careShort(p)), '']);
@@ -144,6 +163,43 @@ function productCard(p, opts={}){
     </div></article>`;
 }
 function pgrid(list, opts){ return list.length ? `<div class="pgrid">${list.map((p,i) => productCard(p, typeof opts==='function'? opts(p,i): opts)).join('')}</div>` : `<div class="empty"><span class="ico-wrap">${ico('search')}</span><b>조건에 맞는 제품이 없습니다</b>필터를 바꿔 보시거나 <a class="link-more" href="javascript:void(0)" data-act="consult">상담하기 ${ico('arrow')}</a>로 문의해 주세요.</div>`; }
+
+/* ── 소제목 그룹 (규칙: data/site.js 의 GROUPING) ── */
+const GR = window.GROUPING || { groups: [], consumableNames: [], serviceTypes: [], serviceNames: [] };
+function gMatch(p, r){
+  if (!r) return false;
+  const name = p.name || '', kw = (p.keywords || []).join(' '), secs = p.sections || [];
+  if (r.cat && !r.cat.includes(p.category)) return false;
+  if (!['names', 'keywords', 'section0', 'sections', 'types', 'ids'].some(k => r[k])) return true;
+  return (r.names || []).some(w => name.includes(w)) || (r.keywords || []).some(w => kw.includes(w)) || (r.section0 || []).includes(secs[0]) ||
+    (r.sections || []).some(x => secs.includes(x)) || (r.types || []).includes(p.type) || (r.ids || []).includes(p.id);
+}
+const gTest = (p, g) => gMatch(p, g.match) && !gMatch(p, g.not && Object.keys(g.not).length ? g.not : null);
+function groupOf(p, family){
+  const gs = GR.groups.filter(g => !family || g.family === family);
+  for (const g of gs) { if (g.etc && family) continue; if (gTest(p, g)) return g; }
+  for (const g of gs) if (g.anySection && (p.sections || []).some(x => g.anySection.includes(x))) return g;
+  return gs.filter(g => g.etc)[0] || null;
+}
+function tierOf(p, g){
+  if (g && g.first && gMatch(p, g.first)) return 0;
+  if (hasOpts(p) || p.rentalMonthly != null) return 1;
+  const nm = p.name || '';
+  if ((GR.serviceTypes || []).includes(p.type) || (GR.serviceNames || []).some(w => nm.includes(w)) || p.priceMatrix || p.servicePrices) return 3;
+  if ((GR.consumableNames || []).some(w => nm.includes(w))) return 4;
+  return 2;
+}
+/* list → [{g, items}] (그룹 표시 순서, 그룹 안은 기기(렌탈) → 구매형 기기 → 서비스 → 소모품) */
+function groupProducts(list, family){
+  const order = GR.groups.map(g => g.id), map = {};
+  list.forEach((p, i) => { const g = groupOf(p, family); if (!g) return; (map[g.id] = map[g.id] || { g, items: [] }).items.push({ p, i }); });
+  return Object.keys(map).map(k => map[k]).sort((a, b) => order.indexOf(a.g.id) - order.indexOf(b.g.id)).map(x => ({
+    g: x.g, items: x.items.sort((a, b) => tierOf(a.p, x.g) - tierOf(b.p, x.g) || a.i - b.i).map(y => y.p) }));
+}
+function groupedGrid(list, family, opts){
+  if (!list.length) return pgrid(list, opts);
+  return groupProducts(list, family).map(x => `<div class="grp"><h3 class="grp-h">${esc(x.g.label)}<small>${x.items.length}개</small></h3>${x.g.desc ? `<p class="grp-d">${esc(x.g.desc)}</p>` : ''}${pgrid(x.items, opts)}</div>`).join('');
+}
 
 /* ── 검색 ── */
 const SYN = {
@@ -223,5 +279,5 @@ function consultStrip(title, text, topic){
 function disclaimer(){ return `<div class="notice">${ico('info')}<div>표시된 가격·월 렌탈료·계약 조건은 공식 판매처 게시 정보와 플래너 제공 가격표를 기준으로 하며, 프로모션·제휴카드·약정기간·방문주기·옵션에 따라 달라질 수 있습니다. 확인되지 않은 항목은 “상담 시 안내”로 표시하며, 최종 가격과 계약 조건은 공식 판매/계약 기준을 따릅니다.</div></div>`; }
 function partnerNotice(){ return `<div class="notice partner">${ico('handshake')}<div><b>PARTNER PRODUCT · 제휴·판매 상품 안내</b><br>아롬비(AROMVI) 샤워필터·관련 부품은 세스코 자체 제품이 아닌 <b>제휴·판매 상품</b>입니다. 제품 사양·품질·배송·교환/환불은 판매처(아롬비) 기준이며, 이 사이트에서는 구매 방법을 상담으로 안내해 드립니다.</div></div>`; }
 
-window.U = { C, P, byId, $, $$, esc, won, ico, img, PH, CATNAME, catLabel, isRentalCat, isRent, hasBuy, hasRent, buyText, rentText, rentHtml, rOpts, hasOpts, minMonth, fromInfo, noteLines, RENT_BASIS, RENT_BASIS_SHORT, careShort, badgesFor, consultAttrs, productCard, pgrid, search, sectionHead, pageHero, consultStrip, disclaimer, partnerNotice, norm };
+window.U = { C, P, byId, $, $$, esc, won, ico, img, PH, CATNAME, catLabel, isRentalCat, isRent, hasBuy, hasRent, buyText, rentText, rentHtml, rOpts, hasOpts, minMonth, groupOf, groupProducts, groupedGrid, lowOpt, optLow, rentBasisOf, isLegacyRent, KIND_LABEL, fromInfo, noteLines, RENT_BASIS, RENT_BASIS_SHORT, careShort, badgesFor, consultAttrs, productCard, pgrid, search, sectionHead, pageHero, consultStrip, disclaimer, partnerNotice, norm };
 })();
