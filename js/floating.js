@@ -27,7 +27,7 @@ function calcBest(){
     .sort((a, b) => pop(b) - pop(a)).slice(0, CUR.best.limit)
     .map((p, i) => ({ p, badge: (i + 1) + '위', price: priceText(p), meta: '평점 ' + p.popularity.rating + ' · 리뷰 ' + pop(p).toLocaleString('ko-KR') + '개' }));
 }
-/* 베스트 핫딜: 옵션별 표시 월 렌탈료(이달의 판매가·현장 할인가 단품·결합 중 최저)가 가격표 기준가 대비 얼마나 낮은지(할인율)로 계산. 화면에는 월 렌탈료와 할인율%만 표시 */
+/* 베스트 핫딜(상품별 최저 월 렌탈료 옵션 기준 할인율): 옵션별 표시 월 렌탈료(이달의 판매가·현장 할인가 단품·결합 중 최저)가 가격표 기준가 대비 얼마나 낮은지(할인율)로 계산. 화면에는 월 렌탈료와 할인율%만 표시 */
 function calcHot(){
   const out = [];
   P.forEach(p => {
@@ -38,14 +38,14 @@ function calcHot(){
       const lw = U.optLow(o); [['월 렌탈료', lw && lw.price, lw && lw.label]].forEach(c => {
         const v = c[1]; if (!(v > 0) || v >= list) return;
         const amt = list - v, rate = amt / list;
-        if (!best || rate > best.rate + 1e-9 || (Math.abs(rate - best.rate) < 1e-9 && amt > best.amt)) best = { o, kind: c[0], v, list, amt, rate, lab: c[2] };
+        if (!best || v < best.v || (v === best.v && rate > best.rate + 1e-9)) best = { o, kind: c[0], v, list, amt, rate, lab: c[2] };
       });
     });
     if (best) out.push({ p, best });
   });
   out.sort((a, b) => b.best.rate - a.best.rate || b.best.amt - a.best.amt);
   return out.slice(0, CUR.hotdeal.limit).map(x => {
-    const o = x.best.o, opt = [o.periodLabel, o.visit && o.visit !== '-' ? '방문 ' + o.visit : '', o.variant, x.best.lab].filter(Boolean).join(' · ');
+    const o = x.best.o, opt = [o.periodLabel, o.visit && o.visit !== '-' ? '방문 ' + o.visit : '', o.variant, (x.best.lab === '프로모션' ? '' : x.best.lab)].filter(Boolean).join(' · ');
     return { p: x.p, badge: '−' + Math.round(x.best.rate * 100) + '%', hot: x.best, meta: opt };
   });
 }
@@ -112,7 +112,7 @@ let openKey = null;
 function itemHtml(it){
   const p = it.p, hot = it.hot;
   let priceHtml;
-  if (hot) priceHtml = `<span class="fl-price"><strong>월 ${won(hot.v)}</strong></span>${it.meta ? `<small>${esc(it.meta)}</small>` : ''}`;
+  if (hot) priceHtml = `<span class="fl-price"><strong>월 ${won(hot.v)}부터 시작</strong></span>${it.meta ? `<small>${esc(it.meta)}</small>` : ''}`;
   else priceHtml = `<span class="fl-price"><strong>${esc(it.price)}</strong></span>${it.meta ? `<small>${esc(it.meta)}</small>` : ''}`;
   return `<li><a class="fl-item" href="#/product/${esc(p.id)}" data-fl-link>
     <span class="th">${img(p.image, '', 'loading="lazy"')}</span>

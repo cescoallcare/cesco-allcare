@@ -73,11 +73,11 @@ const isRent = p => hasOpts(p) || !!p.rentalMonthly;
    가격표(rentalOptions)가 있는 상품만 월 렌탈료를 표시합니다. 옵션(의무사용기간×방문주기)별 표시 월 렌탈료 = 이달의 판매가·현장 할인가(단품)·현장 할인가(결합) 중 가장 낮은 값
    (재렌탈가는 56개월 이후 별도 조건이라 제외). 모든 화면(목록·상세·BEST·비교표·핫딜·FINDER·렌탈 페이지)이 아래 같은 함수를 씁니다.
    가격표가 없는 상품(세스코몰 유래 rentalMonthly)은 월 렌탈료·구매가를 표시하지 않고 '상담 시 안내'. */
-const KIND_LABEL = { online: '', single: '현장 할인 적용 시', bundle: '결합 시' };
+const KIND_LABEL = { online: '', single: '현장 할인 적용 시', bundle: '결합 시', promo: '프로모션' };
 const RENT_BASIS = '최저 월 렌탈료 기준';
 const RENT_BASIS_SHORT = '최저 월 렌탈료 기준';
 function optLow(o){
-  const c = [['online', o.monthPrice], ['single', o.onsiteSingle], ['bundle', o.onsiteBundle]].filter(x => x[1] != null && x[1] > 0);
+  const c = [['online', o.monthPrice], ['single', o.onsiteSingle], ['bundle', o.onsiteBundle], ['promo', o.promo]].filter(x => x[1] != null && x[1] > 0);
   if (!c.length) return null;
   const m = c.reduce((a, b) => b[1] < a[1] ? b : a);
   return { kind: m[0], price: m[1], label: KIND_LABEL[m[0]] };
@@ -88,12 +88,12 @@ function lowOpt(p){
   return best;
 }
 function minMonth(p){ const l = lowOpt(p); return l ? l.price : null; }
-function rentBasisOf(p){ const l = lowOpt(p); return !l || l.kind === 'online' ? RENT_BASIS : (l.kind === 'single' ? '현장 할인 적용 시 최저가 기준' : '결합 시 최저가 기준'); }
+function rentBasisOf(p){ return ''; } /* 요약 화면에는 기준·프로모션 문구를 붙이지 않고 '월 ○○원부터 시작'만 표시 */
 /* 가격표 없이 세스코몰 유래 월 렌탈료만 있는 상품 → 가격 비노출 */
 const isLegacyRent = p => !hasOpts(p) && p.rentalMonthly != null;
 /* 목록/카드용 "OO원부터" 정보 */
 function fromInfo(p){
-  if (hasOpts(p)) { const m = minMonth(p); if (m != null) return { price: m, label: '월 렌탈료', text: '월 ' + won(m) + '부터', basis: rentBasisOf(p), short: rentBasisOf(p), kind: 'rent' }; }
+  if (hasOpts(p)) { const m = minMonth(p); if (m != null) return { price: m, label: '월 렌탈료', text: '월 ' + won(m) + '부터 시작', basis: rentBasisOf(p), short: rentBasisOf(p), kind: 'rent' }; }
   if (p.priceFrom && p.priceFrom.price != null) return { price: p.priceFrom.price, label: p.priceFrom.label || '가격', text: won(p.priceFrom.price) + '부터', basis: p.priceFrom.basis || '', short: p.priceFrom.basis || '', kind: 'from' };
   return null;
 }
@@ -104,13 +104,13 @@ function buyText(p){
   return '상담 시 안내';
 }
 function rentText(p){
-  if (hasOpts(p) && minMonth(p) != null) return '월 ' + won(minMonth(p)) + '부터 (' + rentBasisOf(p) + ')';
+  if (hasOpts(p) && minMonth(p) != null) return '월 ' + won(minMonth(p)) + '부터 시작';
   if (p.rentalMonthly != null) return '상담 시 안내';
   if (p.rentalInquire) return '렌탈 가능 여부 상담 시 안내';
   return '상담 시 안내';
 }
 function rentHtml(p){
-  if (hasOpts(p) && minMonth(p) != null) return esc('월 ' + won(minMonth(p)) + '부터') + `<small class="basis">${esc(rentBasisOf(p))}</small>`;
+  if (hasOpts(p) && minMonth(p) != null) return esc('월 ' + won(minMonth(p)) + '부터 시작');
   return esc(rentText(p));
 }
 /* 비고 셀: '* A * B * C' → ['A','B','C'] (원문은 데이터에 한 줄로 보존) */
