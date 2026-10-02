@@ -67,8 +67,8 @@ const hasRent = p => p.rentalMonthly != null || p.rentalInquire;
 /* 렌탈 옵션 배열(rentalOptions: 의무사용기간×방문주기별 가격 행) — 가격표 기반 상품 */
 const rOpts = p => Array.isArray(p.rentalOptions) ? p.rentalOptions : [];
 const hasOpts = p => rOpts(p).length > 0;
-const RENT_BASIS = '이달의 판매가(온라인 노출가) 옵션 중 최저가 기준';
-const RENT_BASIS_SHORT = '이달의 판매가 최저 기준';
+const RENT_BASIS = '최저 월 렌탈료 기준';
+const RENT_BASIS_SHORT = '최저 월 렌탈료 기준';
 function minMonth(p){ const v = rOpts(p).map(o => o.monthPrice).filter(x => x != null); return v.length ? Math.min.apply(null, v) : null; }
 /* 목록/카드용 "OO원부터" 정보 */
 function fromInfo(p){
@@ -76,9 +76,8 @@ function fromInfo(p){
   if (p.priceFrom && p.priceFrom.price != null) return { price: p.priceFrom.price, label: p.priceFrom.label || '가격', text: won(p.priceFrom.price) + '부터', basis: p.priceFrom.basis || '', short: p.priceFrom.basis || '', kind: 'from' };
   return null;
 }
+/* 구매·판매 가격은 화면에 표시하지 않습니다(데이터 필드는 유지). 렌탈 불가 상품은 '상담 시 안내'. */
 function buyText(p){
-  if (p.buyPrice != null) return won(p.buyPrice) + (p.pricePrefix ? ' ' + p.pricePrefix : '');
-  if (p.rentalMonthly) return '렌탈 전용';
   const f = fromInfo(p); if (f && f.kind === 'from') return f.text;
   return '상담 시 안내';
 }
@@ -122,7 +121,7 @@ function productCard(p, opts={}){
   if (fi && fi.kind === 'from') rows.push([fi.label, esc(fi.text) + `<small class="basis">${esc(fi.short)}</small>`, 'price']);
   else {
     if (isRentalCat(p) && !p.partner) rows.push(['월 렌탈료', rentHtml(p), p.rentalMonthly ? 'rent' : 'ask']);
-    rows.push(['구매가격', esc(buyText(p)), p.buyPrice != null ? 'price' : 'ask']);
+    else rows.push(['가격', '상담 시 안내', 'ask']);
   }
   rows.push(['관리방식', esc(careShort(p)), '']);
   const rank = opts.rank ? `<span class="badge rank">${opts.rank}위</span>` : '';
@@ -166,8 +165,8 @@ function buildIndex(){
   const idx = [];
   P.forEach(p => {
     let rentalTxt = p.rentalMonthly ? '렌탈 월렌탈 방문관리 약정' : '';
-    if (hasOpts(p)) rentalTxt += ' 이달의 판매가 온라인 노출가 현장 할인가 단품 결합 재렌탈 프로모션 ' + rOpts(p).map(o => [o.periodLabel, o.visit, o.variant, o.note, o.monthPrice, o.listPrice, o.onsiteSingle, o.onsiteBundle].filter(x => x != null).join(' ')).join(' ');
-    if (p.priceMatrix) rentalTxt += ' 판매가 무이자 할부 규격 ' + p.priceMatrix.cols.join(' ') + ' ' + p.priceMatrix.rows.map(r => r.label).join(' ');
+    if (hasOpts(p)) rentalTxt += ' 월 렌탈료 의무사용기간 방문주기 ' + rOpts(p).map(o => [o.periodLabel, o.visit, o.variant, o.note, o.monthPrice].filter(x => x != null).join(' ')).join(' ');
+    if (p.priceMatrix) rentalTxt += ' 가격 무이자 할부 규격 ' + p.priceMatrix.cols.join(' ') + ' ' + p.priceMatrix.rows.map(r => r.label).join(' ');
     if (p.servicePrices) rentalTxt += ' 비수기 4분기 특판 옵션 추가금 ' + p.servicePrices.rows.map(r => [r.g1, r.g2, r.g3, r.detail].join(' ')).join(' ');
     const subTxt = p.subscribable ? '정기배송 정기 배송' : '';
     const hay = norm([p.name, p.description, p.features.join(' '), p.spaces, p.targets.join(' '), p.keywords.join(' '), CATNAME[p.category], catLabel(p), rentalTxt, subTxt, p.partner ? '아롬비 제휴 파트너 partner' : '', p.filterInfo, (extras[p.id]||[]).join(' '), p.concerns.join(' ')].join(' | '));

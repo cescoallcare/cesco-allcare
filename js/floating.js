@@ -17,7 +17,6 @@ const pop = p => (p.popularity ? p.popularity.reviews : 0);
 function priceText(p){
   const f = fromInfo(p);
   if (f && f.kind === 'rent') return f.text;
-  if (p.buyPrice != null) return won(p.buyPrice) + (p.pricePrefix ? ' ' + p.pricePrefix : '');
   if (f) return f.text;
   return p.rentalMonthly ? '월 ' + won(p.rentalMonthly) : '상담 시 안내';
 }
@@ -27,7 +26,7 @@ function calcBest(){
     .sort((a, b) => pop(b) - pop(a)).slice(0, CUR.best.limit)
     .map((p, i) => ({ p, badge: (i + 1) + '위', price: priceText(p), meta: '평점 ' + p.popularity.rating + ' · 리뷰 ' + pop(p).toLocaleString('ko-KR') + '개' }));
 }
-/* 베스트 핫딜: 렌탈 가격표(정상가 대비 이달의 판매가 / 현장 할인가(단품))의 실제 값으로 계산 */
+/* 베스트 핫딜: 렌탈 가격표의 월 렌탈료가 가격표 기준가 대비 얼마나 낮은지(할인율)로 계산. 화면에는 월 렌탈료와 할인율%만 표시 */
 function calcHot(){
   const out = [];
   P.forEach(p => {
@@ -35,7 +34,7 @@ function calcHot(){
     let best = null;
     p.rentalOptions.forEach(o => {
       const list = o.listPrice; if (!(list > 0)) return;
-      [['이달의 판매가', o.monthPrice], ['현장 할인가(단품)', o.onsiteSingle]].forEach(c => {
+      [['월 렌탈료', o.monthPrice]].forEach(c => {
         const v = c[1]; if (!(v > 0) || v >= list) return;
         const amt = list - v, rate = amt / list;
         if (!best || rate > best.rate + 1e-9 || (Math.abs(rate - best.rate) < 1e-9 && amt > best.amt)) best = { o, kind: c[0], v, list, amt, rate };
@@ -79,7 +78,7 @@ function calcSeason(now){
 /* ───────── DOM ───────── */
 const CHIPS = [
   { key: 'best', label: '베스트 인기', icon: 'star', title: '베스트 인기', sub: '리뷰 수가 많은 순서' },
-  { key: 'hotdeal', label: '베스트 핫딜', icon: 'tag', title: '베스트 핫딜', sub: '정상가 대비 할인율이 큰 렌탈 옵션' },
+  { key: 'hotdeal', label: '베스트 핫딜', icon: 'tag', title: '베스트 핫딜', sub: '할인율이 큰 렌탈 옵션' },
   { key: 'seasonal', label: '이맘때 추천', icon: 'calendar', title: '이맘때 추천', sub: '' }
 ];
 const root = doc.createElement('div');
@@ -112,7 +111,7 @@ let openKey = null;
 function itemHtml(it){
   const p = it.p, hot = it.hot;
   let priceHtml;
-  if (hot) priceHtml = `<span class="fl-price"><s>${won(hot.list)}</s><strong>${won(hot.v)}</strong></span><small>${esc(hot.kind)} · 월 렌탈료${it.meta ? ' · ' + esc(it.meta) : ''}</small>`;
+  if (hot) priceHtml = `<span class="fl-price"><strong>월 ${won(hot.v)}</strong></span>${it.meta ? `<small>${esc(it.meta)}</small>` : ''}`;
   else priceHtml = `<span class="fl-price"><strong>${esc(it.price)}</strong></span>${it.meta ? `<small>${esc(it.meta)}</small>` : ''}`;
   return `<li><a class="fl-item" href="#/product/${esc(p.id)}" data-fl-link>
     <span class="th">${img(p.image, '', 'loading="lazy"')}</span>
@@ -121,7 +120,7 @@ function itemHtml(it){
 function panelHtml(key){
   let items = [], head = '', note = '';
   if (key === 'best') { items = calcBest(); note = CUR.best.note; head = '리뷰 수가 많은 순서'; }
-  else if (key === 'hotdeal') { items = calcHot(); note = CUR.hotdeal.note; head = '정상가 대비 할인율이 큰 렌탈 옵션'; }
+  else if (key === 'hotdeal') { items = calcHot(); note = CUR.hotdeal.note; head = '할인율이 큰 렌탈 옵션'; }
   else { const r = calcSeason(); items = r.items; note = CUR.seasonal.note; head = r.rule ? `${r.month}월 · ${r.rule.season} — 이 시기에 많이 찾는 케어` : ''; }
   const meta = CHIPS.filter(c => c.key === key)[0];
   return `<div class="fl-head"><div><b>${esc(meta.title)}</b><small>${esc(head)}</small></div><button type="button" class="fl-x" data-fl-close aria-label="${esc(meta.title)} 닫기">${ico('x')}</button></div>
