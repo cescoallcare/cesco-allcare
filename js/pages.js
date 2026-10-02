@@ -475,8 +475,15 @@ function homeCarePage(id){
 function concernPage(id){
   const k = CONCERNS.find(c => c.id === id);
   if (!k) return notFound();
-  let list = P.filter(p => live(p) && (p.concerns||[]).includes(id));
+  const inc = k.include || {};
+  const incIds = inc.ids || [], incKw = inc.keywords || [];
+  let list = P.filter(p => !p.hidden && ((live(p) && ((p.concerns||[]).includes(id) || incKw.some(w => (p.name||'').includes(w)))) || incIds.includes(p.id)));
   list = list.sort((a,b) => (b.partner?-1:0) - (a.partner?-1:0) || pop(b) - pop(a));
+  if (k.order) {   // 고민별 추가 정렬: top(맨 위 고정 ID) → 렌탈 기기 → 그 밖의 서비스·상품 → bottom(키워드가 이름에 있는 소모품). 같은 단계 안에서는 기존 순서 유지
+    const top = k.order.top || [], bk = k.order.bottomKeywords || [];
+    const tier = p => top.includes(p.id) ? 0 : bk.some(w => (p.name||'').includes(w)) ? 3 : isRent(p) ? 1 : 2;
+    list = list.map((p, i) => ({ p, i })).sort((a, b) => tier(a.p) - tier(b.p) || (tier(a.p) === 0 ? top.indexOf(a.p.id) - top.indexOf(b.p.id) : 0) || a.i - b.i).map(x => x.p);
+  }
   const topic = { air:'공기 케어', water:'물 케어 (정수기·샤워·비데)', pest:'해충 관리', biz:'사업장 맞춤 상담', clean:'생활·위생용품', sterilize:'생활·위생용품', odor:'생활·위생용품', pet:'공기 케어' }[id];
   return pageHero({eyebrow:'지금 가장 신경 쓰이는 것', title: esc(k.name) + ' — ' + esc(k.sub), lead: esc(k.lead), img: k.img, crumbs:[{label:'고민별 케어'},{label:k.name}],
       actions:`<a class="btn btn-white" href="#/finder">케어 찾기</a><button class="btn btn-line-w" data-act="consult" data-topic="${esc(topic)}">상담하기</button>`}) + `
