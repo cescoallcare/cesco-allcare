@@ -67,6 +67,8 @@ const hasRent = p => p.rentalMonthly != null || p.rentalInquire;
 /* 렌탈 옵션 배열(rentalOptions: 의무사용기간×방문주기별 가격 행) — 가격표 기반 상품 */
 const rOpts = p => Array.isArray(p.rentalOptions) ? p.rentalOptions : [];
 const hasOpts = p => rOpts(p).length > 0;
+/* 렌탈 상품 = 렌탈 가격표 옵션 또는 월 렌탈료가 있는 상품 → 구매·판매가는 화면에 표시하지 않고 월 렌탈료만 보여 줍니다. 그 외(렌탈 없음)는 구매가를 표시. */
+const isRent = p => hasOpts(p) || !!p.rentalMonthly;
 const RENT_BASIS = '최저 월 렌탈료 기준';
 const RENT_BASIS_SHORT = '최저 월 렌탈료 기준';
 function minMonth(p){ const v = rOpts(p).map(o => o.monthPrice).filter(x => x != null); return v.length ? Math.min.apply(null, v) : null; }
@@ -76,8 +78,9 @@ function fromInfo(p){
   if (p.priceFrom && p.priceFrom.price != null) return { price: p.priceFrom.price, label: p.priceFrom.label || '가격', text: won(p.priceFrom.price) + '부터', basis: p.priceFrom.basis || '', short: p.priceFrom.basis || '', kind: 'from' };
   return null;
 }
-/* 구매·판매 가격은 화면에 표시하지 않습니다(데이터 필드는 유지). 렌탈 불가 상품은 '상담 시 안내'. */
+/* 렌탈이 없는 상품의 구매가 표시용(렌탈 상품은 호출하는 쪽에서 구매가를 숨김) */
 function buyText(p){
+  if (p.buyPrice != null) return won(p.buyPrice) + (p.pricePrefix ? ' ' + p.pricePrefix : '');
   const f = fromInfo(p); if (f && f.kind === 'from') return f.text;
   return '상담 시 안내';
 }
@@ -121,7 +124,7 @@ function productCard(p, opts={}){
   if (fi && fi.kind === 'from') rows.push([fi.label, esc(fi.text) + `<small class="basis">${esc(fi.short)}</small>`, 'price']);
   else {
     if (isRentalCat(p) && !p.partner) rows.push(['월 렌탈료', rentHtml(p), p.rentalMonthly ? 'rent' : 'ask']);
-    else rows.push(['가격', '상담 시 안내', 'ask']);
+    if (!isRent(p)) rows.push(['구매가격', esc(buyText(p)), p.buyPrice != null ? 'price' : 'ask']);
   }
   rows.push(['관리방식', esc(careShort(p)), '']);
   const rank = opts.rank ? `<span class="badge rank">${opts.rank}위</span>` : '';
@@ -220,5 +223,5 @@ function consultStrip(title, text, topic){
 function disclaimer(){ return `<div class="notice">${ico('info')}<div>표시된 가격·월 렌탈료·계약 조건은 공식 판매처 게시 정보와 플래너 제공 가격표를 기준으로 하며, 프로모션·제휴카드·약정기간·방문주기·옵션에 따라 달라질 수 있습니다. 확인되지 않은 항목은 “상담 시 안내”로 표시하며, 최종 가격과 계약 조건은 공식 판매/계약 기준을 따릅니다.</div></div>`; }
 function partnerNotice(){ return `<div class="notice partner">${ico('handshake')}<div><b>PARTNER PRODUCT · 제휴·판매 상품 안내</b><br>아롬비(AROMVI) 샤워필터·관련 부품은 세스코 자체 제품이 아닌 <b>제휴·판매 상품</b>입니다. 제품 사양·품질·배송·교환/환불은 판매처(아롬비) 기준이며, 이 사이트에서는 구매 방법을 상담으로 안내해 드립니다.</div></div>`; }
 
-window.U = { C, P, byId, $, $$, esc, won, ico, img, PH, CATNAME, catLabel, isRentalCat, hasBuy, hasRent, buyText, rentText, rentHtml, rOpts, hasOpts, minMonth, fromInfo, noteLines, RENT_BASIS, RENT_BASIS_SHORT, careShort, badgesFor, consultAttrs, productCard, pgrid, search, sectionHead, pageHero, consultStrip, disclaimer, partnerNotice, norm };
+window.U = { C, P, byId, $, $$, esc, won, ico, img, PH, CATNAME, catLabel, isRentalCat, isRent, hasBuy, hasRent, buyText, rentText, rentHtml, rOpts, hasOpts, minMonth, fromInfo, noteLines, RENT_BASIS, RENT_BASIS_SHORT, careShort, badgesFor, consultAttrs, productCard, pgrid, search, sectionHead, pageHero, consultStrip, disclaimer, partnerNotice, norm };
 })();

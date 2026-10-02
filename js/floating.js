@@ -17,6 +17,7 @@ const pop = p => (p.popularity ? p.popularity.reviews : 0);
 function priceText(p){
   const f = fromInfo(p);
   if (f && f.kind === 'rent') return f.text;
+  if (!U.isRent(p) && p.buyPrice != null) return won(p.buyPrice) + (p.pricePrefix ? ' ' + p.pricePrefix : '');
   if (f) return f.text;
   return p.rentalMonthly ? '월 ' + won(p.rentalMonthly) : '상담 시 안내';
 }
