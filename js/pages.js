@@ -25,7 +25,7 @@ function home(){
     <div class="container hero-grid">
       <div class="hero-copy">
         <span class="eyebrow on-dark">CESCO ALL CARE</span>
-        <h1 class="h1">깨끗함을 선택하는 방법은 달라도<br><em>필요한 케어는 하나씩 다릅니다.</em></h1>
+        <h1 class="h1">집마다 깨끗함의 기준이 달라서,<br><em>필요한 케어도 모두 다릅니다.</em></h1>
         <p class="sub">공기부터 물, 생활까지. 우리에게 필요한 케어를 한곳에서.</p>
         <div class="cta"><a class="btn btn-primary btn-lg" href="#/finder">내게 맞는 케어 찾기 ${ico('arrow')}</a><a class="btn btn-glass btn-lg" href="#/products">전체 제품 보기</a></div>
       </div>
