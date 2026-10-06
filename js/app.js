@@ -110,69 +110,19 @@ function renderSearch(){
 $('#searchInput').addEventListener('input', renderSearch);
 $('#searchForm').addEventListener('submit', e => { e.preventDefault(); const q = $('#searchInput').value.trim(); if (q) { closeSearch(); location.hash = '#/search?q=' + encodeURIComponent(q); } });
 
-/* ── 상담 모달 ── */
+/* ── 상담 모달 (폼·전송은 core.js 공용: U.consultFormHtml / U.bindConsultForm — CONFIG.formEndpoint 설정 시 Apps Script 로 전송) ── */
 const LS_KEY = 'cescoInquiries';
-let ctx = null;
 function openConsult(o = {}){
-  ctx = o;
   const p = o.product ? byId[o.product] : null;
   let topic = o.topic || '';
   if (p && !topic) topic = p.category === 'air' ? '공기 케어' : p.category === 'water' ? '물 케어 (정수기·샤워·비데)' : p.subscribable ? '정기배송' : p.servicePrices ? '에어컨 크리닝 문의' : p.priceMatrix ? '매트리스 문의' : p.type === 'service' ? '해충 관리' : '생활·위생용품';
-  const topics = window.TOPICS;
-  $('#consultBody').innerHTML = `<div id="cmForm">
-    <span class="eyebrow">CONSULTATION</span>
-    <h2 id="cmTitle" class="h3" style="margin:10px 0 6px;font-size:26px">맞춤 상담 신청</h2>
-    <p class="muted" style="margin-bottom:20px;font-size:14.5px">${esc(C.planner.title)}가 확인 후 연락드립니다.<br><b style="color:var(--navy)">“${esc(C.planner.slogan)}”</b></p>
-    ${p ? `<div class="pchip">${img(p.image, p.name)}<div><small class="muted">문의 제품</small><br><b>${esc(p.name)}</b></div></div>` : ''}
-    <form id="cmF" novalidate>
-      <div class="field"><label for="cmName">이름 <i>*</i></label><input class="input" id="cmName" name="name" autocomplete="name" placeholder="홍길동"><span class="err">이름을 입력해 주세요.</span></div>
-      <div class="field"><label for="cmPhone">연락처 <i>*</i></label><input class="input" id="cmPhone" name="phone" inputmode="tel" autocomplete="tel" placeholder="010-0000-0000"><span class="err">올바른 연락처를 입력해 주세요.</span></div>
-      <div class="field"><label>장소</label><div class="seg"><label><input type="radio" name="kind" value="가정" checked><span>가정</span></label><label><input type="radio" name="kind" value="사업장"><span>사업장</span></label></div></div>
-      <div class="field"><label for="cmTopic">상담 주제</label><select class="input" id="cmTopic" name="topic">${topics.map(t => `<option ${t === topic ? 'selected' : ''}>${esc(t)}</option>`).join('')}${topic && !topics.includes(topic) ? `<option selected>${esc(topic)}</option>` : ''}</select></div>
-      <div class="field"><label for="cmTime">연락 가능 시간</label><select class="input" id="cmTime" name="time"><option>언제든 괜찮습니다</option><option>오전 (9~12시)</option><option>오후 (12~18시)</option><option>저녁 (18시 이후)</option></select></div>
-      <div class="field"><label for="cmMsg">문의 내용</label><textarea class="input" id="cmMsg" name="message" placeholder="공간 크기, 함께 사는 분, 마음 쓰이는 점 등을 편하게 적어 주세요.">${esc(o.msg || '')}</textarea></div>
-      <label class="check"><input type="checkbox" id="cmAgree"><span>상담을 위해 이름·연락처를 수집·이용하는 것에 동의합니다. (상담 목적 외에는 사용하지 않습니다) <i style="color:var(--red);font-style:normal">*</i></span></label>
-      <div class="field" id="agreeField" style="margin:6px 0 0"><span class="err">개인정보 수집·이용에 동의해 주세요.</span></div>
-      <button class="btn btn-primary btn-lg btn-block" type="submit" style="margin-top:14px">상담 신청하기</button>
-    </form></div>`;
+  const c = { product: o.product, topic, msg: o.msg };
+  $('#consultBody').innerHTML = window.U.consultFormHtml(c);
   $('#consultModal').classList.add('open'); document.body.style.overflow = 'hidden';
   setTimeout(() => $('#cmName') && $('#cmName').focus(), 60);
-  $('#cmF').addEventListener('submit', submitForm);
+  window.U.bindConsultForm(c);
 }
 function closeConsult(){ $('#consultModal').classList.remove('open'); if (!$('#searchOv.open')) document.body.style.overflow = ''; }
-
-/* 백엔드 연동 자리: C.formEndpoint 를 설정하면 아래 fetch 가 실행됩니다.
-   (예: Google Apps Script 웹앱 / Formspree / 자체 API). 미설정 시 이 브라우저 localStorage 에만 저장됩니다. */
-async function submitInquiry(rec){
-  const list = JSON.parse(localStorage.getItem(LS_KEY) || '[]');
-  list.push(rec);
-  localStorage.setItem(LS_KEY, JSON.stringify(list));
-  // if (C.formEndpoint) {
-  //   await fetch(C.formEndpoint, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(rec) });
-  // }
-  return true;
-}
-async function submitForm(e){
-  e.preventDefault();
-  const f = e.target;
-  const name = f.name.value.trim(), phone = f.phone.value.trim();
-  const okName = name.length >= 2, okPhone = /^[0-9+\-\s()]{9,15}$/.test(phone) && phone.replace(/\D/g, '').length >= 9;
-  const agree = $('#cmAgree').checked;
-  f.name.closest('.field').classList.toggle('bad', !okName);
-  f.phone.closest('.field').classList.toggle('bad', !okPhone);
-  $('#agreeField').classList.toggle('bad', !agree);
-  if (!okName || !okPhone || !agree) { const bad = $('.field.bad input'); if (bad) bad.focus(); return; }
-  const p = ctx && ctx.product ? byId[ctx.product] : null;
-  const rec = { id: 'INQ-' + Date.now(), createdAt: new Date().toISOString(), name, phone, kind: f.kind.value, topic: f.topic.value, time: f.time.value, message: f.message.value.trim(),
-                product: p ? { id: p.id, name: p.name } : null, page: location.hash || '#/' };
-  await submitInquiry(rec);
-  $('#consultBody').innerHTML = `<div class="done-view"><span class="okc">${ico('check')}</span><h2 class="h3" style="font-size:26px">상담 신청이 접수되었습니다</h2>
-    <p class="muted">${esc(name)}님, 확인 후 입력하신 연락처로 연락드리겠습니다.<br>급하신 경우에는 바로 전화 주세요.</p>
-    <div style="background:var(--gray);border-radius:16px;padding:14px;font-size:14px;text-align:left">접수번호 <b>${esc(rec.id)}</b><br>주제 ${esc(rec.topic)}${p ? '<br>제품 ' + esc(p.name) : ''}</div>
-    <p style="font-size:12.5px;color:var(--muted)">※ 접수 내용은 현재 이 기기의 브라우저에만 저장됩니다. 빠른 상담이 필요하시면 전화나 카카오톡으로 문의해 주세요.</p>
-    <a class="btn btn-navy btn-lg btn-block" href="${C.planner.phoneTel}">${ico('phone')} ${esc(C.planner.phone)} 전화하기</a>
-    <button class="btn btn-ghost btn-lg btn-block" data-act="closeConsult">닫기</button></div>`;
-}
 function openInbox(){
   const list = JSON.parse(localStorage.getItem(LS_KEY) || '[]').slice().reverse();
   $('#consultBody').innerHTML = `<span class="eyebrow">INBOX</span><h2 class="h3" style="margin:10px 0 14px">이 브라우저의 상담 접수 내역</h2>

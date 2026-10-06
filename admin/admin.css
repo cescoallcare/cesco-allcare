@@ -161,3 +161,16 @@ input[type=file]{padding:10px;border:1px dashed #9fb2cf;border-radius:10px;backg
 .btn.danger.sm{height:30px;padding:0 10px;font-size:12px}
 @media (max-width:860px){ .tbl-in{display:table!important;min-width:900px} .tbl-in thead{display:table-header-group!important} .tbl-in tbody{display:table-row-group!important} .tbl-in tr{display:table-row!important;border:0;padding:0;margin:0;background:none} .tbl-in td,.tbl-in th{display:table-cell!important;padding:4px 5px} .tbl-in td::before{content:none!important} }
 .login{grid-template-columns:minmax(0,1fr)}.login-box{min-width:0}.login-box input{min-width:0;width:100%}
+
+/* 상담 신청 목록 */
+.tab-badge{display:inline-grid;place-items:center;min-width:20px;height:20px;padding:0 6px;margin-left:4px;border-radius:999px;background:#D92D20;color:#fff;font-size:11.5px;font-weight:800;vertical-align:1px}
+.inq-grid{min-width:1200px}
+.inq-grid td{vertical-align:top;padding:8px 6px;font-size:13px}
+.inq-grid select{width:auto;min-width:96px;height:34px;border:1px solid #dbe2ec;border-radius:7px;padding:0 8px;background:#fff}
+.inq-grid tr.st-신규 td:first-child{box-shadow:inset 3px 0 0 #D92D20}
+.inq-grid tr.st-신규 select{border-color:#f1b5b0;background:#fff4f3;color:#B42318;font-weight:700}
+.inq-grid tr.st-상담완료 td{color:#5F6E85}
+.inq-act{display:flex;gap:4px;margin-top:4px}
+.inq-act .btn.sm{height:28px;padding:0 9px;font-size:12px}
+.inq-msg{max-width:320px;white-space:pre-wrap;word-break:break-word}
+.muted{color:var(--muted)}

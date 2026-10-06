@@ -14,7 +14,9 @@ window.CONFIG = {
   /* ▼▼ 카카오톡 상담 링크 (placeholder) — 오픈채팅/채널 URL 로 교체하세요. 예) https://open.kakao.com/o/xxxxxxx 또는 https://pf.kakao.com/_xxxxxx
      'REPLACE_ME' 가 포함돼 있으면 버튼 클릭 시 "준비 중" 안내가 나옵니다. */
   kakaoUrl: 'https://open.kakao.com/o/sUWS09Mi',
-  /* ▼ 상담 신청 폼 전송 주소(백엔드). 비워두면 이 브라우저의 localStorage 에만 저장됩니다. (js/app.js 의 submitInquiry() 참고) */
+  /* ▼ 상담 신청 폼 전송 주소 = Google Apps Script 웹 앱 URL (https://script.google.com/macros/s/…/exec).
+     채우면 메인·/water/·/air/ 의 모든 상담 폼이 구글 시트로 전송됩니다(js/core.js sendInquiry). 비워두면 이 브라우저 localStorage 에만 저장.
+     설치: tools/apps-script/README.md */
   formEndpoint: '',
   siteName: 'CESCO ALL CARE',
   priceCheckedAt: '2026-09-30',

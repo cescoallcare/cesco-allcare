@@ -991,3 +991,5 @@ details.faq[open] summary::after{transform:rotate(180deg)}
 /* 홈 → 워터케어·에어케어 랜딩 링크 */
 .lp-links{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:28px}
 @media (max-width:767px){.lp-links .btn{flex:1 1 100%}}
+/* 상담 폼 허니팟(봇 차단용, 화면 밖) */
+.hp{position:absolute!important;left:-9999px!important;width:1px;height:1px;overflow:hidden}

@@ -205,6 +205,7 @@ async function startApp(){
   else work = build(pubOv);
   initUi();
   renderAll();
+  if (window.AdminInquiries) window.AdminInquiries.start();
 }
 document.addEventListener('click', function(e){
   if (e.target && e.target.id === 'btnDiscard') {
@@ -557,8 +558,9 @@ $('#btnAdd').addEventListener('click', function(){
 /* ───────────── 탭 ───────────── */
 function setTab(name){
   $$('.tab').forEach(function(t){ var on = t.dataset.tab === name; t.classList.toggle('on', on); t.setAttribute('aria-selected', on); });
-  ['products', 'upload', 'publish'].forEach(function(n){ $('#tab-' + n).hidden = n !== name; });
+  ['products', 'upload', 'publish', 'inquiries'].forEach(function(n){ $('#tab-' + n).hidden = n !== name; });
   if (name === 'publish') renderPublishSummary();
+  if (name === 'inquiries' && window.AdminInquiries) window.AdminInquiries.show();
   window.scrollTo({ top: 0 });
 }
 $$('.tab').forEach(function(t){ t.addEventListener('click', function(){ setTab(t.dataset.tab); }); });

@@ -279,5 +279,100 @@ function consultStrip(title, text, topic){
 function disclaimer(){ return `<div class="notice">${ico('info')}<div>표시된 가격·월 렌탈료·계약 조건은 공식 판매처 게시 정보와 플래너 제공 가격표를 기준으로 하며, 프로모션·제휴카드·약정기간·방문주기·옵션에 따라 달라질 수 있습니다. 확인되지 않은 항목은 “상담 시 안내”로 표시하며, 최종 가격과 계약 조건은 공식 판매/계약 기준을 따릅니다.</div></div>`; }
 function partnerNotice(){ return `<div class="notice partner">${ico('handshake')}<div><b>PARTNER PRODUCT · 제휴·판매 상품 안내</b><br>아롬비(AROMVI) 샤워필터·관련 부품은 세스코 자체 제품이 아닌 <b>제휴·판매 상품</b>입니다. 제품 사양·품질·배송·교환/환불은 판매처(아롬비) 기준이며, 이 사이트에서는 구매 방법을 상담으로 안내해 드립니다.</div></div>`; }
 
-window.U = { C, P, byId, $, $$, esc, won, ico, img, PH, CATNAME, catLabel, isRentalCat, isRent, hasBuy, hasRent, buyText, rentText, rentHtml, rOpts, hasOpts, minMonth, groupOf, groupProducts, groupedGrid, lowOpt, optLow, rentBasisOf, isLegacyRent, KIND_LABEL, fromInfo, noteLines, RENT_BASIS, RENT_BASIS_SHORT, careShort, badgesFor, consultAttrs, productCard, pgrid, search, sectionHead, pageHero, consultStrip, disclaimer, partnerNotice, norm };
+/* ── 상담 신청 (메인·water·air 공용) ──
+   data/site.js 의 CONFIG.formEndpoint 에 Google Apps Script 웹 앱 URL 을 넣으면 모든 상담 폼이 그 주소로 전송됩니다.
+   (fetch mode:'no-cors' + text/plain JSON — Apps Script 의 CORS 제약을 피하는 방식. 응답 본문은 읽지 않고 네트워크 성공 여부로 판단)
+   비어 있으면 지금처럼 이 브라우저(localStorage)에만 저장하고 전화·카카오톡 안내를 보여 줍니다. 설치: tools/apps-script/README.md */
+const LS_INQ = 'cescoInquiries', SS_SRC = 'cescoSource';
+const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+(function captureSource(){   // 처음 들어온 페이지의 utm·리퍼러를 세션 동안 보관(메인 ↔ 랜딩 이동해도 유지)
+  try {
+    const qs = new URLSearchParams(location.search), utm = {};
+    UTM_KEYS.forEach(k => { const v = qs.get(k); if (v) utm[k] = v.slice(0, 200); });
+    const prev = JSON.parse(sessionStorage.getItem(SS_SRC) || 'null');
+    if (!prev || Object.keys(utm).length) sessionStorage.setItem(SS_SRC, JSON.stringify({ utm: Object.keys(utm).length ? utm : (prev && prev.utm) || {},
+      referrer: (prev && prev.referrer) || (document.referrer && !document.referrer.startsWith(location.origin) ? document.referrer.slice(0, 300) : ''),
+      landing: (prev && prev.landing) || (location.pathname + location.search) }));
+  } catch (e) {}
+})();
+function inquirySource(){
+  let s = {}; try { s = JSON.parse(sessionStorage.getItem(SS_SRC) || '{}') || {}; } catch (e) {}
+  const out = { page: window.LANDING_KEY || 'main', pageUrl: (location.pathname + location.search + location.hash).slice(0, 400), referrer: s.referrer || '' };
+  UTM_KEYS.forEach(k => { out[k] = (s.utm || {})[k] || ''; });
+  return out;
+}
+const formOn = () => !!(C.formEndpoint && /^https:\/\//.test(C.formEndpoint) || (C.formEndpoint && /^http:\/\/(localhost|127\.0\.0\.1)/.test(C.formEndpoint)));
+function consultFormHtml(o = {}){
+  const p = o.product ? byId[o.product] : null, topic = o.topic || '', topics = window.TOPICS || [];
+  return `<div id="cmForm">
+    <span class="eyebrow">CONSULTATION</span>
+    <h2 id="cmTitle" class="h3" style="margin:10px 0 6px;font-size:26px">맞춤 상담 신청</h2>
+    <p class="muted" style="margin-bottom:20px;font-size:14.5px">${esc(C.planner.title)}가 확인 후 연락드립니다.<br><b style="color:var(--navy)">“${esc(C.planner.slogan)}”</b></p>
+    ${p ? `<div class="pchip">${img(p.image, p.name)}<div><small class="muted">관심 상품</small><br><b>${esc(p.name)}</b></div></div>` : ''}
+    <form id="cmF" novalidate>
+      <div class="hp" aria-hidden="true"><label>웹사이트<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+      <div class="field"><label for="cmName">이름 <i>*</i></label><input class="input" id="cmName" name="name" autocomplete="name" placeholder="홍길동" maxlength="40"><span class="err">이름을 입력해 주세요.</span></div>
+      <div class="field"><label for="cmPhone">연락처 <i>*</i></label><input class="input" id="cmPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="010-0000-0000" maxlength="20"><span class="err">올바른 연락처를 입력해 주세요.</span></div>
+      <div class="field"><label>장소</label><div class="seg"><label><input type="radio" name="kind" value="가정" checked><span>가정</span></label><label><input type="radio" name="kind" value="사업장"><span>사업장</span></label></div></div>
+      <div class="field"><label for="cmTopic">관심 카테고리</label><select class="input" id="cmTopic" name="topic">${topics.map(t => `<option ${t === topic ? 'selected' : ''}>${esc(t)}</option>`).join('')}${topic && !topics.includes(topic) ? `<option selected>${esc(topic)}</option>` : ''}</select></div>
+      <div class="field"><label for="cmRegion">지역</label><input class="input" id="cmRegion" name="region" autocomplete="address-level2" placeholder="예: ○○시 ○○동" maxlength="60"></div>
+      <div class="field"><label for="cmTime">희망 연락 시간</label><select class="input" id="cmTime" name="time"><option>언제든 괜찮습니다</option><option>오전 (9~12시)</option><option>오후 (12~18시)</option><option>저녁 (18시 이후)</option></select></div>
+      <div class="field"><label for="cmMsg">문의 내용</label><textarea class="input" id="cmMsg" name="message" maxlength="1000" placeholder="공간 크기, 함께 사는 분, 마음 쓰이는 점 등을 편하게 적어 주세요.">${esc(o.msg || '')}</textarea></div>
+      <label class="check"><input type="checkbox" id="cmAgree" name="agree"><span>상담을 위해 이름·연락처·지역을 수집·이용하는 것에 동의합니다. (상담 목적 외에는 사용하지 않습니다) <i style="color:var(--red);font-style:normal">*</i></span></label>
+      <div class="field" id="agreeField" style="margin:6px 0 0"><span class="err">개인정보 수집·이용에 동의해 주세요.</span></div>
+      <button class="btn btn-primary btn-lg btn-block" type="submit" id="cmSubmit" style="margin-top:14px">상담 신청하기</button>
+    </form></div>`;
+}
+/* 폼 검사 → 레코드. 잘못되면 null */
+function readConsultForm(f, ctx){
+  const name = f.name.value.trim(), phone = f.phone.value.trim(), digits = phone.replace(/\D/g, '');
+  const okName = name.length >= 2, okPhone = /^[0-9+\-\s()]{9,20}$/.test(phone) && /^(0\d{8,10}|82\d{8,11})$/.test(digits), agree = f.agree.checked;
+  f.name.closest('.field').classList.toggle('bad', !okName);
+  f.phone.closest('.field').classList.toggle('bad', !okPhone);
+  $('#agreeField').classList.toggle('bad', !agree);
+  if (!okName || !okPhone || !agree) { const bad = $('.field.bad input', f) || (!agree ? f.agree : null); if (bad) bad.focus(); return null; }
+  const p = ctx && ctx.product ? byId[ctx.product] : null;
+  return Object.assign({ id: 'INQ-' + Date.now(), createdAt: new Date().toISOString(), name, phone, kind: f.kind.value, topic: f.topic.value, category: f.topic.value,
+    region: f.region.value.trim(), time: f.time.value, message: f.message.value.trim(), agree: true, website: f.website.value,
+    product: p ? p.name : '', productId: p ? p.id : '' }, inquirySource());
+}
+/* 전송: { mode:'remote' | 'local' | 'fail' } */
+async function sendInquiry(rec){
+  try { const list = JSON.parse(localStorage.getItem(LS_INQ) || '[]'); list.push(Object.assign({}, rec, { product: rec.productId ? { id: rec.productId, name: rec.product } : null, page: rec.pageUrl })); localStorage.setItem(LS_INQ, JSON.stringify(list.slice(-50))); } catch (e) {}
+  if (!formOn()) return { mode: 'local' };
+  const ctl = window.AbortController ? new AbortController() : null, tm = setTimeout(() => ctl && ctl.abort(), 12000);
+  try {
+    await fetch(C.formEndpoint, { method: 'POST', mode: 'no-cors', cache: 'no-store', redirect: 'follow', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(rec), signal: ctl ? ctl.signal : undefined });
+    return { mode: 'remote' };
+  } catch (e) { return { mode: 'fail' }; } finally { clearTimeout(tm); }
+}
+function consultDoneHtml(rec, res){
+  const pl = C.planner, kakao = `<a class="btn btn-ghost btn-lg btn-block" href="${esc(C.kakaoUrl)}" target="_blank" rel="noopener">${ico('message')} 카카오톡 상담</a>`;
+  const tel = `<a class="btn btn-navy btn-lg btn-block" href="${pl.phoneTel}">${ico('phone')} ${esc(pl.phone)} 전화하기</a>`;
+  const box = `<div style="background:var(--gray);border-radius:16px;padding:14px;font-size:14px;text-align:left">접수번호 <b>${esc(rec.id)}</b><br>관심 카테고리 ${esc(rec.category)}${rec.product ? '<br>관심 상품 ' + esc(rec.product) : ''}</div>`;
+  if (res.mode === 'remote') return `<div class="done-view"><span class="okc">${ico('check')}</span><h2 class="h3" style="font-size:26px">접수되었습니다.<br>곧 연락드리겠습니다</h2>
+    <p class="muted">${esc(rec.name)}님, 남겨 주신 연락처로 ${esc(pl.title)}가 연락드리겠습니다.</p>${box}
+    <p style="font-size:12.5px;color:var(--muted)">급하신 경우에는 바로 전화나 카카오톡으로 문의해 주세요.</p>${tel}
+    <button class="btn btn-ghost btn-lg btn-block" data-act="closeConsult">닫기</button></div>`;
+  if (res.mode === 'fail') return `<div class="done-view"><span class="okc" style="background:#FFF3E0;color:#B45309">${ico('info')}</span><h2 class="h3" style="font-size:24px">전송이 원활하지 않았습니다</h2>
+    <p class="muted">${esc(rec.name)}님, 번거로우시겠지만 전화나 카카오톡으로 연락 주시면 바로 안내해 드리겠습니다.</p>${box}${tel}${kakao}
+    <button class="btn btn-ghost btn-lg btn-block" data-act="closeConsult">닫기</button></div>`;
+  return `<div class="done-view"><span class="okc">${ico('check')}</span><h2 class="h3" style="font-size:26px">상담 신청이 접수되었습니다</h2>
+    <p class="muted">${esc(rec.name)}님, 확인 후 입력하신 연락처로 연락드리겠습니다.<br>급하신 경우에는 바로 전화 주세요.</p>${box}
+    <p style="font-size:12.5px;color:var(--muted)">※ 접수 내용은 현재 이 기기의 브라우저에만 저장됩니다. 빠른 상담이 필요하시면 전화나 카카오톡으로 문의해 주세요.</p>${tel}${kakao}
+    <button class="btn btn-ghost btn-lg btn-block" data-act="closeConsult">닫기</button></div>`;
+}
+/* 모달 폼 연결: 제출 → 검사 → 전송 → 완료 화면 */
+function bindConsultForm(ctx){
+  const f = $('#cmF'); if (!f) return;
+  f.addEventListener('submit', async e => {
+    e.preventDefault();
+    const rec = readConsultForm(f, ctx); if (!rec) return;
+    const btn = $('#cmSubmit'); if (btn) { btn.disabled = true; btn.textContent = '전송 중…'; }
+    const res = await sendInquiry(rec);
+    $('#consultBody').innerHTML = consultDoneHtml(rec, res);
+  });
+}
+
+window.U = { consultFormHtml, readConsultForm, sendInquiry, consultDoneHtml, bindConsultForm, inquirySource, C, P, byId, $, $$, esc, won, ico, img, PH, CATNAME, catLabel, isRentalCat, isRent, hasBuy, hasRent, buyText, rentText, rentHtml, rOpts, hasOpts, minMonth, groupOf, groupProducts, groupedGrid, lowOpt, optLow, rentBasisOf, isLegacyRent, KIND_LABEL, fromInfo, noteLines, RENT_BASIS, RENT_BASIS_SHORT, careShort, badgesFor, consultAttrs, productCard, pgrid, search, sectionHead, pageHero, consultStrip, disclaimer, partnerNotice, norm };
 })();
