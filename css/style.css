@@ -988,3 +988,6 @@ details.faq[open] summary::after{transform:rotate(180deg)}
 .grp-h small{font-size:13px;font-weight:600;color:var(--muted)}
 .grp-d{margin:8px 0 16px;font-size:13.5px;color:var(--muted)}
 .grp .pgrid{margin-top:16px}
+/* 홈 → 워터케어·에어케어 랜딩 링크 */
+.lp-links{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:28px}
+@media (max-width:767px){.lp-links .btn{flex:1 1 100%}}

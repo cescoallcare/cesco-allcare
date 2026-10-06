@@ -68,6 +68,7 @@ function home(){
       <a class="tile" href="#/water">${img(SECTIONS.water.img,'PURE WATER')}<div class="bd"><span class="en">PURE WATER</span><h3>매일 마시고 쓰는 물</h3><p>정수기 · 샤워필터 · 비데</p><div class="chips"><span>DRINK</span><span>SHOWER</span><span>BATH</span></div></div></a>
       <a class="tile" href="#/life">${img(SECTIONS.life.img,'HEALING LIFE')}<div class="bd"><span class="en">HEALING LIFE</span><h3>일상의 위생과 청결</h3><p>살균 · 청소 · 위생 · 탈취 · 해충</p><div class="chips"><span>STERILIZE</span><span>CLEAN</span><span>HYGIENE</span><span>FRESH</span><span>BUG CARE</span></div></div></a>
     </div>
+    <div class="lp-links"><a class="btn btn-ghost btn-lg" href="air/">${ico('wind')} 에어케어 자세히 보기 ${ico('arrow')}</a><a class="btn btn-ghost btn-lg" href="water/">${ico('droplet')} 워터케어 자세히 보기 ${ico('arrow')}</a></div>
   </div></section>
 
   <section class="section sky" id="best-home"><div class="container">
@@ -163,7 +164,7 @@ function sectionPage(key, qs){
   const gd = secGroups.find(g => 'g-' + g.id === sub);
   const desc = gd && gd.desc ? `<p class="muted" style="margin:0 0 18px">${esc(gd.desc)}</p>` : S.subDesc[sub] ? `<p class="muted" style="margin:0 0 18px">${esc(S.subDesc[sub])}</p>` : '';
   return pageHero({eyebrow:S.title, title:S.headline, lead:'', img:S.img, crumbs:[{label:S.title}],
-      actions:`<a class="btn btn-white" href="#/finder">내게 맞는 케어 찾기</a><button class="btn btn-line-w" data-act="consult">상담하기</button>`}) + `
+      actions:`${key === 'air' || key === 'water' ? `<a class="btn btn-primary" href="${key}/">${key === 'air' ? '에어케어' : '워터케어'} 자세히 보기 ${ico('arrow')}</a>` : ''}<a class="btn btn-white" href="#/finder">내게 맞는 케어 찾기</a><button class="btn btn-line-w" data-act="consult">상담하기</button>`}) + `
   <section class="section" style="padding-top:48px"><div class="container">
     <div class="chipbar"><span class="label">카테고리</span>${subChips}</div>
     ${spaceChips}${desc}

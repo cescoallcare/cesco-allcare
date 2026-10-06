@@ -8,7 +8,7 @@ const app = $('#app');
 /* ── 정적 UI 채우기 ── */
 $('#nav').innerHTML = NAV.map(n => `<a href="${n.href}" data-key="${n.key}">${esc(n.label)}</a>`).join('');
 $('#drawerLinks').innerHTML = NAV.map(n => `<a class="m" href="${n.href}" data-key="${n.key}" data-act="closeDrawer">${esc(n.label)}${ico('chevron')}</a>`).join('') +
-  `<a class="m" href="#/products" data-act="closeDrawer">전체 제품${ico('chevron')}</a><a class="m" href="#/planner" data-act="closeDrawer">플래너 소개${ico('chevron')}</a>`;
+  `<a class="m" href="air/">에어케어 자세히 보기${ico('chevron')}</a><a class="m" href="water/">워터케어 자세히 보기${ico('chevron')}</a><a class="m" href="#/products" data-act="closeDrawer">전체 제품${ico('chevron')}</a><a class="m" href="#/planner" data-act="closeDrawer">플래너 소개${ico('chevron')}</a>`;
 $('#drawerTel').innerHTML = ico('phone') + ' ' + esc(C.planner.phone);
 $('#drawerTel').href = C.planner.phoneTel;
 $('#btnSearch').innerHTML = ico('search'); $('#btnSearch').dataset.act = 'openSearch';
