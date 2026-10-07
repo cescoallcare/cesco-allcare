@@ -126,6 +126,7 @@ function careShort(p){
 }
 function badgesFor(p){
   let b = '';
+  if (p.isNew) b += `<span class="badge new">NEW</span>`;
   if (p.partner) b += `<span class="badge partner">PARTNER PRODUCT</span>`;
   if (p.soldOut) b += `<span class="badge warn">품절 표시</span>`;
   if (p.rentalMonthly) b += `<span class="badge rent">렌탈 가능</span>`;

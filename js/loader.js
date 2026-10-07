@@ -3,7 +3,7 @@
 (function(){
 'use strict';
 /* 랜딩페이지(water/, air/)는 window.LOADER_SCRIPTS 로 필요한 스크립트만 지정합니다(<base href="../"> 기준 상대경로). */
-var SCRIPTS = window.LOADER_SCRIPTS || ['js/core.js', 'js/pages.js', 'js/app.js', 'js/floating.js'];
+var SCRIPTS = window.LOADER_SCRIPTS || ['js/core.js', 'js/pages.js', 'js/app.js', 'js/floating.js', 'js/popup.js'];
 function boot(){
   SCRIPTS.forEach(function(src){ var s = document.createElement('script'); s.src = src; s.async = false; document.body.appendChild(s); });
 }

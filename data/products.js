@@ -9589,5 +9589,89 @@ window.CESCO_PRODUCTS = [
    "checkedAt": "2026-10-01",
    "table": 5
   }
+ },
+ {
+  "id": "allcare-carcare-solution",
+  "code": "allcare-carcare-solution",
+  "name": "세스코 마이랩 카케어 솔루션 (차량 전용)",
+  "category": "life",
+  "sections": [
+   "healing.fresh"
+  ],
+  "description": "살균·탈취·안전성까지 생각한 차량 전용 케어. 세스코 마이랩 카케어 솔루션 전용 제품 구성입니다.",
+  "features": [
+   "살균 · 탈취 · 안전성 관점으로 구성한 차량 전용 제품",
+   "카케어 솔루션 전용 제품 구성 (구성 상세는 상담 시 안내)",
+   "선물용 차량 전용 패키지(4종 세트 · 6종 세트) — 선물 세트는 상담 시 안내"
+  ],
+  "spaces": "차량 실내",
+  "spaceKeys": [],
+  "targets": [
+   "가정",
+   "운전자",
+   "선물"
+  ],
+  "concerns": [
+   "odor",
+   "sterilize"
+  ],
+  "places": [],
+  "env": [],
+  "keywords": [
+   "차량",
+   "자동차",
+   "카케어",
+   "탈취",
+   "살균",
+   "차량용",
+   "선물 세트",
+   "마이랩"
+  ],
+  "type": "product",
+  "audience": "both",
+  "bizFit": false,
+  "rentalInquire": false,
+  "bizOnlyRental": false,
+  "image": "assets/products/allcare-carcare-solution.webp",
+  "model": null,
+  "buyPrice": 37900,
+  "listPrice": null,
+  "buyOptions": [],
+  "buyLabel": "구매 상담",
+  "nonMemberPrice": null,
+  "buyNote": "",
+  "buyUrl": "",
+  "rentalMonthly": null,
+  "rentalBase": null,
+  "rentalContractMonths": null,
+  "rentalYears": [],
+  "rentalTotal": null,
+  "visitCycles": [],
+  "rentalNote": null,
+  "careMethod": "셀프 사용(차량 전용 제품)",
+  "filterInfo": "해당 없음",
+  "subscribable": false,
+  "subCycles": [],
+  "subMonths": [],
+  "subRecommend": null,
+  "consultRequired": true,
+  "popularity": null,
+  "soldOut": false,
+  "isNew": true,
+  "catLabel": "CAR CARE",
+  "giftSet": {
+   "image": "assets/products/allcare-carcare-gift.webp",
+   "title": "선물용 차량 전용 패키지",
+   "options": [
+    "4종 세트",
+    "6종 세트"
+   ],
+   "note": "선물 세트 구성과 가격은 상담 시 안내해 드립니다."
+  },
+  "source": {
+   "name": "플래너 제공 자료",
+   "url": "",
+   "checkedAt": "2026-10-07"
+  }
  }
 ];

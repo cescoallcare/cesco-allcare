@@ -24,6 +24,30 @@ window.CONFIG = {
   mallUrl: 'https://www.cescomall.co.kr'
 };
 
+/* ▼ 신제품 출시 팝업 (메인·/water/·/air/ 공통, js/popup.js)
+   - enabled: false 로 끄기 / id 를 바꾸면 '오늘 하루 보지 않기'를 누른 방문자에게도 다시 노출
+   - start / end: 'YYYY-MM-DD'(한국 시간, 그날 포함). 비우면 제한 없음
+   - productId: 상세 보기·상담 신청(관심 상품 자동 입력)·가격 표시에 사용. 관리자에서 그 상품을 숨기면 팝업도 나오지 않습니다(가격 수정도 자동 반영).
+   - 첫 방문(브라우저 세션당 1회) 약 delayMs 뒤 노출 */
+window.POPUP = {
+  enabled: true,
+  id: 'carcare-2026-10',
+  badge: 'NEW',
+  eyebrow: '신제품 출시',
+  title: '세스코 마이랩 카케어 솔루션',
+  text: '살균·탈취·안전성까지 생각한 차량 전용 케어. 카케어 솔루션 전용 제품 구성으로 차 안을 깔끔하게 관리해 보세요.',
+  image: 'assets/img/carcare-products.webp',
+  imageAlt: '세스코 마이랩 카케어 솔루션 전용 제품 구성',
+  giftImage: 'assets/products/allcare-carcare-gift.webp',
+  giftText: '선물용 차량 전용 패키지(4종·6종 세트) · 선물 세트 상담 시 안내',
+  productId: 'allcare-carcare-solution',
+  consultTopic: '생활·위생용품',
+  start: '2026-10-07',
+  end: '',
+  delayMs: 1000,
+  pages: ['main', 'water', 'air']
+};
+
 const PID = n => 'G' + (2000000000 + n);
 
 /* 상단 메뉴 */
@@ -221,6 +245,7 @@ window.GROUPING = {
     { id: 'life-hygiene',   family: 'life', label: '손·화장실 위생', match: { section0: ['healing.hygiene'] }, not: { names: ['매트리스', '라벨', '컨설팅', '에어컨'] }, desc: '손·화장실·사업장 위생' },
     { id: 'life-sterilize', family: 'life', label: '살균·소독', match: { section0: ['healing.sterilize'] }, anySection: ['healing.sterilize'], desc: '살균·소독' },
     { id: 'life-clean',     family: 'life', label: '청소·세정', match: { section0: ['healing.clean'] }, anySection: ['healing.clean'], desc: '주방·욕실·세탁 청소' },
+    { id: 'life-car',       family: 'life', label: '차량 케어', match: { names: ['카케어', '차량 전용', '차량용'], keywords: ['카케어'] }, desc: '차량 실내 살균·탈취 케어' },
     { id: 'life-fresh',     family: 'life', label: '탈취·향기', match: { section0: ['healing.fresh'] }, anySection: ['healing.fresh'], desc: '탈취·향기' },
     { id: 'life-everyday',  family: 'life', label: '세탁·생활용품', match: { section0: ['healing.everyday'] }, anySection: ['healing.everyday'], desc: '세탁·생활용품' },
     { id: 'life-etc',       family: 'life', label: '위생 서비스·기타', etc: true, match: {} }

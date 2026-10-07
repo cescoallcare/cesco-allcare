@@ -314,7 +314,7 @@ function productPage(id){
       <div class="gallery">${img(p.image, p.name, 'loading="eager"')}</div>
       <div class="info">
         <div style="display:grid;gap:12px">
-          <div class="tag-list">${p.partner ? `<span class="badge partner" style="box-shadow:none">PARTNER PRODUCT · 제휴·판매 상품</span>` : ''}${p.rentalMonthly ? '<span class="tag">렌탈 가능</span>' : ''}${p.priceMatrix ? '<span class="tag">규격·등급별 가격표</span>' : ''}${p.servicePrices ? '<span class="tag">방문 서비스 · 상담 후 견적</span>' : ''}${p.subscribable ? '<span class="tag">정기배송 가능</span>' : ''}${p.soldOut ? '<span class="tag" style="background:#FFF3E0;color:#B45309">판매처 품절 표시</span>' : ''}${p.bizOnlyRental ? '<span class="tag">사업자용 렌탈</span>' : ''}</div>
+          <div class="tag-list">${p.isNew ? '<span class="badge new" style="box-shadow:none">NEW</span>' : ''}${p.partner ? `<span class="badge partner" style="box-shadow:none">PARTNER PRODUCT · 제휴·판매 상품</span>` : ''}${p.rentalMonthly ? '<span class="tag">렌탈 가능</span>' : ''}${p.priceMatrix ? '<span class="tag">규격·등급별 가격표</span>' : ''}${p.servicePrices ? '<span class="tag">방문 서비스 · 상담 후 견적</span>' : ''}${p.subscribable ? '<span class="tag">정기배송 가능</span>' : ''}${p.soldOut ? '<span class="tag" style="background:#FFF3E0;color:#B45309">판매처 품절 표시</span>' : ''}${p.bizOnlyRental ? '<span class="tag">사업자용 렌탈</span>' : ''}</div>
           <span class="eyebrow">${esc(catLabel(p))}</span>
           <h1>${esc(p.name)}</h1>
           <p class="lead" style="font-size:17px">${esc(p.description)}</p>
@@ -326,10 +326,12 @@ function productPage(id){
           ${!hasOpts(p) && (p.rentalMonthly != null || p.rentalInquire) ? `<div class="row"><span class="k">월 렌탈료</span><span class="v ask">상담 시 안내</span></div>` : ''}
           ${!isRent(p) && p.nonMemberPrice && p.nonMemberPrice !== p.buyPrice ? `<div class="note">비회원가 ${won(p.nonMemberPrice)}</div>` : ''}
           ${p.rentalNote && !isLegacyRent(p) ? `<div class="note">${esc(p.rentalNote)}</div>` : ''}
+          ${p.giftSet ? `<div class="row"><span class="k">선물 세트</span><span class="v ask">상담 시 안내</span></div><div class="note">${esc((p.giftSet.options || []).join(' · '))} — 선물 세트 상담 시 안내</div>` : ''}
         </div>
         ${rentalBlockHtml(p)}
         <div class="btn-stack">${buyBtn}${rentBtn}${subBtn}${btnConsult('상담하기', consultAttrs(p), 'btn btn-primary btn-lg')}</div>
         ${p.partner ? partnerNotice() : ''}
+        ${p.giftSet ? `<div class="gift-set"><div class="gs-im">${img(p.giftSet.image, p.giftSet.title)}</div><div class="gs-tx"><span class="badge new" style="box-shadow:none">GIFT</span><b>${esc(p.giftSet.title)}</b><div class="gs-opts">${(p.giftSet.options || []).map(o => `<span>${esc(o)}</span>`).join('')}</div><p>${esc(p.giftSet.note || '선물 세트 상담 시 안내')}</p><button class="btn btn-ghost" ${consultAttrs(p, '생활·위생용품')} data-msg="선물 세트(${esc((p.giftSet.options || []).join('·'))}) 문의">${ico('gift')} 선물 세트 상담</button></div></div>` : ''}
         ${p.soldOut ? `<div class="notice warn">${ico('info')}<div>현재 품절로 표시된 상품입니다. 재입고·대체 상품은 상담으로 안내해 드립니다.</div></div>` : ''}
         ${p.rentalMonthly && p.bizOnlyRental ? `<div class="notice warn">${ico('info')}<div>사업자 대상 렌탈 상품입니다(가정용 렌탈 중단). 자세한 조건은 상담 시 안내해 드립니다.</div></div>` : ''}
         <div><h3 class="h3" style="font-size:20px;margin-bottom:12px">핵심 특징</h3><ul class="feat-list">${(p.features||[]).map(f => `<li>${ico('check')}<span>${esc(f)}</span></li>`).join('')}</ul></div>
