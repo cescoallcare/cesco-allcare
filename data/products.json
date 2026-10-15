@@ -9671,5 +9671,155 @@
    "url": "",
    "checkedAt": "2026-10-07"
   }
+ },
+ {
+  "id": "allcare-solura-bodydryer",
+  "code": "allcare-solura-bodydryer",
+  "name": "솔루라 바디 드라이어 (SOLURA)",
+  "brand": "세스코 라이프케어",
+  "category": "air",
+  "sections": [
+   "air.clean"
+  ],
+  "description": "샤워 후, 이제는 기다리지 마세요! 샤워 후 발판 위에 서면 바람으로 몸 전체를 빠르고 부드럽게 건조해, 젖은 몸을 보송하게 해 주는 바디 드라이어입니다.",
+  "features": [
+   "강력한 풍량 — 최대 14m/s 순간 풍속, 60~65dB의 조용한 소음 (BLDC 모터)",
+   "3중 안심필터 — 미세한 먼지까지 필터링하여 깨끗한 공기를 전달 (HEPA 필터)",
+   "슬림 디자인 — 8.9cm 초슬림 설계, 욕실을 위한 세련된 매트 텍스처",
+   "Quick 히팅(온풍) — 예열 없이 온풍 도출, 10초 즉시 온풍",
+   "아로마 카트리지 — 바람에 향기 추가(라벤더 향), 건조 시간을 에어 스파 타임으로",
+   "욕실 습기 케어 — 욕실 내부 공기 순환, 쾌적한 욕실 환경 유지"
+  ],
+  "extraFeatures": [
+   [
+    "메모리 기능",
+    "마지막 설정 기억"
+   ],
+   [
+    "자동 모드",
+    "제품 위에 올라가기만 해도 자동으로 동작"
+   ],
+   [
+    "의류 건조 모드",
+    "건조기를 대체 가능, 세탁물을 빠르게 건조"
+   ],
+   [
+    "무음 모드",
+    "제품의 모든 음성 차단"
+   ],
+   [
+    "역풍 클리닝 모드",
+    "역풍으로 필터의 먼지를 제품 외부로 보내 성능 유지"
+   ],
+   [
+    "어린이 보호 모드",
+    "운행 버튼 비활성화, 어린이·반려동물이 있는 가정도 안전하게"
+   ]
+  ],
+  "colors": [
+   "메탈 그레이 (Metal Gray)",
+   "크림 아이보리 (Cream Ivory)"
+  ],
+  "promo": {
+   "headline": "샤워 후 젖은 몸은 바람으로 3분",
+   "sub": "드라이어로 전하는 산뜻한 일상 — SOLURA 프리미엄 바디 드라이어 · 국산 정품",
+   "rating": {
+    "text": "10,000명 이상 만족",
+    "score": "4.9",
+    "max": "5"
+   },
+   "compare": {
+    "title": "수건 건조 대비 장점",
+    "items": [
+     "위생성",
+     "속도",
+     "Y존 건조"
+    ]
+   },
+   "note": "제조·판매사 홍보물 기준 문구입니다."
+  },
+  "freebie": "아로마 오일 10ml 무상 증정",
+  "freebieNote": "사은품은 재고·기간에 따라 변동될 수 있습니다.",
+  "spaces": "욕실 · 샤워 후",
+  "spaceKeys": [],
+  "targets": [
+   "가정",
+   "어린이·반려동물이 있는 가정"
+  ],
+  "concerns": [
+   "air",
+   "sterilize"
+  ],
+  "places": [
+   "bath",
+   "living"
+  ],
+  "env": [],
+  "keywords": [
+   "바디드라이어",
+   "바디 드라이어",
+   "솔루라",
+   "SOLURA",
+   "샤워",
+   "욕실",
+   "건조",
+   "온풍",
+   "욕실 습기",
+   "전신 건조"
+  ],
+  "type": "product",
+  "audience": "home",
+  "bizFit": false,
+  "rentalInquire": false,
+  "bizOnlyRental": false,
+  "image": "assets/products/solura-bodydryer.webp",
+  "gallery": [
+   {
+    "src": "assets/products/solura-bodydryer.webp",
+    "alt": "솔루라 바디 드라이어 — 위에서 본 모습"
+   },
+   {
+    "src": "assets/products/solura-bodydryer-side.webp",
+    "alt": "솔루라 바디 드라이어 — 측면(초슬림 설계)",
+    "fit": "contain"
+   }
+  ],
+  "infoImages": [
+   {
+    "src": "assets/products/solura-bodydryer-info.webp",
+    "alt": "솔루라 바디 드라이어 제품 안내 — 추가 기능 6가지와 핵심 특징 6가지"
+   }
+  ],
+  "model": null,
+  "buyPrice": 349000,
+  "listPrice": 379000,
+  "buyOptions": [],
+  "buyLabel": "구매 상담",
+  "nonMemberPrice": null,
+  "buyNote": "",
+  "buyUrl": "",
+  "rentalMonthly": null,
+  "rentalBase": null,
+  "rentalContractMonths": null,
+  "rentalYears": [],
+  "rentalTotal": null,
+  "visitCycles": [],
+  "rentalNote": null,
+  "careMethod": "셀프 사용(구매)",
+  "filterInfo": "3중 안심필터(HEPA) · 교체 주기는 상담 시 안내",
+  "subscribable": false,
+  "subCycles": [],
+  "subMonths": [],
+  "subRecommend": null,
+  "consultRequired": true,
+  "popularity": null,
+  "soldOut": false,
+  "isNew": true,
+  "catLabel": "BODY DRYER",
+  "source": {
+   "name": "플래너 제공 자료",
+   "url": "",
+   "checkedAt": "2026-10-16"
+  }
  }
 ]

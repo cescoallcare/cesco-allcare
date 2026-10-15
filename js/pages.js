@@ -284,6 +284,20 @@ function serviceBlock(p){
 function rentalBlockHtml(p){ return hasOpts(p) ? rentalOptBlock(p) : p.priceMatrix ? matrixBlock(p) : p.servicePrices ? serviceBlock(p) : ''; }
 
 /* ────────── 상품 상세 ────────── */
+/* 갤러리: p.gallery = [{src, alt, fit:'contain'?}] 가 있으면 썸네일 전환, 없으면 대표 이미지 1장 */
+function galleryHtml(p){
+  const g = (p.gallery||[]).filter(x => x && x.src);
+  if (g.length < 2) return `<div class="gallery">${img(p.image, p.name, 'loading="eager"')}</div>`;
+  return `<div class="gal-col"><div class="gallery${g[0].fit === 'contain' ? ' fit-contain' : ''}" id="galMain">${img(g[0].src, g[0].alt || p.name, 'loading="eager"')}</div>
+    <div class="g-thumbs" role="group" aria-label="상품 이미지 선택">${g.map((x, i) => `<button type="button" class="g-thumb${i ? '' : ' on'}" data-gal="${i}" data-src="${esc(x.src)}" data-alt="${esc(x.alt || p.name)}" data-fit="${esc(x.fit || '')}" aria-label="이미지 ${i + 1} 보기" aria-pressed="${i ? 'false' : 'true'}">${img(x.src, '')}</button>`).join('')}</div></div>`;
+}
+document.addEventListener('click', e => {
+  const t = e.target.closest && e.target.closest('[data-gal]'); if (!t) return;
+  const main = document.getElementById('galMain'); if (!main) return;
+  const im = main.querySelector('img'); if (im) { im.src = t.dataset.src; im.alt = t.dataset.alt; }
+  main.classList.toggle('fit-contain', t.dataset.fit === 'contain');
+  t.parentNode.querySelectorAll('[data-gal]').forEach(b => { const on = b === t; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on ? 'true' : 'false'); });
+});
 function productPage(id){
   const p = byId[id];
   if (!p) return notFound();
@@ -292,6 +306,8 @@ function productPage(id){
   rows.push(['사용공간', p.spaces || '상담 시 안내']);
   rows.push(['권장대상', (p.targets||[]).join(' · ') || '상담 시 안내']);
   if (p.model) rows.push(['모델명', p.model]);
+  if (p.brand) rows.push(['브랜드', p.brand]);
+  if ((p.colors||[]).length) rows.push(['색상', p.colors.join(' / ')]);
   rows.push(['관리방식', p.careMethod || careShort(p)]);
   if (p.filterInfo) rows.push(['필터교체', p.filterInfo]);
   if (hasOpts(p)) {
@@ -311,7 +327,7 @@ function productPage(id){
   <section class="section" style="padding-top:calc(var(--header-h) + 28px)"><div class="container">
     <nav class="crumbs" style="color:var(--muted)"><a href="#/" style="color:var(--muted)">HOME</a> <span>/</span> <a href="#/products" style="color:var(--muted)">제품</a> <span>/</span> ${esc(catLabel(p))}</nav>
     <div class="detail" style="margin-top:18px">
-      <div class="gallery">${img(p.image, p.name, 'loading="eager"')}</div>
+      ${galleryHtml(p)}
       <div class="info">
         <div style="display:grid;gap:12px">
           <div class="tag-list">${p.isNew ? '<span class="badge new" style="box-shadow:none">NEW</span>' : ''}${p.partner ? `<span class="badge partner" style="box-shadow:none">PARTNER PRODUCT · 제휴·판매 상품</span>` : ''}${p.rentalMonthly ? '<span class="tag">렌탈 가능</span>' : ''}${p.priceMatrix ? '<span class="tag">규격·등급별 가격표</span>' : ''}${p.servicePrices ? '<span class="tag">방문 서비스 · 상담 후 견적</span>' : ''}${p.subscribable ? '<span class="tag">정기배송 가능</span>' : ''}${p.soldOut ? '<span class="tag" style="background:#FFF3E0;color:#B45309">판매처 품절 표시</span>' : ''}${p.bizOnlyRental ? '<span class="tag">사업자용 렌탈</span>' : ''}</div>
@@ -326,6 +342,7 @@ function productPage(id){
           ${!hasOpts(p) && (p.rentalMonthly != null || p.rentalInquire) ? `<div class="row"><span class="k">월 렌탈료</span><span class="v ask">상담 시 안내</span></div>` : ''}
           ${!isRent(p) && p.nonMemberPrice && p.nonMemberPrice !== p.buyPrice ? `<div class="note">비회원가 ${won(p.nonMemberPrice)}</div>` : ''}
           ${p.rentalNote && !isLegacyRent(p) ? `<div class="note">${esc(p.rentalNote)}</div>` : ''}
+          ${p.freebie ? `<div class="row"><span class="k">사은품</span><span class="v gift">${esc(p.freebie)}</span></div>${p.freebieNote ? `<div class="note">${esc(p.freebieNote)}</div>` : ''}` : ''}
           ${p.giftSet ? `<div class="row"><span class="k">선물 세트</span><span class="v ask">상담 시 안내</span></div><div class="note">${esc((p.giftSet.options || []).join(' · '))} — 선물 세트 상담 시 안내</div>` : ''}
         </div>
         ${rentalBlockHtml(p)}
@@ -334,13 +351,19 @@ function productPage(id){
         ${p.giftSet ? `<div class="gift-set"><div class="gs-im">${img(p.giftSet.image, p.giftSet.title)}</div><div class="gs-tx"><span class="badge new" style="box-shadow:none">GIFT</span><b>${esc(p.giftSet.title)}</b><div class="gs-opts">${(p.giftSet.options || []).map(o => `<span>${esc(o)}</span>`).join('')}</div><p>${esc(p.giftSet.note || '선물 세트 상담 시 안내')}</p><button class="btn btn-ghost" ${consultAttrs(p, '생활·위생용품')} data-msg="선물 세트(${esc((p.giftSet.options || []).join('·'))}) 문의">${ico('gift')} 선물 세트 상담</button></div></div>` : ''}
         ${p.soldOut ? `<div class="notice warn">${ico('info')}<div>현재 품절로 표시된 상품입니다. 재입고·대체 상품은 상담으로 안내해 드립니다.</div></div>` : ''}
         ${p.rentalMonthly && p.bizOnlyRental ? `<div class="notice warn">${ico('info')}<div>사업자 대상 렌탈 상품입니다(가정용 렌탈 중단). 자세한 조건은 상담 시 안내해 드립니다.</div></div>` : ''}
+        ${p.promo ? `<div class="promo-box"><b class="pb-h">${esc(p.promo.headline)}</b>${p.promo.sub ? `<p>${esc(p.promo.sub)}</p>` : ''}
+          <div class="pb-row">${p.promo.rating ? `<span class="pb-rate">${ico('star')} ${esc(p.promo.rating.text)} <strong>${esc(p.promo.rating.score)}/${esc(p.promo.rating.max)}</strong></span>` : ''}
+          ${p.promo.compare ? `<span class="pb-cmp"><em>${esc(p.promo.compare.title)}</em>${p.promo.compare.items.map(x => `<i>${ico('check')} ${esc(x)}</i>`).join('')}</span>` : ''}</div>
+          ${p.promo.note ? `<small>${esc(p.promo.note)}</small>` : ''}</div>` : ''}
         <div><h3 class="h3" style="font-size:20px;margin-bottom:12px">핵심 특징</h3><ul class="feat-list">${(p.features||[]).map(f => `<li>${ico('check')}<span>${esc(f)}</span></li>`).join('')}</ul></div>
+        ${(p.extraFeatures||[]).length ? `<div><h3 class="h3" style="font-size:20px;margin-bottom:12px">추가 기능 ${p.extraFeatures.length}</h3><ul class="xfeat">${p.extraFeatures.map(f => `<li><b>${esc(f[0])}</b><span>${esc(f[1])}</span></li>`).join('')}</ul></div>` : ''}
         <div><h3 class="h3" style="font-size:20px;margin-bottom:8px">상세 정보</h3><table class="spec-table"><tbody>${rows.map(r => `<tr><th>${esc(r[0])}</th><td>${esc(r[1])}</td></tr>`).join('')}</tbody></table></div>
         ${!isRent(p) && ((p.buyOptions||[]).length > 1 || (p.buyOptions||[]).length === 1 && p.buyOptions[0].price !== p.buyPrice) ? `<div><h3 class="h3" style="font-size:20px;margin-bottom:8px">구매 옵션</h3><table class="opt-table"><tbody>${p.buyOptions.map(o => `<tr><td>${esc(o.label)}</td><td>${won(o.price)}</td></tr>`).join('')}</tbody></table></div>` : ''}
         ${p.detailNote ? `<div class="notice">${ico('info')}<div>${esc(p.detailNote)}</div></div>` : ''}
         <div class="muted" style="font-size:13px;line-height:1.7">가격·조건은 변동될 수 있습니다.</div>
       </div>
     </div>
+    ${(p.infoImages||[]).length ? `<div class="info-imgs" id="productInfo">${sectionHead('PRODUCT GUIDE', '제품 안내', '')}${p.infoImages.map(im => `<figure>${img(im.src, im.alt || p.name)}</figure>`).join('')}</div>` : ''}
     <div style="margin-top:72px">${sectionHead('RELATED', '함께 살펴보면 좋은 제품', '')}${pgrid(relList)}</div>
     <div style="margin-top:44px">${disc()}</div>
   </div></section>`;
