@@ -52,17 +52,21 @@ const PID = n => 'G' + (2000000000 + n);
 
 /* 상단 메뉴 */
 window.NAV = [
-  { key: 'home', label: 'HOME', href: '#/' },
-  { key: 'air', label: 'PURE AIR', href: '#/air' },
-  { key: 'water', label: 'PURE WATER', href: '#/water' },
-  { key: 'life', label: 'HEALING LIFE', href: '#/life' },
-  { key: 'business', label: 'BUSINESS CARE', href: '#/business' },
-  { key: 'homecare', label: 'HOME CARE', href: '#/home-care' },
-  { key: 'rental', label: 'RENTAL', href: '#/rental' },
-  { key: 'subscribe', label: '정기배송', href: '#/subscribe' },
+  { key: 'air', label: '퓨어에어', href: '#/air' },
+  { key: 'water', label: '퓨어워터', href: '#/water' },
+  { key: 'perfume', label: '퓨어퍼퓸', href: '#/perfume' },
+  { key: 'homecare', label: '홈케어', href: '#/home-care' },
+  { key: 'business', label: '사업장', href: '#/business' },
+  { key: 'supplies', label: '소모품', href: '#/supplies' }
+];
+/* 상단 메뉴에서 빠진 기존 화면 — 메뉴 서랍(햄버거)·푸터에서 연결 */
+window.NAV_MORE = [
   { key: 'best', label: 'BEST', href: '#/best' },
-  { key: 'finder', label: 'CARE FINDER', href: '#/finder' },
-  { key: 'guide', label: 'CARE GUIDE', href: '#/guide' }
+  { key: 'rental', label: '렌탈', href: '#/rental' },
+  { key: 'subscribe', label: '정기배송', href: '#/subscribe' },
+  { key: 'finder', label: '케어 찾기', href: '#/finder' },
+  { key: 'guide', label: '케어 가이드', href: '#/guide' },
+  { key: 'products', label: '전체 제품', href: '#/products' }
 ];
 
 /* 지금 가장 신경 쓰이는 것은? — 8개 */

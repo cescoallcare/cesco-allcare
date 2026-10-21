@@ -62,11 +62,12 @@ function home(){
   </div></section>
 
   <section class="section" id="lines"><div class="container">
-    ${sectionHead('PURE AIR · PURE WATER · HEALING LIFE', '공기부터 물, 생활까지', '세 가지 라인에서 꼭 필요한 케어만 골라 보세요.')}
-    <div class="grid g3">
-      <a class="tile" href="#/air">${img(SECTIONS.air.img,'PURE AIR')}<div class="bd"><span class="en">PURE AIR</span><h3>매일 마시는 공기</h3><p>공기청정 · 공기살균 · 스페이스 케어</p><div class="chips"><span>AIR CLEAN</span><span>AIR STERILIZATION</span><span>SPACE CARE</span></div></div></a>
-      <a class="tile" href="#/water">${img(SECTIONS.water.img,'PURE WATER')}<div class="bd"><span class="en">PURE WATER</span><h3>매일 마시고 쓰는 물</h3><p>정수기 · 샤워필터 · 비데</p><div class="chips"><span>DRINK</span><span>SHOWER</span><span>BATH</span></div></div></a>
-      <a class="tile" href="#/life">${img(SECTIONS.life.img,'HEALING LIFE')}<div class="bd"><span class="en">HEALING LIFE</span><h3>일상의 위생과 청결</h3><p>살균 · 청소 · 위생 · 탈취 · 해충</p><div class="chips"><span>STERILIZE</span><span>CLEAN</span><span>HYGIENE</span><span>FRESH</span><span>BUG CARE</span></div></div></a>
+    ${sectionHead('PURE AIR · PURE WATER · PURE PERFUME · SUPPLIES', '공기부터 물, 향기, 소모품까지', '제품군별로 꼭 필요한 케어만 골라 보세요. 상황별 추천은 홈케어·사업장 스페셜 PICK에서 볼 수 있습니다.')}
+    <div class="grid g4 lines4">
+      <a class="tile" href="#/air">${img(SECTIONS.air.img,'퓨어에어')}<div class="bd"><span class="en">PURE AIR</span><h3>퓨어에어</h3><p>공기청정기 · 공기살균기 · 바디·핸드드라이어</p></div></a>
+      <a class="tile" href="#/water">${img(SECTIONS.water.img,'퓨어워터')}<div class="bd"><span class="en">PURE WATER</span><h3>퓨어워터</h3><p>정수기 · 비데 · 아롬비 샤워기</p></div></a>
+      <a class="tile" href="#/perfume">${img('assets/img/living-plants.webp','퓨어퍼퓸')}<div class="bd"><span class="en">PURE PERFUME</span><h3>퓨어퍼퓸</h3><p>에어제닉 · 에어퍼퓸</p></div></a>
+      <a class="tile" href="#/supplies">${img(SECTIONS.life.img,'소모품')}<div class="bd"><span class="en">SUPPLIES</span><h3>소모품</h3><p>카케어 · 물티슈 · 세정제 · 살균제 · 기피제 · 세제</p></div></a>
     </div>
     <div class="lp-links"><a class="btn btn-ghost btn-lg" href="air/">${ico('wind')} 에어케어 자세히 보기 ${ico('arrow')}</a><a class="btn btn-ghost btn-lg" href="water/">${ico('droplet')} 워터케어 자세히 보기 ${ico('arrow')}</a></div>
   </div></section>

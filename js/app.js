@@ -7,7 +7,10 @@ const app = $('#app');
 
 /* ── 정적 UI 채우기 ── */
 $('#nav').innerHTML = NAV.map(n => `<a href="${n.href}" data-key="${n.key}">${esc(n.label)}</a>`).join('');
-$('#drawerLinks').innerHTML = NAV.map(n => `<a class="m" href="${n.href}" data-key="${n.key}" data-act="closeDrawer">${esc(n.label)}${ico('chevron')}</a>`).join('') +
+const NAVM = window.NAV_MORE || [];
+$('#drawerLinks').innerHTML = `<div class="dr-main">` + NAV.map(n => `<a class="m" href="${n.href}" data-key="${n.key}" data-act="closeDrawer">${esc(n.label)}${ico('chevron')}</a>`).join('') + `</div>` +
+  `<div class="dr-more">` + NAVM.map(n => `<a href="${n.href}" data-key="${n.key}" data-act="closeDrawer">${esc(n.label)}</a>`).join('') +
+  `<a href="air/">에어케어 랜딩</a><a href="water/">워터케어 랜딩</a><a href="#/planner" data-act="closeDrawer">플래너 소개</a></div>`;
   `<a class="m" href="air/">에어케어 자세히 보기${ico('chevron')}</a><a class="m" href="water/">워터케어 자세히 보기${ico('chevron')}</a><a class="m" href="#/products" data-act="closeDrawer">전체 제품${ico('chevron')}</a><a class="m" href="#/planner" data-act="closeDrawer">플래너 소개${ico('chevron')}</a>`;
 $('#drawerTel').innerHTML = ico('phone') + ' ' + esc(C.planner.phone);
 $('#drawerTel').href = C.planner.phoneTel;
@@ -29,7 +32,7 @@ function footerHtml(){
         <ul class="contact" style="margin-top:18px">
           <li>${ico('phone')} <a href="${c.phoneTel}" style="color:#fff;font-weight:700">${esc(c.phone)}</a></li>
           <li>${ico('mail')} <a href="mailto:${esc(c.email)}">${esc(c.email)}</a></li></ul></div>
-      <div><h4>MENU</h4><ul class="menus">${NAV.map(n => `<li><a href="${n.href}">${esc(n.label)}</a></li>`).join('')}<li><a href="#/products">전체 제품</a></li><li><a href="#/planner">플래너 소개</a></li></ul></div>
+      <div><h4>MENU</h4><ul class="menus">${NAV.concat(window.NAV_MORE || []).map(n => `<li><a href="${n.href}">${esc(n.label)}</a></li>`).join('')}<li><a href="#/planner">플래너 소개</a></li></ul></div>
       <div><h4>CONTACT</h4><ul><li><a href="javascript:void(0)" data-act="consult">맞춤 상담 신청</a></li><li><a href="${c.phoneTel}">전화 상담</a></li><li><a href="${esc(C.kakaoUrl)}" data-act="kakao" target="_blank" rel="noopener">카카오톡 상담</a></li><li><a href="javascript:void(0)" data-act="inbox">이 브라우저의 상담 접수 내역</a></li></ul></div>
     </div>
     <div class="legal">
@@ -48,7 +51,7 @@ function parse(){
   const qs = {}; query.split('&').filter(Boolean).forEach(kv => { const [k, v=''] = kv.split('='); qs[decodeURIComponent(k)] = decodeURIComponent(v.replace(/\+/g, ' ')); });
   return { parts: path.split('/').filter(Boolean), qs };
 }
-const TITLES = { air:'PURE AIR', water:'PURE WATER', life:'HEALING LIFE', business:'BUSINESS CARE', 'home-care':'HOME CARE', rental:'RENTAL', subscribe:'정기배송', best:'BEST', finder:'CARE FINDER', guide:'CARE GUIDE', products:'전체 제품', search:'검색', planner:'플래너 소개' };
+const TITLES = { air:'퓨어에어', water:'퓨어워터', perfume:'퓨어퍼퓸', supplies:'소모품', business:'사업장', 'home-care':'홈케어', rental:'RENTAL', subscribe:'정기배송', best:'BEST', finder:'CARE FINDER', guide:'CARE GUIDE', products:'전체 제품', search:'검색', planner:'플래너 소개' };
 let lastPath = null;
 function render(){
   const { parts, qs } = parse();
@@ -57,13 +60,16 @@ function render(){
   try {
     switch (a) {
       case undefined: html = PG.home(); navKey = 'home'; break;
-      case 'air': case 'water': case 'life': html = PG.sectionPage(a, qs); break;
+      case 'air': if (qs.sub === 'air.space') { location.replace('#/perfume'); return; } html = PG.menuPage('air', qs); break;
+      case 'water': html = PG.menuPage('water', qs); break;
+      case 'perfume': case 'supplies': html = PG.menuPage(a, qs); break;
+      case 'life': location.replace((window.MENU_REDIRECTS || {}).life || '#/supplies'); return;
       case 'products': html = PG.productsPage(qs); navKey = ''; break;
-      case 'product': html = PG.productPage(b); { const p = byId[b]; title = p ? p.name : ''; navKey = p ? (p.category === 'air' ? 'air' : p.category === 'water' ? 'water' : 'life') : ''; } break;
+      case 'product': html = PG.productPage(b); { const p = byId[b]; title = p ? p.name : ''; navKey = PG.navKeyOf(p); } break;
       case 'best': html = PG.bestPage(qs); break;
       case 'rental': html = PG.rentalPage(qs); break;
-      case 'business': html = PG.businessPage(b); break;
-      case 'home-care': html = PG.homeCarePage(b); navKey = 'homecare'; break;
+      case 'business': html = b ? PG.businessPage(b) : PG.menuPage('business', qs); break;
+      case 'home-care': html = b ? PG.homeCarePage(b) : PG.menuPage('homecare', qs); navKey = 'homecare'; break;
       case 'concern': html = PG.concernPage(b); navKey = ''; break;
       case 'guide': html = PG.guidePage(b); break;
       case 'subscribe': html = PG.subscribePage(qs); break;
@@ -78,7 +84,7 @@ function render(){
   if (a === 'product' && title) document.title = `${title} | 세스코 올케어`;
   // nav 하이라이트
   $$('#nav a, #drawerLinks a[data-key]').forEach(x => x.classList.toggle('active', x.dataset.key === navKey));
-  $$('#bottomNav a[data-bn]').forEach(x => x.classList.toggle('on', x.dataset.bn === (a === undefined ? 'home' : a === 'finder' ? 'finder' : ['products','air','water','life','product','best','rental','subscribe'].includes(a) ? 'products' : '')));
+  $$('#bottomNav a[data-bn]').forEach(x => x.classList.toggle('on', x.dataset.bn === (a === undefined ? 'home' : a === 'finder' ? 'finder' : ['products','air','water','perfume','supplies','product','best','rental','subscribe'].includes(a) ? 'products' : '')));
   // sub-bar
   const bar = $('#subBar'); if (bar) { bar.innerHTML = PG.subBarHtml(); bar.classList.toggle('show', !!bar.innerHTML); }
   // 스크롤: 같은 라우트의 필터 변경 시엔 유지
