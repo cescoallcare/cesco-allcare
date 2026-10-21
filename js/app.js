@@ -7,6 +7,9 @@ const app = $('#app');
 
 /* ── 정적 UI 채우기 ── */
 $('#nav').innerHTML = NAV.map(n => `<a href="${n.href}" data-key="${n.key}">${esc(n.label)}</a>`).join('');
+/* 모바일: 헤더 아래 항상 보이는 6개 메뉴 가로 바 */
+{ const mn = document.createElement('nav'); mn.className = 'mnav'; mn.id = 'mnav'; mn.setAttribute('aria-label', '주요 메뉴');
+  mn.innerHTML = NAV.map(n => `<a href="${n.href}" data-key="${n.key}">${esc(n.label)}</a>`).join(''); $('#header').appendChild(mn); }
 const NAVM = window.NAV_MORE || [];
 $('#drawerLinks').innerHTML = `<div class="dr-main">` + NAV.map(n => `<a class="m" href="${n.href}" data-key="${n.key}" data-act="closeDrawer">${esc(n.label)}${ico('chevron')}</a>`).join('') + `</div>` +
   `<div class="dr-more">` + NAVM.map(n => `<a href="${n.href}" data-key="${n.key}" data-act="closeDrawer">${esc(n.label)}</a>`).join('') +
@@ -22,6 +25,7 @@ $('#bottomNav').innerHTML = `
   <a href="#/" data-bn="home">${ico('home')}<span>홈</span></a>
   <a href="#/products" data-bn="products">${ico('box')}<span>제품</span></a>
   <a href="#/finder" data-bn="finder">${ico('compass')}<span>케어찾기</span></a>
+  <a href="${esc(C.kakaoUrl)}" data-act="kakao" class="kk" target="_blank" rel="noopener">${ico('message')}<span>카톡</span></a>
   <a href="javascript:void(0)" class="cta" data-act="consult"><span class="pill">${ico('message')}<span>상담</span></span></a>`;
 
 function footerHtml(){
@@ -80,10 +84,12 @@ function render(){
     }
   } catch (e) { console.error('render error', e); html = PG.notFound(); }
   app.innerHTML = html;
+  document.body.classList.toggle('rt-home', a === undefined);
   document.title = (TITLES[a] || title) && a ? `${TITLES[a] || title} | 세스코 올케어 CESCO ALL CARE` : '세스코 올케어 (CESCO ALL CARE) | 세스코 라이프케어 SOL 플래너';
   if (a === 'product' && title) document.title = `${title} | 세스코 올케어`;
   // nav 하이라이트
-  $$('#nav a, #drawerLinks a[data-key]').forEach(x => x.classList.toggle('active', x.dataset.key === navKey));
+  $$('#nav a, #mnav a, #drawerLinks a[data-key]').forEach(x => { const on = x.dataset.key === navKey; x.classList.toggle('active', on); if (on) x.setAttribute('aria-current', 'page'); else x.removeAttribute('aria-current'); });
+  { const m = $('#mnav'), on = m && m.querySelector('a.active'); if (m) m.scrollLeft = on ? on.offsetLeft - (m.clientWidth - on.offsetWidth) / 2 : 0; }
   $$('#bottomNav a[data-bn]').forEach(x => x.classList.toggle('on', x.dataset.bn === (a === undefined ? 'home' : a === 'finder' ? 'finder' : ['products','air','water','perfume','supplies','product','best','rental','subscribe'].includes(a) ? 'products' : '')));
   // sub-bar
   const bar = $('#subBar'); if (bar) { bar.innerHTML = PG.subBarHtml(); bar.classList.toggle('show', !!bar.innerHTML); }
@@ -186,7 +192,11 @@ render();
 /* ── 헤더 스크롤 전환 / 스크롤 리빌 / 숫자 카운트 ── */
 const header = $('#header');
 let ticking = false;
-function onScroll(){ if (ticking) return; ticking = true; requestAnimationFrame(() => { header.classList.toggle('scrolled', window.scrollY > 12); ticking = false; }); }
+let lastY = 0;
+function onScroll(){ if (ticking) return; ticking = true; requestAnimationFrame(() => { const y = window.scrollY; header.classList.toggle('scrolled', y > 12);
+  /* 모바일: 아래로 스크롤하면 로고 줄을 접고 메뉴 바만 고정, 위로 올리면 다시 펼침 */
+  if (y < 120 || y < lastY - 6) header.classList.remove('hdr-min'); else if (y > lastY + 6) header.classList.add('hdr-min');
+  document.body.classList.toggle('scr', y > 140); lastY = y; ticking = false; }); }
 window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
 const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const RV = '.section-head, .tile, .concern-card, .pick-card, .pcard, .rcard, .gcard, .benefit, .step-block, .cta-strip, .p-item, .planner .pl-card, .consult .inner > *, .stats .stat-i, .faq, .cmp, .notice, .result-hero, .rec-card, .worry-list li';

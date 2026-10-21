@@ -1132,3 +1132,107 @@ body.np-open .fl-quick,body.np-open .fl-panel,body.np-open .lp-bar{opacity:0 !im
   .pk-list a .pr{grid-column:2}
   .pk-list img{width:40px;height:40px;grid-row:span 2}
 }
+
+/* ==========================================================================
+   모바일 가독성·터치 개선 (2026-10-21) — 360/390/430px 기준
+   ========================================================================== */
+.mnav{display:none}
+@media (max-width:767px){
+  :root{--hdr-row:54px;--mnav-h:46px;--header-h:calc(var(--hdr-row) + var(--mnav-h));--bottom-h:62px}
+  html{-webkit-text-size-adjust:100%}
+  body{font-size:16px}
+  /* 헤더: 로고 줄 54px + 6개 메뉴 가로 바 46px, 아래로 스크롤하면 로고 줄만 접힘 */
+  .header{height:var(--header-h);display:flex;flex-direction:column;transition:transform .28s var(--ease),background .3s,box-shadow .3s}
+  .header .inner{height:var(--hdr-row);flex:none;width:100%}
+  .header.hdr-min{transform:translateY(calc(-1 * var(--hdr-row)))}
+  .logo{min-height:44px;align-items:center}
+  .logo img{height:32px}
+  .header .btn{height:44px;min-height:44px;padding:0 14px;font-size:14.5px}
+  .header .icon-btn{width:44px;height:44px}
+  .mnav{display:flex;height:var(--mnav-h);flex:none;align-items:stretch;gap:2px;padding:0 10px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;border-top:1px solid rgba(10,31,68,.06);background:rgba(255,255,255,.96)}
+  .mnav::-webkit-scrollbar{display:none}
+  .mnav a{flex:1 0 auto;display:flex;align-items:center;justify-content:center;min-width:56px;padding:0 10px;font-size:15px;font-weight:700;color:#3a4a63;white-space:nowrap;position:relative}
+  .mnav a.active{color:var(--blue)}
+  .mnav a.active::after{content:"";position:absolute;left:12px;right:12px;bottom:0;height:3px;border-radius:3px 3px 0 0;background:var(--blue)}
+  /* 플로팅 추천 칩: 맨 위에서만, 스크롤하면 숨김(메뉴 바와 겹침 방지) */
+  .fl-chips{top:calc(var(--header-h) + 8px);transition:opacity .2s,transform .2s}
+  .fl-chip{height:44px;font-size:14px}
+  body:not(.rt-home) .fl-chips{display:none}
+  body.scr .fl-chips{opacity:0;transform:translateY(-8px);pointer-events:none}
+  body.scr .fl-chips .fl-chip{pointer-events:none}
+  /* 하단 바: 홈·제품·케어찾기·카톡·상담 */
+  .bottom-nav{grid-template-columns:repeat(5,1fr)}
+  .bottom-nav a{font-size:12px;min-height:48px}
+  .bottom-nav a.kk .ico{color:#3A1D1D}
+  .bottom-nav a.kk{color:#3A1D1D}
+  .fl-quick{right:12px}
+  .fl-fab{width:52px;height:52px}
+  /* 본문 글자 */
+  .lead,.page-hero .lead{font-size:16px;line-height:1.65}
+  .section p,.grp-d,.pk-w,.mn-empty p,.notice,.feat-list li,.spec-table td,.spec-table th,.card p{font-size:15px}
+  .crumbs{display:none}
+  .chip{min-height:44px;font-size:15px}
+  .chipbar{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-left:-20px;margin-right:-20px;padding:2px 20px 4px;gap:8px}
+  .chipbar::-webkit-scrollbar{display:none}
+  .chipbar .chip,.chipbar .label{flex:none}
+  /* 상품 카드 2열 */
+  .pgrid{grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:12px}
+  .pcard{border-radius:20px}
+  .pcard-body{padding:12px 12px 14px;gap:6px}
+  .pcard-cat{font-size:11px;letter-spacing:.08em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .pcard h3{font-size:15px;line-height:1.4;-webkit-line-clamp:3;min-height:4.2em;word-break:keep-all;overflow-wrap:anywhere}
+  .pcard-desc{display:none}
+  .pcard-spec{margin:4px 0 0;padding:0}
+  .pcard-spec div:has(> dd:not(.price):not(.rent):not(.ask)){display:none}
+  .pcard-spec div,.pcard-spec div:has(dd.rent),.pcard-spec div:has(dd.price){flex-direction:column;align-items:flex-start;gap:2px;padding:9px 10px;margin:2px 0;border-radius:12px}
+  .pcard-spec dt{font-size:12.5px}
+  .pcard-spec dd{text-align:left;font-size:14px;word-break:keep-all;overflow-wrap:anywhere}
+  .pcard-spec dd.price,.pcard-spec dd.rent{font-size:16px;line-height:1.35}
+  .pcard-spec dd .basis{display:none}
+  .pcard-actions{flex-direction:column;gap:6px;padding-top:10px}
+  .pcard-actions .btn{height:44px;min-height:44px;font-size:14px;padding:0 6px;width:100%}
+  .pcard .badges .badge{font-size:11px;padding:4px 8px}
+  /* PICK 카드 압축 */
+  .pk-im{aspect-ratio:16/5}
+  .pk-bd{padding:14px 16px 16px;gap:10px}
+  .pk-bd h3{font-size:19px}
+  .pk-list a{grid-template-columns:44px 1fr;min-height:52px;padding:4px}
+  .pk-list .nm{font-size:15px;white-space:normal;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical}
+  .pk-list .pr{font-size:14px;grid-column:2}
+  .pk-list img{grid-row:span 2;width:44px;height:44px}
+  .pk-act .btn{min-height:46px;font-size:15px}
+  /* 상세: 사진 → 이름 → 가격 → 상담 버튼이 첫 화면에 */
+  .detail{gap:14px;margin-top:4px !important}
+  .detail .gallery,.detail .gal-col .gallery{aspect-ratio:auto;height:min(56vw,220px);max-width:none;border-radius:22px}
+  .detail .gallery img{object-fit:contain}
+  .detail .gal-col{gap:8px}
+  .g-thumb{width:56px;height:56px}
+  .detail .info{gap:16px}
+  .detail .info>*{order:5}
+  .detail .info>:first-child{order:1;gap:8px !important}
+  .detail .info>.pricebox{order:2}
+  .detail .info>.btn-stack{order:3}
+  .detail .info>:first-child .tag-list{display:none}
+  .detail .info>:first-child .tag-list:has(.badge.new){display:flex}
+  .detail .info h1{font-size:23px;line-height:1.3}
+  .detail .info .lead{font-size:15px;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+  .detail .info .eyebrow{display:none}
+  .pricebox{padding:14px 16px}
+  .detail .btn-stack{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+  .detail .btn-stack .btn-lg{height:50px;font-size:15.5px;padding:0 12px}
+  section.section:has(> .container > .detail){padding-top:16px !important}
+  /* 폼 확대 방지 */
+  input,select,textarea,.input{font-size:16px !important}
+  .modal .btn{min-height:48px}
+}
+@media (max-width:374px){
+  .container{padding:0 16px}
+  .pgrid{gap:10px}
+  .pcard-body{padding:10px 10px 12px}
+  .pcard h3{font-size:14.5px}
+  .mnav a{padding:0 8px;font-size:14.5px}
+  .header .btn{padding:0 10px}
+  .chipbar{margin-left:-16px;margin-right:-16px;padding-left:16px;padding-right:16px}
+}
+@media (max-width:767px){.pcard h3 a{padding:8px 0}}
+@media (max-width:767px){:root:has(#lpHead){--header-h:64px}}
