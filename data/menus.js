@@ -22,15 +22,15 @@ window.MENUS = [
     groups: [
       { id: 'purifier', label: '정수기', desc: '냉·온·정수 정수기 — 주력 더슬림(슬림) 계열이 먼저', match: { grp: ['water-purifier'] }, first: { names: ['슬림'] } },
       { id: 'bidet', label: '비데', desc: '살균·방수 비데', match: { grp: ['water-bidet'] } },
-      { id: 'shower', label: '아롬비 샤워기', desc: '샤워 물 관리를 위한 아롬비 샤워기 (제휴·판매 상품)', match: { grp: ['water-shower'] }, partner: true },
-      { id: 'booth', label: '부스', desc: '현재 사이트에 등록된 부스 제품이 없습니다. 필요하시면 상담 시 안내해 드립니다.', match: { names: ['부스'] }, empty: 'consult' }
+      { id: 'shower', label: '샤워부스', desc: '샤워 물 관리를 위한 아롬비 샤워기(제휴·판매 상품). 샤워부스 제품은 현재 사이트에 등록된 것이 없어 상담 시 안내해 드립니다.',
+        match: { grp: ['water-shower'], names: ['부스'] }, partner: true, empty: 'consult', note: '샤워부스 제품은 상담 시 안내해 드립니다.' }
     ] },
   { key: 'perfume', label: '퓨어퍼퓸', en: 'PURE PERFUME', href: '#/perfume', topic: '공기 케어',
     title: '공간의 첫인상을<br>향기로 바꿉니다.', lead: '방향·탈취를 함께 해 주는 에어제닉, 공간에 어울리는 향을 연출하는 에어퍼퓸.',
     img: 'assets/img/living-plants.webp',
     groups: [
-      { id: 'airgenic', label: '에어제닉', desc: '방향·탈취를 함께 해 주는 에어제닉', match: { names: ['에어제닉'] } },
-      { id: 'airperfume', label: '에어퍼퓸', desc: '디퓨저·퍼퓸 등 공간 향기 연출', match: { names: ['에어퍼퓸', '퍼퓸'] } }
+      { id: 'airgenic', label: '에어제닉', hint: '탈취', desc: '방향·탈취를 함께 해 주는 에어제닉', match: { names: ['에어제닉'] } },
+      { id: 'airperfume', label: '에어퍼퓸', hint: '고급향', desc: '디퓨저·퍼퓸 등 공간 향기 연출', match: { names: ['에어퍼퓸', '퍼퓸'] } }
     ] },
   { key: 'homecare', label: '홈케어', en: 'HOME CARE', href: '#/home-care', topic: '잘 모르겠어요 (먼저 진단받고 싶어요)',
     title: '함께 사는 사람에 따라<br>필요한 케어가 달라집니다', lead: '우리 집 상황과 가까운 PICK을 고르거나, 공기·물·위생·편의 제품별로 살펴보세요.',

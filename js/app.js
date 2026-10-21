@@ -6,15 +6,47 @@ const PG = window.PAGES, NAV = window.NAV;
 const app = $('#app');
 
 /* ── 정적 UI 채우기 ── */
-$('#nav').innerHTML = NAV.map(n => `<a href="${n.href}" data-key="${n.key}">${esc(n.label)}</a>`).join('');
+const MENUS = window.MENUS || [];
+const subsOf = key => { const m = MENUS.find(x => x.key === key); return m && PG.menuSubs ? PG.menuSubs(m) : []; };
+const subLink = (it, cls) => `<a class="${cls}" href="${it.href}" data-sub="${esc(it.target)}">${esc(it.label)}${it.hint ? `<small>${esc(it.hint)}</small>` : ''}</a>`;
+/* PC 상단 메뉴 + 드롭다운(홈케어·사업장은 2단 메가메뉴) */
+$('#nav').innerHTML = NAV.map(n => { const subs = subsOf(n.key).filter(s => s.items.length); const mega = subs.length > 1;
+  return `<div class="nav-item${mega ? ' mega' : ''}" data-nav="${n.key}"><a class="top" href="${n.href}" data-key="${n.key}" ${subs.length ? `aria-haspopup="true" aria-expanded="false" aria-controls="dd-${n.key}"` : ''}>${esc(n.label)}</a>
+    ${subs.length ? `<div class="dd" id="dd-${n.key}" role="menu" aria-label="${esc(n.label)} 하위 메뉴">${subs.map(s => `<div class="dd-col">${mega && s.title ? `<div class="dd-h">${esc(s.title)}</div>` : ''}${s.items.map(it => subLink(it, 'dd-a')).join('')}</div>`).join('')}</div>` : ''}</div>`; }).join('');
+{ /* 마우스오버 지연(깜빡임 방지) · 키보드 포커스 · 클릭 시 닫힘 · ESC */
+  const items = $$('#nav .nav-item'); let tOpen = null, tClose = null;
+  const setOpen = (it, on) => { it.classList.toggle('open', on); const a = it.querySelector('a.top'); if (a && a.hasAttribute('aria-expanded')) a.setAttribute('aria-expanded', on ? 'true' : 'false'); };
+  const closeAll = except => items.forEach(x => { if (x !== except) setOpen(x, false); });
+  items.forEach(it => {
+    if (!it.querySelector('.dd')) return;
+    it.addEventListener('mouseenter', () => { clearTimeout(tClose); clearTimeout(tOpen); tOpen = setTimeout(() => { closeAll(it); setOpen(it, true); }, it.parentNode.querySelector('.nav-item.open') ? 0 : 140); });
+    it.addEventListener('mouseleave', () => { clearTimeout(tOpen); tClose = setTimeout(() => setOpen(it, false), 220); });
+    it.addEventListener('focusin', () => { closeAll(it); setOpen(it, true); });
+    it.addEventListener('focusout', e => { if (!it.contains(e.relatedTarget)) setOpen(it, false); });
+    it.addEventListener('keydown', e => { if (e.key === 'Escape') { setOpen(it, false); it.querySelector('a.top').focus(); }
+      if (e.key === 'ArrowDown' && e.target.classList.contains('top')) { e.preventDefault(); setOpen(it, true); const f = it.querySelector('.dd a'); if (f) f.focus(); } });
+  });
+  $('#nav').addEventListener('click', e => { const a = e.target.closest('a'); if (!a) return; clearTimeout(tOpen); closeAll(null); if (a.classList.contains('dd-a')) a.blur(); });
+}
 /* 모바일: 헤더 아래 항상 보이는 6개 메뉴 가로 바 */
 { const mn = document.createElement('nav'); mn.className = 'mnav'; mn.id = 'mnav'; mn.setAttribute('aria-label', '주요 메뉴');
   mn.innerHTML = NAV.map(n => `<a href="${n.href}" data-key="${n.key}">${esc(n.label)}</a>`).join(''); $('#header').appendChild(mn); }
 const NAVM = window.NAV_MORE || [];
-$('#drawerLinks').innerHTML = `<div class="dr-main">` + NAV.map(n => `<a class="m" href="${n.href}" data-key="${n.key}" data-act="closeDrawer">${esc(n.label)}${ico('chevron')}</a>`).join('') + `</div>` +
+$('#drawerLinks').innerHTML = `<div class="dr-main">` + NAV.map(n => { const subs = subsOf(n.key).filter(s => s.items.length);
+  return `<div class="dr-acc" data-nav="${n.key}"><div class="dr-row"><a class="m" href="${n.href}" data-key="${n.key}" data-act="closeDrawer">${esc(n.label)}</a>${subs.length ? `<button type="button" class="dr-tg" aria-expanded="false" aria-controls="drs-${n.key}" aria-label="${esc(n.label)} 하위 메뉴 펼치기">${ico('chevron')}</button>` : ''}</div>
+    ${subs.length ? `<div class="dr-sub" id="drs-${n.key}" hidden>${subs.map(s => `${s.title && subs.length > 1 ? `<div class="dr-h">${esc(s.title)}</div>` : ''}<div class="dr-items">${s.items.map(it => subLink(it, 'dr-a')).join('')}</div>`).join('')}</div>` : ''}</div>`; }).join('') + `</div>` +
   `<div class="dr-more">` + NAVM.map(n => `<a href="${n.href}" data-key="${n.key}" data-act="closeDrawer">${esc(n.label)}</a>`).join('') +
   `<a href="air/">에어케어 랜딩</a><a href="water/">워터케어 랜딩</a><a href="#/planner" data-act="closeDrawer">플래너 소개</a></div>`;
   `<a class="m" href="air/">에어케어 자세히 보기${ico('chevron')}</a><a class="m" href="water/">워터케어 자세히 보기${ico('chevron')}</a><a class="m" href="#/products" data-act="closeDrawer">전체 제품${ico('chevron')}</a><a class="m" href="#/planner" data-act="closeDrawer">플래너 소개${ico('chevron')}</a>`;
+$('#drawerLinks').addEventListener('click', e => {
+  const tg = e.target.closest('.dr-tg');
+  if (tg) { const sub = document.getElementById(tg.getAttribute('aria-controls')); const on = tg.getAttribute('aria-expanded') !== 'true';
+    tg.setAttribute('aria-expanded', on ? 'true' : 'false'); tg.closest('.dr-acc').classList.toggle('open', on); if (sub) sub.hidden = !on; return; }
+  if (e.target.closest('.dr-a')) closeDrawer();
+});
+/* 같은 하위 항목을 다시 눌렀을 때(해시 변화 없음)도 앵커로 이동 */
+document.addEventListener('click', e => { const a = e.target.closest && e.target.closest('a[data-sub]'); if (!a) return;
+  if (location.hash === a.getAttribute('href')) { e.preventDefault(); PG.scrollToId(a.dataset.sub); } });
 $('#drawerTel').innerHTML = ico('phone') + ' ' + esc(C.planner.phone);
 $('#drawerTel').href = C.planner.phoneTel;
 $('#btnSearch').innerHTML = ico('search'); $('#btnSearch').dataset.act = 'openSearch';
@@ -88,7 +120,7 @@ function render(){
   document.title = (TITLES[a] || title) && a ? `${TITLES[a] || title} | 세스코 올케어 CESCO ALL CARE` : '세스코 올케어 (CESCO ALL CARE) | 세스코 라이프케어 SOL 플래너';
   if (a === 'product' && title) document.title = `${title} | 세스코 올케어`;
   // nav 하이라이트
-  $$('#nav a, #mnav a, #drawerLinks a[data-key]').forEach(x => { const on = x.dataset.key === navKey; x.classList.toggle('active', on); if (on) x.setAttribute('aria-current', 'page'); else x.removeAttribute('aria-current'); });
+  $$('#nav a.top, #mnav a, #drawerLinks a[data-key]').forEach(x => { const on = x.dataset.key === navKey; x.classList.toggle('active', on); if (on) x.setAttribute('aria-current', 'page'); else x.removeAttribute('aria-current'); });
   { const m = $('#mnav'), on = m && m.querySelector('a.active'); if (m) m.scrollLeft = on ? on.offsetLeft - (m.clientWidth - on.offsetWidth) / 2 : 0; }
   $$('#bottomNav a[data-bn]').forEach(x => x.classList.toggle('on', x.dataset.bn === (a === undefined ? 'home' : a === 'finder' ? 'finder' : ['products','air','water','perfume','supplies','product','best','rental','subscribe'].includes(a) ? 'products' : '')));
   // sub-bar
@@ -100,6 +132,7 @@ function render(){
   closeDrawer();
   // 홈 해시앵커
   if (qs.goto) { const el = document.getElementById(qs.goto); if (el) el.scrollIntoView(); }
+  { const mk = { air: 'air', water: 'water', perfume: 'perfume', supplies: 'supplies', 'home-care': 'homecare', business: 'business' }[a]; const id = mk && !b && PG.anchorOf ? PG.anchorOf(mk, qs) : null; if (id) PG.scrollToId(id); }
 }
 window.addEventListener('hashchange', render);
 

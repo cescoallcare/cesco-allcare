@@ -1236,3 +1236,31 @@ body.np-open .fl-quick,body.np-open .fl-panel,body.np-open .lp-bar{opacity:0 !im
 }
 @media (max-width:767px){.pcard h3 a{padding:8px 0}}
 @media (max-width:767px){:root:has(#lpHead){--header-h:64px}}
+
+/* ───── 상단 드롭다운 · 메가메뉴 ───── */
+.nav-item{position:relative;display:flex;align-items:center;height:100%}
+.nav .dd{position:absolute;top:calc(100% - 6px);left:50%;transform:translate(-50%,6px);min-width:220px;background:#fff;border-radius:18px;box-shadow:0 22px 60px rgba(10,31,68,.18),0 0 0 1px rgba(10,31,68,.06);padding:10px;display:flex;gap:6px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .16s,transform .2s var(--ease),visibility 0s .2s;z-index:120}
+.nav .dd::before{content:"";position:absolute;left:0;right:0;top:-14px;height:14px}
+.nav-item.open .dd{opacity:1;visibility:visible;pointer-events:auto;transform:translate(-50%,0);transition:opacity .16s,transform .2s var(--ease)}
+.nav-item.mega .dd{min-width:520px}
+.nav .dd-col{display:flex;flex-direction:column;min-width:200px;flex:1}
+.nav-item.mega .dd-col+.dd-col{border-left:1px solid var(--line);padding-left:6px}
+.nav .dd-h{font-size:12px;font-weight:800;letter-spacing:.06em;color:var(--blue);padding:8px 12px 6px}
+.nav .dd a.dd-a{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px;border-radius:12px;font-size:14.5px;font-weight:600;color:#26364f;white-space:nowrap;min-height:40px}
+.nav .dd a.dd-a::after{display:none}
+.nav .dd a.dd-a:hover,.nav .dd a.dd-a:focus-visible{background:var(--sky);color:var(--blue)}
+.nav .dd a.dd-a small{font-size:12px;font-weight:600;color:var(--muted);background:var(--gray);padding:2px 8px;border-radius:999px}
+/* 모바일 서랍 아코디언 */
+.drawer .dr-acc{border-radius:14px}
+.drawer .dr-row{display:flex;align-items:center}
+.drawer .dr-row a.m{flex:1}
+.drawer .dr-tg{width:48px;height:48px;display:grid;place-items:center;border-radius:12px;color:#5f6e85;flex:none}
+.drawer .dr-tg .ico{transform:rotate(90deg);transition:transform .2s}
+.drawer .dr-acc.open .dr-tg .ico{transform:rotate(-90deg)}
+.drawer .dr-acc.open{background:#F7FAFE}
+.drawer .dr-sub{padding:0 10px 10px}
+.drawer .dr-h{font-size:12.5px;font-weight:800;color:var(--blue);letter-spacing:.04em;padding:10px 6px 4px}
+.drawer .dr-items{display:flex;flex-wrap:wrap;gap:6px}
+.drawer .dr-a{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 14px;border-radius:999px;background:#fff;box-shadow:inset 0 0 0 1px var(--line);font-size:15px;font-weight:600;color:#26364f}
+.drawer .dr-a small{font-size:12px;color:var(--muted)}
+.mn-note{margin-top:16px}

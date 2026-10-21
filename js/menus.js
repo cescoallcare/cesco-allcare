@@ -56,7 +56,8 @@ function groupBlock(m, x){
       <div class="btn-stack"><button type="button" class="btn btn-primary" data-act="consult" data-topic="${esc(m.topic)}" data-msg="${esc(x.g.label)} 문의">${ico('message')} 상담 신청</button>${kakao('btn btn-ghost')}</div></div></div>`;
   }
   return `<div class="grp mn-grp" id="${id}"><h3 class="grp-h">${esc(x.g.label)}<small>${x.items.length}개</small></h3>${x.g.desc ? `<p class="grp-d">${esc(x.g.desc)}</p>` : ''}
-    ${x.g.partner && x.items.some(p => p.partner) ? `<div style="margin:0 0 18px">${partnerNotice()}</div>` : ''}${pgrid(x.items)}</div>`;
+    ${x.g.partner && x.items.some(p => p.partner) ? `<div style="margin:0 0 18px">${partnerNotice()}</div>` : ''}${pgrid(x.items)}
+    ${x.g.note ? `<div class="mn-empty mn-note">${ico('info')}<div><b>${esc(x.g.note)}</b></div><div class="btn-stack"><button type="button" class="btn btn-primary" data-act="consult" data-topic="${esc(m.topic)}" data-msg="${esc(x.g.label)} 문의">${ico('message')} 상담 신청</button>${kakao('btn btn-ghost')}</div></div>` : ''}</div>`;
 }
 function pickCard(m, k){
   const items = k.ids.map(id => byId[id]).filter(live).slice(0, 4);
@@ -97,6 +98,27 @@ function legacyPick(key, oldId){
   const m = menuOf(key); if (!m || !m.picks) return null;
   const k = m.picks.find(x => [].concat(x.legacy || []).includes(oldId)); return k ? `pk-${m.key}-${k.id}` : null;
 }
-Object.assign(PG, { menuPage, menuGroups, navKeyOf, legacyPick, menuOf });
+/* 상단 드롭다운·서랍 아코디언용 하위 항목 (딥링크: #/메뉴?g=소분류 · ?pick=PICK) */
+function menuSubs(m){
+  const out = [];
+  if ((m.picks || []).length) out.push({ title: m.picksTitle, items: m.picks.filter(k => k.ids.some(id => live(byId[id]))).map(k => ({ label: k.label, href: `${m.href}?pick=${k.id}`, target: `pk-${m.key}-${k.id}` })) });
+  const gs = menuGroups(m).filter(x => x.items.length || x.g.empty === 'consult');
+  out.push({ title: m.groupsTitle || '', items: gs.map(x => ({ label: x.g.label, hint: x.g.hint || '', href: `${m.href}?g=${x.g.id}`, target: `mg-${m.key}-${x.g.id}` })) });
+  return out;
+}
+/* 라우팅 후 ?g / ?pick 앵커로 스크롤 */
+function anchorOf(key, qs){
+  const m = menuOf(key); if (!m) return null;
+  if (qs.pick) return `pk-${m.key}-${qs.pick}`;
+  if (qs.g) return `mg-${m.key}-${qs.g}`;
+  return null;
+}
+function scrollToId(id){
+  const go = () => { const el = document.getElementById(id); if (!el) return;
+    const hh = document.getElementById('header'), off = (hh ? hh.getBoundingClientRect().bottom : 72) + 12;
+    window.scrollTo({ top: Math.max(0, el.getBoundingClientRect().top + window.scrollY - off), behavior: 'auto' }); };
+  requestAnimationFrame(go); setTimeout(go, 250); setTimeout(go, 700); setTimeout(go, 1300);
+}
+Object.assign(PG, { menuSubs, anchorOf, scrollToId, menuPage, menuGroups, navKeyOf, legacyPick, menuOf });
 window.MENU_API = { menuGroups, navKeyOf, inGroup };
 })();
