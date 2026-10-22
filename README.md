@@ -27,7 +27,7 @@
 - 로고: 사용자 제공 파일.
 
 ## 관리자 페이지 (/admin/)
-- 주소: `https://cescoallcare.co.kr/admin/` (`admin/index.html`, noindex). 로그인은 정적 사이트의 **화면 잠금**일 뿐 진짜 보안이 아닙니다(비밀번호는 솔트+PBKDF2-SHA256 해시만 `admin/auth.js` 에 있음. 변경은 `python3 tools/make_admin_hash.py`).
+- 주소: `https://cescoallcare.github.io/cesco-allcare/admin/` (`admin/index.html`, noindex). 로그인은 정적 사이트의 **화면 잠금**일 뿐 진짜 보안이 아닙니다(비밀번호는 솔트+PBKDF2-SHA256 해시만 `admin/auth.js` 에 있음. 변경은 `python3 tools/make_admin_hash.py`).
 - 데이터 구조: 기본 데이터 `data/products.js` + 오버라이드 `data/price-overrides.json`(기본 대비 바뀐 필드만). 사이트는 `js/loader.js` 가 로드 시 `price-overrides.json?v=타임스탬프` 를 받아 `js/overrides.js` 로 병합한 뒤 core/pages/app 을 로드합니다. 파일이 없거나 실패하면 기본 데이터로 동작합니다.
 - 게시: GitHub fine-grained 토큰(이 저장소 Contents: Read and write)을 입력하면 Contents API(`PUT /repos/cescoallcare/cesco-allcare/contents/data/price-overrides.json`)로 커밋 → Pages 자동 재배포(1~2분). 토큰이 없으면 "JSON 다운로드" 후 저장소 `data/` 에 수동 업로드.
 - 배포 복사본에는 `screenshots/`, `tmp/`, `tools/` 를 제외하고 `.nojekyll` 을 유지합니다.
@@ -49,3 +49,7 @@
 - 계산 기준: 베스트 인기 = BEST 페이지와 같은 세스코몰 리뷰 수 순위(제휴 상품 제외) / 베스트 핫딜 = 렌탈 가격표의 정상가 대비 ‘이달의 판매가’·‘현장 할인가(단품)’ 중 낮은 값의 할인율(상품별 최대 옵션 1개) / 이맘때 추천 = 브라우저 날짜의 월 규칙.
 - 상품은 `window.CESCO_PRODUCTS`(관리자 오버라이드 반영본)에서 패널을 열 때마다 계산하므로 숨김·삭제·품절 상품은 자동으로 빠집니다.
 - 사이트 전체에 플래너 개인 이름을 표기하지 않고 “세스코 라이프케어 SOL 플래너”로만 표기합니다(`data/site.js`에 `planner.name` 없음). 명함 이미지는 사이트에서 쓰지 않으며 원본은 `tools/orig-img/`(배포 제외)에만 보관합니다.
+
+## SEO (검색 노출)
+- `node tools/seo.js` 로 각 페이지 head(title·설명·canonical·OG·JSON-LD), 메뉴 랜딩(perfume/home-care/business/supplies), robots.txt, sitemap.xml, rss.xml 을 다시 만듭니다.
+- 소유확인 태그: 네이버 서치어드바이저 / 구글 서치콘솔에서 "HTML 태그" 방식으로 받은 코드를 `tools/seo.js` 의 head() 안 주석 `<!-- <meta name="naver-site-verification" ...> -->`, `<!-- <meta name="google-site-verification" ...> -->` 자리에 넣고 주석을 풀어 다시 실행 후 배포하세요(최소 index.html 에만 있어도 됩니다).
