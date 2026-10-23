@@ -30,7 +30,7 @@ window.CONFIG = {
    - productId: 상세 보기·상담 신청(관심 상품 자동 입력)·가격 표시에 사용. 관리자에서 그 상품을 숨기면 팝업도 나오지 않습니다(가격 수정도 자동 반영).
    - 첫 방문(브라우저 세션당 1회) 약 delayMs 뒤 노출 */
 window.POPUP = {
-  enabled: true,
+  enabled: false,   // 2026-10-23 사용자 요청으로 내림. 다시 켜려면 true
   id: 'carcare-2026-10',
   badge: 'NEW',
   eyebrow: '신제품 출시',
