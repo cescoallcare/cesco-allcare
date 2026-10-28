@@ -49,7 +49,8 @@ function ico(n, cls=''){ return `<svg class="ico ${cls}" viewBox="0 0 24 24" ari
 
 /* ── 이미지 ── */
 const PH = 'assets/img/placeholder.svg';
-function img(src, alt='', extra=''){ return `<img src="${esc(src||PH)}" alt="${esc(alt)}" loading="lazy" decoding="async" ${extra}>`; }
+const IMGDIM = {"assets/img/bathroom.webp":[1200,1799],"assets/img/bedroom.webp":[1600,1067],"assets/img/biz-academy.webp":[1600,900],"assets/img/biz-cafe.webp":[1600,1097],"assets/img/biz-clinic.webp":[1600,1089],"assets/img/biz-etc.webp":[1200,1756],"assets/img/biz-factory.webp":[1600,1067],"assets/img/biz-hotel.webp":[1600,1067],"assets/img/biz-office.webp":[1600,1068],"assets/img/biz-pcroom.webp":[1600,1067],"assets/img/biz-restaurant.webp":[1600,1067],"assets/img/biz-store.webp":[1600,1068],"assets/img/carcare-products.webp":[1048,530],"assets/img/couple-kitchen.webp":[1600,1067],"assets/img/hero-living.webp":[1600,900],"assets/img/home-apartment.webp":[1600,1067],"assets/img/home-baby.webp":[1600,1062],"assets/img/home-family.webp":[1600,1067],"assets/img/home-pet.webp":[1600,941],"assets/img/home-senior.webp":[1600,1067],"assets/img/home-single.webp":[1600,1190],"assets/img/kitchen.webp":[1600,1063],"assets/img/living-plants.webp":[1600,1200],"assets/img/living-soft.webp":[1200,1800],"assets/img/living-warm.webp":[1600,1067],"assets/img/modern-house.webp":[1600,1067],"assets/img/pet-cat.webp":[1200,1800],"assets/img/team-office.webp":[1600,1067],"assets/img/water-pour.webp":[1200,1796]}; // 이미지 width/height (CLS 방지) — tools/imgdim.json
+function img(src, alt='', extra=''){ const dm = IMGDIM[src]; const lz = /loading=/.test(extra) ? '' : 'loading="lazy" '; return `<img src="${esc(src||PH)}" alt="${esc(alt)}" ${dm ? `width="${dm[0]}" height="${dm[1]}" ` : ''}${lz}decoding="async" ${extra}>`; }
 
 /* ── 제품 도우미 ── */
 const CATNAME = { air:'PURE AIR', water:'PURE WATER', life:'HEALING LIFE', pest:'BUG CARE', biz:'BUSINESS', service:'SERVICE' };
@@ -312,15 +313,16 @@ function consultFormHtml(o = {}){
     ${p ? `<div class="pchip">${img(p.image, p.name)}<div><small class="muted">관심 상품</small><br><b>${esc(p.name)}</b></div></div>` : ''}
     <form id="cmF" novalidate>
       <div class="hp" aria-hidden="true"><label>웹사이트<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
-      <div class="field"><label for="cmName">이름 <i>*</i></label><input class="input" id="cmName" name="name" autocomplete="name" placeholder="홍길동" maxlength="40"><span class="err">이름을 입력해 주세요.</span></div>
-      <div class="field"><label for="cmPhone">연락처 <i>*</i></label><input class="input" id="cmPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="010-0000-0000" maxlength="20"><span class="err">올바른 연락처를 입력해 주세요.</span></div>
-      <div class="field"><label>장소</label><div class="seg"><label><input type="radio" name="kind" value="가정" checked><span>가정</span></label><label><input type="radio" name="kind" value="사업장"><span>사업장</span></label></div></div>
+      <div class="field"><label for="cmName">이름 <i>*</i></label><input class="input" id="cmName" name="name" autocomplete="name" placeholder="홍길동" maxlength="40"><span class="err">이름을 2글자 이상 입력해 주세요.</span></div>
+      <div class="field"><label for="cmPhone">연락처 <i>*</i></label><input class="input" id="cmPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="010-0000-0000" maxlength="20"><span class="err">연락 가능한 전화번호를 숫자로 입력해 주세요. (예: 010-1234-5678)</span></div>
+      <div class="field"><label>가정 또는 사업장</label><div class="seg"><label><input type="radio" name="kind" value="가정" checked><span>가정</span></label><label><input type="radio" name="kind" value="사업장"><span>사업장</span></label></div></div>
       <div class="field"><label for="cmTopic">관심 카테고리</label><select class="input" id="cmTopic" name="topic">${topics.map(t => `<option ${t === topic ? 'selected' : ''}>${esc(t)}</option>`).join('')}${topic && !topics.includes(topic) ? `<option selected>${esc(topic)}</option>` : ''}</select></div>
-      <div class="field"><label for="cmRegion">지역</label><input class="input" id="cmRegion" name="region" autocomplete="address-level2" placeholder="예: ○○시 ○○동" maxlength="60"></div>
+      <div class="field"><label for="cmRegion">지역</label><input class="input" id="cmRegion" name="region" autocomplete="address-level2" placeholder="예: 양산 물금, 부산 해운대, 김해, 울산" maxlength="60"></div>
       <div class="field"><label for="cmTime">희망 연락 시간</label><select class="input" id="cmTime" name="time"><option>언제든 괜찮습니다</option><option>오전 (9~12시)</option><option>오후 (12~18시)</option><option>저녁 (18시 이후)</option></select></div>
       <div class="field"><label for="cmMsg">문의 내용</label><textarea class="input" id="cmMsg" name="message" maxlength="1000" placeholder="공간 크기, 함께 사는 분, 마음 쓰이는 점 등을 편하게 적어 주세요.">${esc(o.msg || '')}</textarea></div>
-      <label class="check"><input type="checkbox" id="cmAgree" name="agree"><span>상담을 위해 이름·연락처·지역을 수집·이용하는 것에 동의합니다. (상담 목적 외에는 사용하지 않습니다) <i style="color:var(--red);font-style:normal">*</i></span></label>
-      <div class="field" id="agreeField" style="margin:6px 0 0"><span class="err">개인정보 수집·이용에 동의해 주세요.</span></div>
+      <p class="muted" style="font-size:12.5px;margin:4px 0 8px"><i style="color:var(--red);font-style:normal">*</i> 표시는 필수 입력 항목입니다. 입력하신 내용은 사이트 화면에 공개되지 않습니다.</p>
+      <label class="check"><input type="checkbox" id="cmAgree" name="agree"><span>[필수] 개인정보 수집·이용 동의 — 수집 항목: 이름·연락처·가정/사업장·지역·희망 연락 시간·문의 내용 / 목적: 상담 연락 / 상담 목적 외에는 사용하지 않으며, 삭제를 원하시면 전화로 요청해 주세요. <i style="color:var(--red);font-style:normal">*</i></span></label>
+      <div class="field" id="agreeField" style="margin:6px 0 0"><span class="err">상담 연락을 위해 개인정보 수집·이용에 동의해 주세요.</span></div>
       <button class="btn btn-primary btn-lg btn-block" type="submit" id="cmSubmit" style="margin-top:14px">상담 신청하기</button>
     </form></div>`;
 }
@@ -333,7 +335,7 @@ function readConsultForm(f, ctx){
   $('#agreeField').classList.toggle('bad', !agree);
   if (!okName || !okPhone || !agree) { const bad = $('.field.bad input', f) || (!agree ? f.agree : null); if (bad) bad.focus(); return null; }
   const p = ctx && ctx.product ? byId[ctx.product] : null;
-  return Object.assign({ id: 'INQ-' + Date.now(), createdAt: new Date().toISOString(), name, phone, kind: f.kind.value, topic: f.topic.value, category: f.topic.value,
+  return Object.assign({ id: (() => { const d = new Date(), z = n => String(n).padStart(2, '0'); return 'CA-' + String(d.getFullYear()).slice(2) + z(d.getMonth() + 1) + z(d.getDate()) + '-' + Math.random().toString(36).slice(2, 6).toUpperCase(); })(), createdAt: new Date().toISOString(), name, phone, kind: f.kind.value, topic: f.topic.value, category: f.topic.value,
     region: f.region.value.trim(), time: f.time.value, message: f.message.value.trim(), agree: true, website: f.website.value,
     product: p ? p.name : '', productId: p ? p.id : '' }, inquirySource());
 }
@@ -353,19 +355,20 @@ function consultDoneHtml(rec, res){
   const box = `<div style="background:var(--gray);border-radius:16px;padding:14px;font-size:14px;text-align:left">접수번호 <b>${esc(rec.id)}</b><br>관심 카테고리 ${esc(rec.category)}${rec.product ? '<br>관심 상품 ' + esc(rec.product) : ''}</div>`;
   if (res.mode === 'remote') return `<div class="done-view"><span class="okc">${ico('check')}</span><h2 class="h3" style="font-size:26px">접수되었습니다.<br>곧 연락드리겠습니다</h2>
     <p class="muted">${esc(rec.name)}님, 남겨 주신 연락처로 ${esc(pl.title)}가 연락드리겠습니다.</p>${box}
-    <p style="font-size:12.5px;color:var(--muted)">급하신 경우에는 바로 전화나 카카오톡으로 문의해 주세요.</p>${tel}
+    <p style="font-size:12.5px;color:var(--muted)">급하신 경우에는 바로 전화나 카카오톡으로 문의해 주세요.</p>${tel}${kakao}
     <button class="btn btn-ghost btn-lg btn-block" data-act="closeConsult">닫기</button></div>`;
   if (res.mode === 'fail') return `<div class="done-view"><span class="okc" style="background:#FFF3E0;color:#B45309">${ico('info')}</span><h2 class="h3" style="font-size:24px">전송이 원활하지 않았습니다</h2>
     <p class="muted">${esc(rec.name)}님, 번거로우시겠지만 전화나 카카오톡으로 연락 주시면 바로 안내해 드리겠습니다.</p>${box}${tel}${kakao}
     <button class="btn btn-ghost btn-lg btn-block" data-act="closeConsult">닫기</button></div>`;
-  return `<div class="done-view"><span class="okc">${ico('check')}</span><h2 class="h3" style="font-size:26px">상담 신청이 접수되었습니다</h2>
-    <p class="muted">${esc(rec.name)}님, 확인 후 입력하신 연락처로 연락드리겠습니다.<br>급하신 경우에는 바로 전화 주세요.</p>${box}
-    <p style="font-size:12.5px;color:var(--muted)">※ 접수 내용은 현재 이 기기의 브라우저에만 저장됩니다. 빠른 상담이 필요하시면 전화나 카카오톡으로 문의해 주세요.</p>${tel}${kakao}
+  return `<div class="done-view"><span class="okc">${ico('check')}</span><h2 class="h3" style="font-size:26px">상담 신청서가 작성되었습니다</h2>
+    <p class="muted">${esc(rec.name)}님, 현재 온라인 신청은 이 기기에만 기록되어 플래너에게 자동으로 전달되지 않을 수 있습니다.<br><b>아래 접수번호를 알려 주시며 전화나 카카오톡으로 연락 주시면 바로 안내해 드립니다.</b></p>${box}
+    <p style="font-size:12.5px;color:var(--muted)">※ 입력하신 내용은 이 기기의 브라우저에만 저장되며 사이트에 공개되지 않습니다.</p>${tel}${kakao}
     <button class="btn btn-ghost btn-lg btn-block" data-act="closeConsult">닫기</button></div>`;
 }
 /* 모달 폼 연결: 제출 → 검사 → 전송 → 완료 화면 */
 function bindConsultForm(ctx){
   const f = $('#cmF'); if (!f) return;
+  f.addEventListener('focusin', e => { if (!/INPUT|TEXTAREA|SELECT/.test(e.target.tagName)) return; setTimeout(() => { try { e.target.scrollIntoView({ block: 'center', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }); } catch (_) {} }, 300); });
   f.addEventListener('submit', async e => {
     e.preventDefault();
     const rec = readConsultForm(f, ctx); if (!rec) return;

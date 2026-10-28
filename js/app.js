@@ -73,6 +73,7 @@ function footerHtml(){
     </div>
     <div class="legal">
       <p><b>본 사이트는 세스코 라이프케어 플래너의 상품 안내 및 상담을 위한 페이지입니다.</b></p>
+      <div class="trust-note"><p>본 사이트는 세스코 라이프케어 SOL 플래너가 운영하는 상담·안내 사이트입니다.</p><p>세스코 본사 공식 홈페이지가 아닙니다.</p><p>최종 상품 가격과 계약 조건은 상담 시 확인해야 합니다.</p><p>렌탈료는 약정기간, 방문주기, 제휴카드, 프로모션에 따라 달라질 수 있습니다.</p></div>
       <p>가격, 월 렌탈료, 계약 조건(의무사용기간·방문주기·약정·위약금 등)은 공식 판매/계약 기준에 따라 달라질 수 있으며, 최종 조건은 계약 시점의 공식 안내를 따릅니다. 확인되지 않은 항목은 “상담 시 안내”로 표시합니다.</p>
       <p>PARTNER PRODUCT(제휴·판매 상품)로 표시된 아롬비(AROMVI) 상품은 세스코 자체 제품이 아닙니다.</p>
       <p>© CESCO ALL CARE · ${esc(c.title)}. 세스코(CESCO)는 해당 권리자의 상표입니다.</p>
@@ -96,6 +97,7 @@ function render(){
   try {
     switch (a) {
       case undefined: html = PG.home(); navKey = 'home'; break;
+      case 'consult': html = PG.home(); navKey = 'home'; setTimeout(() => openConsult({ topic: qs.topic }), 250); break;
       case 'air': if (qs.sub === 'air.space') { location.replace('#/perfume'); return; } html = PG.menuPage('air', qs); break;
       case 'water': html = PG.menuPage('water', qs); break;
       case 'perfume': case 'supplies': html = PG.menuPage(a, qs); break;

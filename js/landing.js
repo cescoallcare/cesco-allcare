@@ -170,7 +170,7 @@ root.innerHTML = `
 
 $('#lpFoot').innerHTML = `<div class="container">
   <div class="top"><a href="./"><img src="assets/logo/logo-white.png" alt="CESCO Lifecare"></a><div class="ct"><a href="${pl.phoneTel}">${ico('phone')} ${esc(pl.phone)}</a><a href="${esc(C.kakaoUrl)}" target="_blank" rel="noopener">${ico('message')} 카카오톡 상담</a><a href="./">${ico('home')} 세스코 올케어 메인</a></div></div>
-  <div class="legal"><p>본 사이트는 세스코 라이프케어 플래너의 상품 안내 및 상담을 위한 페이지입니다.</p>
+  <div class="legal"><p>본 사이트는 세스코 라이프케어 플래너의 상품 안내 및 상담을 위한 페이지입니다.</p><div class="trust-note"><p>본 사이트는 세스코 라이프케어 SOL 플래너가 운영하는 상담·안내 사이트입니다.</p><p>세스코 본사 공식 홈페이지가 아닙니다.</p><p>최종 상품 가격과 계약 조건은 상담 시 확인해야 합니다.</p><p>렌탈료는 약정기간, 방문주기, 제휴카드, 프로모션에 따라 달라질 수 있습니다.</p></div>
   <p>표시된 가격·월 렌탈료·계약 조건은 프로모션·의무사용기간·방문주기·옵션에 따라 달라질 수 있으며, 최종 가격과 계약 조건은 상담 시 확인해 주세요. 가격·조건은 변동될 수 있습니다.</p>
   <p>아롬비(AROMVI) 제품은 PARTNER PRODUCT · 제휴·판매 상품입니다.</p></div></div>`;
 

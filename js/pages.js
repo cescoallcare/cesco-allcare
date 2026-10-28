@@ -24,10 +24,17 @@ function home(){
     <div class="bg">${img('assets/img/hero-living.webp','밝고 정돈된 거실', 'loading="eager" fetchpriority="high"')}</div>
     <div class="container hero-grid">
       <div class="hero-copy">
-        <span class="eyebrow on-dark">CESCO ALL CARE</span>
+        <span class="eyebrow on-dark">CESCO ALL CARE · 세스코 렌탈·위생 상담</span>
         <h1 class="h1">집마다 깨끗함의 기준이 달라서,<br><em>필요한 케어도 모두 다릅니다.</em></h1>
         <p class="sub">공기부터 물, 생활까지. 우리에게 필요한 케어를 한곳에서.</p>
-        <div class="cta"><a class="btn btn-primary btn-lg" href="#/finder">내게 맞는 케어 찾기 ${ico('arrow')}</a><a class="btn btn-glass btn-lg" href="#/products">전체 제품 보기</a></div>
+        <ul class="hero-msg" aria-label="상담 분야"><li>세스코 정수기·비데·공기청정기 렌탈 상담</li><li>에어제닉·에어퍼퓸 방향·탈취 상담</li><li>홈케어 및 사업장 위생관리 상담</li><li><b>양산·물금·부산·김해·울산</b> 지역 상담</li></ul>
+        <div class="cta hero-consult" aria-label="상담 신청 방법"><a class="btn btn-white btn-lg" href="${c.phoneTel}">${ico('phone')} 전화 상담</a><a class="btn btn-kakao btn-lg" href="${esc(C.kakaoUrl)}" target="_blank" rel="noopener" data-act="kakao">${ico('message')} 카카오톡 상담</a><button class="btn btn-primary btn-lg" data-act="consult">${ico('clipboard')} 온라인 상담 신청</button></div>
+        <nav class="hero-entry" aria-label="상담 분야 바로가기">
+          <a href="water/"><b>가정용 렌탈</b><small>정수기·비데·공기청정기</small></a>
+          <a href="business/"><b>사업장 위생</b><small>식당·카페·병원·사무실</small></a>
+          <a href="home-care/"><b>해충·냄새 상담</b><small>바퀴·진드기·모기·탈취</small></a>
+        </nav>
+        <p class="hero-how">전화·카카오톡으로 바로 문의하시거나 온라인 신청을 남겨 주시면 확인 후 연락드립니다. <a href="#/finder">내게 맞는 케어 찾기</a> · <a href="#/products">전체 제품 보기</a></p>
       </div>
       <aside class="hero-card" aria-label="플래너 상담 안내">
         <span class="hc-badge">${ico('shield')} ${esc(c.title)}</span>
