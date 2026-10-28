@@ -97,7 +97,7 @@ function render(){
   try {
     switch (a) {
       case undefined: html = PG.home(); navKey = 'home'; break;
-      case 'consult': html = PG.home(); navKey = 'home'; setTimeout(() => openConsult({ topic: qs.topic }), 250); break;
+      case 'consult': html = PG.home(); navKey = 'home'; setTimeout(() => { let pf = {}; try { pf = JSON.parse(sessionStorage.getItem('cescoPrefill') || '{}') || {}; sessionStorage.removeItem('cescoPrefill'); } catch (e) {} openConsult({ topic: pf.topic || qs.topic, msg: pf.msg, kind: pf.kind }); }, 250); break;
       case 'air': if (qs.sub === 'air.space') { location.replace('#/perfume'); return; } html = PG.menuPage('air', qs); break;
       case 'water': html = PG.menuPage('water', qs); break;
       case 'perfume': case 'supplies': html = PG.menuPage(a, qs); break;
@@ -163,7 +163,7 @@ function openConsult(o = {}){
   const p = o.product ? byId[o.product] : null;
   let topic = o.topic || '';
   if (p && !topic) topic = p.category === 'air' ? '공기 케어' : p.category === 'water' ? '물 케어 (정수기·샤워·비데)' : p.subscribable ? '정기배송' : p.servicePrices ? '에어컨 크리닝 문의' : p.priceMatrix ? '매트리스 문의' : p.type === 'service' ? '해충 관리' : '생활·위생용품';
-  const c = { product: o.product, topic, msg: o.msg };
+  const c = { product: o.product, topic, msg: o.msg, kind: o.kind };
   $('#consultBody').innerHTML = window.U.consultFormHtml(c);
   $('#consultModal').classList.add('open'); document.body.style.overflow = 'hidden';
   setTimeout(() => $('#cmName') && $('#cmName').focus(), 60);

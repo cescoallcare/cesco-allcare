@@ -34,7 +34,7 @@ function home(){
           <a href="business/"><b>사업장 위생</b><small>식당·카페·병원·사무실</small></a>
           <a href="home-care/"><b>해충·냄새 상담</b><small>바퀴·진드기·모기·탈취</small></a>
         </nav>
-        <p class="hero-how">전화·카카오톡으로 바로 문의하시거나 온라인 신청을 남겨 주시면 확인 후 연락드립니다. <a href="#/finder">내게 맞는 케어 찾기</a> · <a href="#/products">전체 제품 보기</a></p>
+        <p class="hero-how">전화·카카오톡으로 바로 문의하시거나 온라인 신청을 남겨 주시면 확인 후 연락드립니다. <a href="check/">사업장 위생 리스크 3분 자가진단</a> · <a href="#/finder">내게 맞는 케어 찾기</a> · <a href="#/products">전체 제품 보기</a></p>
       </div>
       <aside class="hero-card" aria-label="플래너 상담 안내">
         <span class="hc-badge">${ico('shield')} ${esc(c.title)}</span>
