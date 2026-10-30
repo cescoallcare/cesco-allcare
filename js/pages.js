@@ -14,6 +14,7 @@ const btnConsult = (label='상담하기', extra='', cls='btn btn-primary') => `<
 const disc = disclaimer;
 
 /* ────────── HOME ────────── */
+const CASES = [["paw", "반려견 키우는 집", "강아지 냄새 때문에 공기청정기를 써도 효과를 잘 못 느끼시는 경우", "냄새 때문에 공기청정기를 못 쓰겠어요", "LO 공기청정기 + 센스미 / 스마트핏 + 센스미"], ["paw", "고양이 키우는 집", "고양이 화장실 주변 냄새가 계속 신경 쓰이는 경우", "화장실 냄새가 집 안에 퍼져요", "기존 공기청정기 + 센스미"], ["flower", "요리 많이 하는 집", "요리 후 음식 냄새가 오래 남는 경우", "음식 냄새가 잘 안 빠져요", "LO 공기청정기 + 센스미"], ["wind", "담배 냄새 고민", "미세먼지와 담배 냄새를 함께 관리하고 싶은 경우", "미세먼지도, 담배 냄새도 걱정이에요", "공기청정기 + 센스미"], ["heart", "어린 자녀 있는 집", "아이가 있어 공기를 더 위생적으로 관리하고 싶은 경우", "아이 방 공기가 늘 신경 쓰여요", "스마트핏 + 센스미"], ["droplet", "화장실 냄새 고민", "하수구에서 올라오는 냄새가 신경 쓰이는 경우", "화장실 하수구 냄새가 올라와요", "에어제닉 + 센스미 / 센스미 단독"], ["sun", "빨래 실내건조", "실내에서 빨래를 말려 습기와 냄새가 남는 경우", "빨래 말릴 때 꿉꿉한 냄새가 나요", "센스미 추가"], ["store", "카페·매장", "매장 안 음식·커피 냄새 관리가 필요한 경우", "손님 오실 때 매장 냄새가 걱정돼요", "공기청정기 + 센스미"], ["sparkle", "미용실", "염색·펌 약품 냄새가 매장에 남는 경우", "염색·펌 냄새가 계속 남아요", "공기청정기 + 센스미"], ["refresh", "공기청정기 약정 남은 집", "쓰던 공기청정기 약정이 남아 교체가 부담되는 경우", "약정이 남아서 바꾸기가 애매해요", "센스미 추가"], ["tag", "가격이 부담될 때", "한 번에 다 바꾸기보다 단계적으로 시작하고 싶은 경우", "처음부터 다 하기엔 부담돼요", "LO 공기청정기 / 스마트핏 / 센스미 단계별"], ["compass", "센스미 체험", "먼저 써 보고 결정하고 싶은 경우", "써 보고 결정하고 싶어요", "체험 · 맞춤 패키지 상담"]];
 function home(){
   const c = C.planner;
   const bestTop = sortPop(P.filter(p => live(p) && p.popularity && !p.partner)).slice(0, 4);
@@ -104,6 +105,12 @@ function home(){
   <section class="section" id="guide-home"><div class="container">
     ${sectionHead('CARE GUIDE', '알고 고르면 선택이 한결 쉬워집니다', '제품을 고르기 전에 알아 두면 좋은 이야기를 모았습니다.', `<a class="link-more" href="#/guide">가이드 전체 보기 ${ico('chevron')}</a>`)}
     <div class="grid g3">${guides.map(guideCard).join('')}</div>
+  </div></section>
+
+  <section class="section gray" id="cases" aria-labelledby="cases-h"><div class="container">
+    <div class="section-head"><span class="eyebrow">CONSULT CASES</span><h2 class="h2" id="cases-h">고민별 상담 사례</h2><p class="lead">다양한 공간, 다양한 고민 — 센스미가 이렇게 도와드려요</p></div>
+    <div class="case-grid" role="list">${CASES.map(([ic,t,sit,q,pk]) => `<article class="case-card" role="listitem"><div class="case-top"><span class="chip-ico">${ico(ic)}</span><h3>${esc(t)}</h3></div><p class="case-sit">${esc(sit)}</p><p class="case-q"><b>고민</b> “${esc(q)}”</p><p class="case-pk"><span class="case-pk-l">${ico('check')} 추천</span> ${esc(pk)}</p><a class="btn btn-ghost case-btn" href="#/consult" data-act="consult" data-topic="${esc(t)} 상담">이 고민으로 상담하기 ${ico('arrow')}</a></article>`).join('')}</div>
+    <p class="case-note">※ 실제 고객 후기가 아닌, 자주 받는 상담 고민을 정리한 예시 사례입니다. 효과는 공간·환경에 따라 다를 수 있습니다.</p>
   </div></section>
 
   ${consultSection()}

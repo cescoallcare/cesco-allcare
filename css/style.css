@@ -1290,3 +1290,19 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .hero-consult{margin-top:12px}
 @media (max-width:720px){.hero .container.hero-grid{padding-top:20px}.hero .h1{font-size:clamp(26px,7vw,34px)}.hero .sub{font-size:15px}.hero-msg{font-size:14.5px;gap:3px}.hero-copy{gap:10px}}
 @media (min-width:721px){.hero .container.hero-grid{padding-top:clamp(28px,4vw,56px)}}
+
+/* 고민별 상담 사례 */
+.case-grid{display:grid;gap:14px;grid-template-columns:1fr}
+@media(min-width:640px){.case-grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:960px){.case-grid{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:1200px){.case-grid{grid-template-columns:repeat(4,1fr)}}
+.case-card{background:#fff;border:1px solid #dfe4ec;border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.case-top{display:flex;align-items:center;gap:10px}.case-top h3{font-size:17px;margin:0;line-height:1.35}
+.case-sit{margin:0;color:#3b4558;font-size:15px;line-height:1.6}
+.case-q{margin:0;background:#f4f6fa;border-left:4px solid #2b3445;border-radius:6px;padding:10px 12px;font-size:15px;line-height:1.55}
+.case-q b{display:inline-block;margin-right:4px;font-size:13px;border:1px solid #2b3445;border-radius:4px;padding:0 5px}
+.case-pk{margin:0;font-size:14px;font-weight:600;line-height:1.5;overflow-wrap:anywhere}
+.case-pk-l{display:inline-flex;align-items:center;gap:3px;border:1.5px solid currentColor;border-radius:999px;padding:1px 8px;font-size:13px}
+.case-pk-l .ico{width:14px;height:14px}
+.case-btn{margin-top:auto;min-height:44px;justify-content:center;width:100%}
+.case-note{margin:18px 0 0;font-size:13px;color:#4a5466;line-height:1.6}
