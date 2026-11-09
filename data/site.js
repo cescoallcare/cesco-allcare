@@ -30,22 +30,27 @@ window.CONFIG = {
    - productId: 상세 보기·상담 신청(관심 상품 자동 입력)·가격 표시에 사용. 관리자에서 그 상품을 숨기면 팝업도 나오지 않습니다(가격 수정도 자동 반영).
    - 첫 방문(브라우저 세션당 1회) 약 delayMs 뒤 노출 */
 window.POPUP = {
-  enabled: false,   // 2026-10-23 사용자 요청으로 내림. 다시 켜려면 true
-  id: 'carcare-2026-10',
-  badge: 'NEW',
-  eyebrow: '신제품 출시',
-  title: '세스코 마이랩 카케어 솔루션',
-  text: '살균·탈취·안전성까지 생각한 차량 전용 케어. 카케어 솔루션 전용 제품 구성으로 차 안을 깔끔하게 관리해 보세요.',
-  image: 'assets/img/carcare-products.webp',
-  imageAlt: '세스코 마이랩 카케어 솔루션 전용 제품 구성',
-  giftImage: 'assets/products/allcare-carcare-gift.webp',
-  giftText: '선물용 차량 전용 패키지(4종·6종 세트) · 선물 세트 상담 시 안내',
-  productId: 'allcare-carcare-solution',
-  consultTopic: '생활·위생용품',
-  start: '2026-10-07',
+  enabled: true,
+  id: 'pantheon-senseme-2026-11',
+  layout: 'flyer',   // 이미지 중심 패키지 안내 (js/popup.js)
+  badge: '패키지',
+  eyebrow: '공기 케어 패키지',
+  title: '판테온 + 센스미 패키지',
+  text: '트루살균 공기청정기 판테온 25평형(월 20,900원 → 12개월 반값 월 10,450원) + 센스미(월 9,900원) = 패키지 월 20,350원.',
+  image: 'assets/img/popup-pantheon-senseme.webp',
+  imageJpg: 'assets/img/popup-pantheon-senseme.jpg',
+  imageAlt: '판테온 트루살균 공기청정기 25평형 월 20,900원에서 12개월 반값 월 10,450원, 센스미 월 9,900원, 패키지 합계 월 20,350원 안내 이미지',
+  caption: '※ 12개월 반값은 프로모션 조건이며, 최종 요금·약정은 상담 시 확정됩니다.',
+  ctaLabel: '이 패키지 상담하기',
+  consultMsg: '판테온 트루살균 25평형 + 센스미 패키지(12개월 반값·월 20,350원 안내) 상담 요청',
+  giftImage: '',
+  giftText: '',
+  productId: 'G2000001210',
+  consultTopic: '공기 케어',
+  start: '2026-11-09',
   end: '',
-  delayMs: 1000,
-  pages: ['main', 'water', 'air']
+  delayMs: 900,
+  pages: ['main']
 };
 
 const PID = n => 'G' + (2000000000 + n);

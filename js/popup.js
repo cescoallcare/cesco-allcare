@@ -1,6 +1,6 @@
-/* popup.js — 신제품 출시 팝업 (설정: data/site.js 의 window.POPUP). 메인·랜딩 공통.
+/* popup.js — 신제품·패키지 팝업 (설정: data/site.js 의 window.POPUP). 메인·랜딩 공통.
    ▸ 브라우저 세션당 1회(첫 방문) 노출 · '오늘 하루 보지 않기' = localStorage 에 오늘 자정까지 숨김
-   ▸ 닫기: X · ESC · 배경 클릭 / 버튼: 자세히 보기(상품 상세) · 상담 신청(기존 상담 모달, 관심 상품 자동) · 카톡 문의 */
+   ▸ 닫기: X · ESC · 배경 클릭 / layout:'flyer' 이면 이미지+캡션+상담 CTA */
 (function(){
 'use strict';
 const U = window.U, PO = window.POPUP, C = window.CONFIG;
@@ -19,15 +19,40 @@ const set = (s, k, v) => { try { s.setItem(k, v); } catch (e) {} };
 if (!force && (Number(get(localStorage, HIDE)) > Date.now() || get(sessionStorage, SEEN))) return;
 
 const { esc, ico, won } = U;
+const flyer = PO.layout === 'flyer';
 let el = null, lastFocus = null;
 function midnight(){ const d = new Date(); d.setHours(24, 0, 0, 0); return d.getTime(); }
+function imgTag(){
+  const alt = esc(PO.imageAlt || PO.title);
+  const webp = esc(PO.image || '');
+  const jpg = esc(PO.imageJpg || '');
+  if (jpg && webp) {
+    return `<picture><source type="image/webp" srcset="${webp}"><img src="${jpg}" alt="${alt}" width="900" height="1180" decoding="async"></picture>`;
+  }
+  return `<img src="${webp || jpg}" alt="${alt}" decoding="async">`;
+}
 function html(){
+  if (flyer) {
+    return `<div class="np-scrim" data-np="close"></div>
+    <div class="np-box np-flyer">
+      <button type="button" class="np-x" data-np="close" aria-label="팝업 닫기"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      <div class="np-im">${imgTag()}${PO.badge ? `<span class="np-badge">${esc(PO.badge)}</span>` : ''}</div>
+      <div class="np-bd">
+        <h2 id="npTitle" class="np-visually">${esc(PO.title)}</h2>
+        <p id="npText" class="np-caption">${esc(PO.caption || PO.text || '')}</p>
+        <div class="np-btns np-btns-flyer">
+          <button type="button" class="btn btn-primary" data-act="consult" ${p ? `data-product="${esc(p.id)}"` : ''} data-topic="${esc(PO.consultTopic || '')}" data-msg="${esc(PO.consultMsg || '')}" data-np="go">${esc(PO.ctaLabel || '이 패키지 상담하기')}</button>
+        </div>
+      </div>
+      <div class="np-foot"><button type="button" data-np="today">오늘 하루 보지 않기</button><button type="button" data-np="close">닫기</button></div>
+    </div>`;
+  }
   const price = p ? (p.buyPrice != null ? won(p.buyPrice) : '상담 시 안내') : '';
   const href = p ? '#/product/' + encodeURIComponent(p.id) : '';
   return `<div class="np-scrim" data-np="close"></div>
   <div class="np-box">
     <button type="button" class="np-x" data-np="close" aria-label="팝업 닫기"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-    <div class="np-im"><img src="${esc(PO.image)}" alt="${esc(PO.imageAlt || PO.title)}" decoding="async">${PO.badge ? `<span class="np-badge">${esc(PO.badge)}</span>` : ''}</div>
+    <div class="np-im">${imgTag()}${PO.badge ? `<span class="np-badge">${esc(PO.badge)}</span>` : ''}</div>
     <div class="np-bd">
       <span class="np-eyebrow">${esc(PO.eyebrow || '신제품 출시')}</span>
       <h2 id="npTitle">${esc(PO.title)}</h2>
@@ -67,7 +92,7 @@ function open(){
   set(sessionStorage, SEEN, '1');
   lastFocus = document.activeElement;
   el = document.createElement('div');
-  el.className = 'np'; el.id = 'newPop';
+  el.className = 'np' + (flyer ? ' np-layout-flyer' : ''); el.id = 'newPop';
   el.setAttribute('role', 'dialog'); el.setAttribute('aria-modal', 'true');
   el.setAttribute('aria-labelledby', 'npTitle'); el.setAttribute('aria-describedby', 'npText');
   el.innerHTML = html();
