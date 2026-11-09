@@ -337,7 +337,7 @@ function readConsultForm(f, ctx){
   const p = ctx && ctx.product ? byId[ctx.product] : null;
   return Object.assign({ id: (() => { const d = new Date(), z = n => String(n).padStart(2, '0'); return 'CA-' + String(d.getFullYear()).slice(2) + z(d.getMonth() + 1) + z(d.getDate()) + '-' + Math.random().toString(36).slice(2, 6).toUpperCase(); })(), createdAt: new Date().toISOString(), name, phone, kind: f.kind.value, topic: f.topic.value, category: f.topic.value,
     region: f.region.value.trim(), time: f.time.value, message: f.message.value.trim(), agree: true, website: f.website.value,
-    product: p ? p.name : '', productId: p ? p.id : '' }, inquirySource());
+    product: p ? p.name : '', productId: p ? p.id : '', source: 'form' }, inquirySource());
 }
 /* 전송: { mode:'remote' | 'local' | 'fail' } */
 async function sendInquiry(rec){

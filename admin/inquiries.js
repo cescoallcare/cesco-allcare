@@ -53,7 +53,7 @@ function listHtml(){
   var q = ($('#inqQ') && $('#inqQ').value || '').trim().toLowerCase(), st = $('#inqSt') ? $('#inqSt').value : 'all';
   var rows = items.filter(function(i){
     if (st !== 'all' && (i.status || '신규') !== st) return false;
-    if (q && [i.name, i.phone, i.category, i.product, i.region, i.message, i.page, i.utm].join(' ').toLowerCase().indexOf(q) < 0) return false;
+    if (q && [i.name, i.phone, i.category, i.product, i.region, i.message, i.page, i.utm, i.source, i.memo].join(' ').toLowerCase().indexOf(q) < 0) return false;
     return true;
   });
   var tel = function(p){ return String(p || '').replace(/[^\d+]/g, ''); };
@@ -67,7 +67,7 @@ function listHtml(){
         '<td data-label="관심">' + esc(i.category) + (i.product ? '<br><small>' + esc(i.product) + '</small>' : '') + '</td>' +
         '<td data-label="지역">' + esc(i.region) + '</td><td data-label="희망 시간">' + esc(i.time) + '</td>' +
         '<td data-label="메시지" data-full class="inq-msg">' + esc(i.message) + '</td>' +
-        '<td data-label="유입">' + esc(i.page) + (i.utm ? '<br><small class="muted">' + esc(i.utm) + '</small>' : '') + '</td></tr>';
+        '<td data-label="유입">' + (i.source === 'chatbot' ? '<b>챗봇</b> · ' : '') + esc(i.page) + (i.utm ? '<br><small class="muted">' + esc(i.utm) + '</small>' : '') + '</td></tr>';
     }).join('') + '</tbody></table></div>' : '<div class="empty">' + (loaded ? '조건에 맞는 신청이 없습니다.' : '아직 불러오지 않았습니다.') + '</div>');
 }
 function render(){
@@ -86,7 +86,7 @@ function load(silent){
     .then(function(){ busy = false; var b2 = $('#inqLoad'); if (b2) { b2.disabled = false; b2.textContent = '새로고침'; } });
 }
 function csv(){
-  var cols = [['id', '접수번호'], ['at', '제출시각(KST)'], ['status', '상태'], ['name', '이름'], ['phone', '연락처'], ['kind', '장소'], ['category', '관심 카테고리'], ['product', '관심 상품'], ['region', '지역'], ['time', '희망 연락 시간'], ['message', '메시지'], ['page', '유입 페이지'], ['utm', 'UTM'], ['url', '유입 URL'], ['referrer', '리퍼러'], ['agree', '개인정보 동의'], ['updatedAt', '상태 변경 시각']];
+  var cols = [['id', '접수번호'], ['at', '제출시각(KST)'], ['status', '상태'], ['name', '이름'], ['phone', '연락처'], ['kind', '장소'], ['category', '관심 카테고리'], ['product', '관심 상품'], ['region', '지역'], ['time', '희망 연락 시간'], ['message', '메시지'], ['page', '유입 페이지'], ['utm', 'UTM'], ['url', '유입 URL'], ['referrer', '리퍼러'], ['agree', '개인정보 동의'], ['updatedAt', '상태 변경 시각'], ['memo', '메모'], ['source', '유입 경로']];
   var cell = function(v){ v = v == null ? '' : String(v); if (/^[=+\-@]/.test(v)) v = "'" + v; return /[",\r\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; };
   var txt = '\uFEFF' + cols.map(function(c){ return c[1]; }).join(',') + '\r\n' + items.map(function(i){ return cols.map(function(c){ return cell(i[c[0]]); }).join(','); }).join('\r\n');
   var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([txt], { type: 'text/csv;charset=utf-8' }));
